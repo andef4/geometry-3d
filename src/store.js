@@ -7,26 +7,30 @@ Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'production'
 
+const initialCoordinates = () => {
+  return {
+    a: {
+      x: 100,
+      y: 100
+    },
+    b: {
+      x: 200,
+      y: 100
+    },
+    c: {
+      x: 200,
+      y: 200
+    },
+    d: {
+      x: 100,
+      y: 200
+    }
+  }
+}
+
 export default new Vuex.Store({
   state: {
-    coordinates: {
-      a: {
-        x: 100,
-        y: 100
-      },
-      b: {
-        x: 200,
-        y: 100
-      },
-      c: {
-        x: 200,
-        y: 200
-      },
-      d: {
-        x: 100,
-        y: 200
-      }
-    }
+    coordinates: initialCoordinates()
   },
   getters: {
     center (state) {
@@ -123,6 +127,9 @@ export default new Vuex.Store({
       state.coordinates.b = { ...applyMatrixToVector(matrix, state.coordinates.b) }
       state.coordinates.c = { ...applyMatrixToVector(matrix, state.coordinates.c) }
       state.coordinates.d = { ...applyMatrixToVector(matrix, state.coordinates.d) }
+    },
+    reset (state) {
+      state.coordinates = initialCoordinates()
     }
   },
   strict: debug

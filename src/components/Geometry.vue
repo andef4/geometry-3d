@@ -13,120 +13,125 @@
         :v2="v2  === '' ? 0 : v2"
       ></geometry-canvas>
     </div>
-    <div class="col-2">
-      <div>
-        <div class="mb-1 pt-1 font-weight-bold">Move</div>
-        <action-button icon="arrow-up" caption="Up" @click="moveUp"></action-button>
-        <action-button icon="arrow-down" caption="Down" @click="moveDown"></action-button>
-        <action-button icon="arrow-right" caption="Right" @click="moveRight"></action-button>
-        <action-button icon="arrow-left" caption="Left" @click="moveLeft"></action-button>
-      </div>
+    <div class="col-4">
+      <button class="btn btn-danger w-100 mb-2" @click="reset">Reset</button>
+      <div class="row">
+        <div class="col-6">
+          <div>
+            <div class="mb-1 pt-1 font-weight-bold">Move</div>
+            <action-button icon="arrow-up" caption="Up" @click="moveUp"></action-button>
+            <action-button icon="arrow-down" caption="Down" @click="moveDown"></action-button>
+            <action-button icon="arrow-right" caption="Right" @click="moveRight"></action-button>
+            <action-button icon="arrow-left" caption="Left" @click="moveLeft"></action-button>
+          </div>
 
-      <div>
-        <div class="mb-1 pt-1 font-weight-bold">Rotate around rectangle center</div>
-        <action-button icon="rotate-right" caption="Clockwise" color="success" @click="rotateCenterClockwise"></action-button>
-        <action-button icon="rotate-left" caption="Counterclockwise" color="success" @click="rotateCenterCounterClockwise"></action-button>
-      </div>
+          <div>
+            <div class="mb-1 pt-1 font-weight-bold">Rotate around rectangle center</div>
+            <action-button icon="rotate-right" caption="Clockwise" color="success" @click="rotateCenterClockwise"></action-button>
+            <action-button icon="rotate-left" caption="Counterclockwise" color="success" @click="rotateCenterCounterClockwise"></action-button>
+          </div>
 
-      <div>
-        <div class="mb-1 pt-1 font-weight-bold">Rotate around origin</div>
-        <action-button icon="rotate-right" caption="Clockwise" color="danger" @click="rotateOriginClockwise"></action-button>
-        <action-button icon="rotate-left" caption="Counterclockwise" color="danger" @click="rotateOriginCounterClockwise"></action-button>
-      </div>
+          <div>
+            <div class="mb-1 pt-1 font-weight-bold">Rotate around origin</div>
+            <action-button icon="rotate-right" caption="Clockwise" color="danger" @click="rotateOriginClockwise"></action-button>
+            <action-button icon="rotate-left" caption="Counterclockwise" color="danger" @click="rotateOriginCounterClockwise"></action-button>
+          </div>
 
-      <div>
-        <div class="mb-1 pt-1 font-weight-bold">Rotate around point</div>
-        <div class="form-group row">
-          <label for="m1" class="col-sm-2 col-form-label">m<sub>1</sub>:</label>
-          <div class="col-sm-10">
-            <input type="number" step="0.0001" class="form-control form-control-sm" id="m1" v-model.number="m1">
+          <div>
+            <div class="mb-1 pt-1 font-weight-bold">Rotate around point</div>
+            <div class="form-group row">
+              <label for="m1" class="col-sm-2 col-form-label">m<sub>1</sub>:</label>
+              <div class="col-sm-10">
+                <input type="number" step="0.0001" class="form-control form-control-sm" id="m1" v-model.number="m1">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="m2" class="col-sm-2 col-form-label">m<sub>2</sub>:</label>
+              <div class="col-sm-10">
+                <input type="number" step="0.0001" class="form-control form-control-sm" id="m2" v-model.number="m2">
+              </div>
+            </div>
+            <action-button icon="rotate-right" caption="Clockwise" color="danger" @click="rotatePointClockwise"></action-button>
+            <action-button icon="rotate-left" caption="Counterclockwise" color="danger" @click="rotatePointCounterClockwise"></action-button>
           </div>
-        </div>
-        <div class="form-group row">
-          <label for="m2" class="col-sm-2 col-form-label">m<sub>2</sub>:</label>
-          <div class="col-sm-10">
-            <input type="number" step="0.0001" class="form-control form-control-sm" id="m2" v-model.number="m2">
-          </div>
-        </div>
-        <action-button icon="rotate-right" caption="Clockwise" color="danger" @click="rotatePointClockwise"></action-button>
-        <action-button icon="rotate-left" caption="Counterclockwise" color="danger" @click="rotatePointCounterClockwise"></action-button>
-      </div>
 
-      <div>
-        <div class="mb-1 pt-1 font-weight-bold">Stretch and contract</div>
-        <action-button icon="arrow-left" second-icon="arrow-right" caption="Stretch" color="warning" @click="stretch"></action-button>
-        <action-button icon="arrow-right" second-icon="arrow-left" caption="Contract" color="warning" @click="contract"></action-button>
-      </div>
-    </div>
+          <div>
+            <div class="mb-1 pt-1 font-weight-bold">Stretch and contract</div>
+            <action-button icon="arrow-left" second-icon="arrow-right" caption="Stretch" color="warning" @click="stretch"></action-button>
+            <action-button icon="arrow-right" second-icon="arrow-left" caption="Contract" color="warning" @click="contract"></action-button>
+          </div>
+        </div>
 
-    <div class="col-2">
-      <div>
-        <div class="mb-1 pt-1 font-weight-bold">shear</div>
-        <action-button icon="arrow-right" caption="Top to right" color="info" @click="shearTopToRight"></action-button>
-        <action-button icon="arrow-left" caption="Top to left" color="info" @click="shearTopToLeft"></action-button>
-        <action-button icon="arrow-up" caption="Right to top" color="info" @click="shearRightToTop"></action-button>
-        <action-button icon="arrow-down" caption="Right to bottom" color="info" @click="shearRightToBottom"></action-button>
-      </div>
+        <div class="col-6">
+          <div>
+            <div class="mb-1 pt-1 font-weight-bold">shear</div>
+            <action-button icon="arrow-right" caption="Top to right" color="info" @click="shearTopToRight"></action-button>
+            <action-button icon="arrow-left" caption="Top to left" color="info" @click="shearTopToLeft"></action-button>
+            <action-button icon="arrow-up" caption="Right to top" color="info" @click="shearRightToTop"></action-button>
+            <action-button icon="arrow-down" caption="Right to bottom" color="info" @click="shearRightToBottom"></action-button>
+          </div>
 
-      <div>
-        <div class="mb-1 pt-1 font-weight-bold">Mirror on line</div>
-        <div>a∙x + b∙y + c = 0</div>
-        <div class="form-group row">
-          <label for="a" class="col-sm-2 col-form-label">a:</label>
-          <div class="col-sm-10">
-            <input type="number" step="0.0001" class="form-control form-control-sm" id="a" v-model.number="a">
+          <div>
+            <div class="mb-1 pt-1 font-weight-bold">Mirror on line</div>
+            <div>a∙x + b∙y + c = 0</div>
+            <div class="form-group row">
+              <label for="a" class="col-sm-2 col-form-label">a:</label>
+              <div class="col-sm-10">
+                <input type="number" step="0.0001" class="form-control form-control-sm" id="a" v-model.number="a">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="b" class="col-sm-2 col-form-label">b:</label>
+              <div class="col-sm-10">
+                <input type="number" step="0.0001" class="form-control form-control-sm" id="b" v-model.number="b">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="c" class="col-sm-2 col-form-label">c:</label>
+              <div class="col-sm-10">
+                <input type="number" step="0.0001" class="form-control form-control-sm" id="c" v-model.number="c">
+              </div>
+            </div>
+            <action-button icon="arrow-right" caption="Mirror" color="primary" @click="mirror"></action-button>
           </div>
-        </div>
-        <div class="form-group row">
-          <label for="b" class="col-sm-2 col-form-label">b:</label>
-          <div class="col-sm-10">
-            <input type="number" step="0.0001" class="form-control form-control-sm" id="b" v-model.number="b">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="c" class="col-sm-2 col-form-label">c:</label>
-          <div class="col-sm-10">
-            <input type="number" step="0.0001" class="form-control form-control-sm" id="c" v-model.number="c">
-          </div>
-        </div>
-        <action-button icon="arrow-right" caption="Mirror" color="primary" @click="mirror"></action-button>
-      </div>
 
-      <!--
-      <div>
-        <div class="mb-1 pt-1 font-weight-bold">Perspective projection</div>
-          <div class="form-check">
-          <label class="form-check-label">
-            <input class="form-check-input" type="checkbox" value=""  v-model="perspectiveProjection">
-            Activate
-          </label>
-        </div>
-        <div class="form-group row">
-          <label for="u1" class="col-sm-2 col-form-label">u<sub>1</sub>:</label>
-          <div class="col-sm-10">
-            <input type="number" step="0.0001" class="form-control form-control-sm" id="u1" v-model.number="u1">
+          <!--
+          <div>
+            <div class="mb-1 pt-1 font-weight-bold">Perspective projection</div>
+              <div class="form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" value=""  v-model="perspectiveProjection">
+                Activate
+              </label>
+            </div>
+            <div class="form-group row">
+              <label for="u1" class="col-sm-2 col-form-label">u<sub>1</sub>:</label>
+              <div class="col-sm-10">
+                <input type="number" step="0.0001" class="form-control form-control-sm" id="u1" v-model.number="u1">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="u2" class="col-sm-2 col-form-label">u<sub>2</sub>:</label>
+              <div class="col-sm-10">
+                <input type="number" step="0.0001" class="form-control form-control-sm" id="u2" v-model.number="u2">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="v1" class="col-sm-2 col-form-label">v<sub>1</sub>:</label>
+              <div class="col-sm-10">
+                <input type="number" step="0.0001" class="form-control form-control-sm" id="v1" v-model.number="v1">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="v2" class="col-sm-2 col-form-label">v<sub>2</sub>:</label>
+              <div class="col-sm-10">
+                <input type="number" step="0.0001" class="form-control form-control-sm" id="v2" v-model.number="v2">
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="form-group row">
-          <label for="u2" class="col-sm-2 col-form-label">u<sub>2</sub>:</label>
-          <div class="col-sm-10">
-            <input type="number" step="0.0001" class="form-control form-control-sm" id="u2" v-model.number="u2">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="v1" class="col-sm-2 col-form-label">v<sub>1</sub>:</label>
-          <div class="col-sm-10">
-            <input type="number" step="0.0001" class="form-control form-control-sm" id="v1" v-model.number="v1">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="v2" class="col-sm-2 col-form-label">v<sub>2</sub>:</label>
-          <div class="col-sm-10">
-            <input type="number" step="0.0001" class="form-control form-control-sm" id="v2" v-model.number="v2">
-          </div>
+          -->
         </div>
       </div>
-      -->
     </div>
   </div>
 </template>
@@ -141,6 +146,8 @@
 
   import ActionButton from './ActionButton'
   import GeometryCanvas from './GeometryCanvas'
+
+  import { mapActions, mapMutations } from 'vuex'
 
   export default {
     data () {
@@ -162,53 +169,18 @@
       GeometryCanvas
     },
     methods: {
-      moveUp () {
-        this.$store.dispatch('moveUp')
-      },
-      moveDown () {
-        this.$store.dispatch('moveDown')
-      },
-      moveRight () {
-        this.$store.dispatch('moveRight')
-      },
-      moveLeft () {
-        this.$store.dispatch('moveLeft')
-      },
-      rotateCenterClockwise () {
-        this.$store.dispatch('rotateCenterClockwise')
-      },
-      rotateCenterCounterClockwise () {
-        this.$store.dispatch('rotateCenterCounterClockwise')
-      },
-      rotateOriginClockwise () {
-        this.$store.dispatch('rotateOriginClockwise')
-      },
-      rotateOriginCounterClockwise () {
-        this.$store.dispatch('rotateOriginCounterClockwise')
-      },
+      ...mapActions([
+        'moveUp', 'moveDown', 'moveRight', 'moveLeft', 'rotateCenterClockwise',
+        'rotateCenterCounterClockwise', 'rotateOriginClockwise', 'rotateOriginCounterClockwise',
+        'stretch', 'contract', 'shearTopToRight', 'shearTopToLeft', 'shearRightToTop',
+        'shearRightToBottom'
+      ]),
+      ...mapMutations(['reset']),
       rotatePointClockwise () {
         this.$store.dispatch('rotatePointClockwise', { x: this.m1, y: this.m2 })
       },
       rotatePointCounterClockwise () {
         this.$store.dispatch('rotatePointCounterClockwise', { x: this.m1, y: this.m2 })
-      },
-      stretch () {
-        this.$store.dispatch('stretch')
-      },
-      contract () {
-        this.$store.dispatch('contract')
-      },
-      shearTopToRight () {
-        this.$store.dispatch('shearTopToRight')
-      },
-      shearTopToLeft () {
-        this.$store.dispatch('shearTopToLeft')
-      },
-      shearRightToTop () {
-        this.$store.dispatch('shearRightToTop')
-      },
-      shearRightToBottom () {
-        this.$store.dispatch('shearRightToBottom')
       },
       mirror () {
         this.$store.dispatch('mirror', { a: this.a, b: this.b, c: this.c })
