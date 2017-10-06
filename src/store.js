@@ -9,35 +9,47 @@ export default new Vuex.Store({
   state: {
     coordinates: {
       a: {
-        x: 1,
-        y: 1
+        x: 100,
+        y: 100
       },
       b: {
-        x: 1,
-        y: 1
+        x: 200,
+        y: 100
       },
       c: {
-        x: 1,
-        y: 1
+        x: 200,
+        y: 200
       },
       d: {
-        x: 1,
-        y: 1
+        x: 100,
+        y: 200
       }
     }
   },
   mutations: {
     moveUp (state) {
-      console.log('not implemented')
+      state.coordinates.a.y -= 10
+      state.coordinates.b.y -= 10
+      state.coordinates.c.y -= 10
+      state.coordinates.d.y -= 10
     },
     moveDown (state) {
-      console.log('not implemented')
+      state.coordinates.a.y += 10
+      state.coordinates.b.y += 10
+      state.coordinates.c.y += 10
+      state.coordinates.d.y += 10
     },
     moveLeft (state) {
-      console.log('not implemented')
+      state.coordinates.a.x -= 10
+      state.coordinates.b.x -= 10
+      state.coordinates.c.x -= 10
+      state.coordinates.d.x -= 10
     },
     moveRight (state) {
-      console.log('not implemented')
+      state.coordinates.a.x += 10
+      state.coordinates.b.x += 10
+      state.coordinates.c.x += 10
+      state.coordinates.d.x += 10
     },
     rotateCenterClockwise (state) {
       console.log('not implemented')
