@@ -7,8 +7,9 @@ export function translationMatrix (x, y) {
 }
 
 export function rotationMatrix (a) {
-  return [[Math.cos(a), -Math.sin(a), 0],
-          [Math.sin(a), Math.cos(a), 0],
+  let radians = a * (Math.PI / 180)
+  return [[Math.cos(radians), -Math.sin(radians), 0],
+          [Math.sin(radians), Math.cos(radians), 0],
           [0, 0, 1]]
 }
 
