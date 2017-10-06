@@ -1,28 +1,26 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <hello></hello>
+  <div>
+    <nav class="navbar navbar-dark bg-dark">
+      <span class="navbar-brand">Geometry 2D</span>
+    </nav>
+    <div class="container">
+      <geometry></geometry>
+    </div>
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
+import Geometry from './components/Geometry'
 
 export default {
   name: 'app',
   components: {
-    Hello
+    Geometry
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="sass" scoped>
+  .container
+    margin-top: 10px
 </style>
