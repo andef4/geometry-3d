@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  import { mapState } from 'Vuex'
+  import { mapState } from 'vuex'
 
   export default {
     props: {
@@ -24,20 +24,20 @@
       }
     },
     computed: {
-      ...mapState('coordinates')
+      ...mapState(['coordinates'])
     },
     watch: {
-      m1: () => this.draw(),
-      m2: () => this.draw(),
-      a: () => this.draw(),
-      b: () => this.draw(),
-      c: () => this.draw(),
-      u1: () => this.draw(),
-      u2: () => this.draw(),
-      v1: () => this.draw(),
-      v2: () => this.draw(),
-      perspectiveProjection: () => this.draw(),
-      coordinates: () => this.draw()
+      m1 () { this.draw() },
+      m2 () { this.draw() },
+      a () { this.draw() },
+      b () { this.draw() },
+      c () { this.draw() },
+      u1 () { this.draw() },
+      u2 () { this.draw() },
+      v1 () { this.draw() },
+      v2 () { this.draw() },
+      perspectiveProjection () { this.draw() },
+      coordinates () { this.draw() }
     }
   }
 </script>
