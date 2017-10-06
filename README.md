@@ -1,6 +1,8 @@
 # geometry-2d
 
-> Geometry 2D
+Transform an object with matrices in 2D
+
+Try it out here: https://andef4.github.io/geometry-2d/
 
 ## Build Setup
 
@@ -17,5 +19,3 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
