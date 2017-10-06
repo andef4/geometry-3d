@@ -5,7 +5,7 @@
 <script>
   import { mapState } from 'vuex'
 
-  let mathToDiplayX = x => {
+  let mathToDisplayX = x => {
     return x + 500
   }
   let mathToDisplayY = y => {
@@ -18,7 +18,6 @@
       m2: Number,
       a: Number,
       b: Number,
-      c: Number,
       u1: Number,
       u2: Number,
       v1: Number,
@@ -101,9 +100,17 @@
         ctx.font = '20px sans-serif'
 
         ctx.beginPath()
-        ctx.arc(mathToDiplayX(this.m1) - 2, mathToDisplayY(this.m2) + 2, 4, 0, Math.PI * 2, true)
+        ctx.arc(mathToDisplayX(this.m1) - 2, mathToDisplayY(this.m2) + 2, 4, 0, Math.PI * 2, true)
         ctx.fill()
-        ctx.fillText('m', mathToDiplayX(this.m1) + 8, mathToDisplayY(this.m2) + 8)
+        ctx.fillText('m', mathToDisplayX(this.m1) + 8, mathToDisplayY(this.m2) + 8)
+
+        /********
+         * line *
+         ********/
+        ctx.beginPath()
+        ctx.moveTo(mathToDisplayX(500), mathToDisplayY(this.a * 500 + this.b))
+        ctx.lineTo(mathToDisplayX(-500), mathToDisplayY(this.a * -500 + this.b))
+        ctx.stroke()
       }
     },
     mounted () {
@@ -120,10 +127,10 @@
       }),
       coordinates () {
         return {
-          a: { x: mathToDiplayX(this.originalCoordinates.a.x), y: mathToDisplayY(this.originalCoordinates.a.y) },
-          b: { x: mathToDiplayX(this.originalCoordinates.b.x), y: mathToDisplayY(this.originalCoordinates.b.y) },
-          c: { x: mathToDiplayX(this.originalCoordinates.c.x), y: mathToDisplayY(this.originalCoordinates.c.y) },
-          d: { x: mathToDiplayX(this.originalCoordinates.d.x), y: mathToDisplayY(this.originalCoordinates.d.y) }
+          a: { x: mathToDisplayX(this.originalCoordinates.a.x), y: mathToDisplayY(this.originalCoordinates.a.y) },
+          b: { x: mathToDisplayX(this.originalCoordinates.b.x), y: mathToDisplayY(this.originalCoordinates.b.y) },
+          c: { x: mathToDisplayX(this.originalCoordinates.c.x), y: mathToDisplayY(this.originalCoordinates.c.y) },
+          d: { x: mathToDisplayX(this.originalCoordinates.d.x), y: mathToDisplayY(this.originalCoordinates.d.y) }
         }
       }
     },
