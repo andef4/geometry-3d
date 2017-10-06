@@ -23,8 +23,22 @@
         // clear canvas
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
 
-        ctx.fillStyle = 'red'
+        ctx.strokeStyle = 'grey'
+        ctx.lineWidth = 1
+
+        // outline
+        ctx.beginPath()
+        ctx.moveTo(500, 0)
+        ctx.lineTo(500, 1000)
+        ctx.stroke()
+
+        ctx.beginPath()
+        ctx.moveTo(0, 500)
+        ctx.lineTo(1000, 500)
+        ctx.stroke()
+
         ctx.strokeStyle = 'black'
+        ctx.fillStyle = 'red'
         ctx.lineWidth = 3
 
         // red rectangle
@@ -77,7 +91,17 @@
       this.draw()
     },
     computed: {
-      ...mapState(['coordinates'])
+      ...mapState({
+        originalCoordinates: 'coordinates'
+      }),
+      coordinates () {
+        return {
+          a: { x: this.originalCoordinates.a.x + 500, y: -this.originalCoordinates.a.y + 500 },
+          b: { x: this.originalCoordinates.b.x + 500, y: -this.originalCoordinates.b.y + 500 },
+          c: { x: this.originalCoordinates.c.x + 500, y: -this.originalCoordinates.c.y + 500 },
+          d: { x: this.originalCoordinates.d.x + 500, y: -this.originalCoordinates.d.y + 500 }
+        }
+      }
     },
     watch: {
       m1 () { this.draw() },
