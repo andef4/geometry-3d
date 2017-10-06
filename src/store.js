@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import { translationMatrix, rotationMatrix, matricesMultiplication3x3, applyMatrixToVector, shearMatrixX, shearMatrixY } from './math'
+
 Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'production'
@@ -26,48 +28,68 @@ export default new Vuex.Store({
       }
     }
   },
-  mutations: {
-    moveUp (state) {
-      state.coordinates.a.y -= 10
-      state.coordinates.b.y -= 10
-      state.coordinates.c.y -= 10
-      state.coordinates.d.y -= 10
+  getter: {
+    center (state) {
+      return {
+        x: (state.coordinates.a.x + state.coordinates.c.x) / 2,
+        y: (state.coordinates.a.y + state.coordinates.c.y) / 2
+      }
+    }
+  },
+  actions: {
+    moveUp ({ commit }) {
+      let matrix = translationMatrix(0, -10)
+      commit('applyMatrix', { matrix })
     },
-    moveDown (state) {
-      state.coordinates.a.y += 10
-      state.coordinates.b.y += 10
-      state.coordinates.c.y += 10
-      state.coordinates.d.y += 10
+    moveDown ({ commit }) {
+      let matrix = translationMatrix(0, 10)
+      commit('applyMatrix', { matrix })
     },
-    moveLeft (state) {
-      state.coordinates.a.x -= 10
-      state.coordinates.b.x -= 10
-      state.coordinates.c.x -= 10
-      state.coordinates.d.x -= 10
+    moveLeft ({ commit }) {
+      let matrix = translationMatrix(-10, 0)
+      commit('applyMatrix', { matrix })
     },
-    moveRight (state) {
-      state.coordinates.a.x += 10
-      state.coordinates.b.x += 10
-      state.coordinates.c.x += 10
-      state.coordinates.d.x += 10
+    moveRight ({ commit }) {
+      let matrix = translationMatrix(10, 0)
+      commit('applyMatrix', { matrix })
     },
-    rotateCenterClockwise (state) {
-      console.log('not implemented')
+    rotateCenter ({ commit, getters }) {
+      let center = getters.center
+      let translation1 = translationMatrix(-center.x, -center.y)
+      let rotation = rotationMatrix(10)
+      let translation2 = translationMatrix(center.x, center.y)
+      let matrix = matricesMultiplication3x3(translation1, rotation, translation2)
+      commit('applyMatrix', { matrix })
     },
-    rotateCenterCounterClockwise (state) {
-      console.log('not implemented')
+    rotateCenterCounterClockwise ({ commit, getters }) {
+      let center = getters.center
+      let translation1 = translationMatrix(-center.x, -center.y)
+      let rotation = rotationMatrix(-10)
+      let translation2 = translationMatrix(center.x, center.y)
+      let matrix = matricesMultiplication3x3(translation1, rotation, translation2)
+      commit('applyMatrix', { matrix })
     },
-    rotateOriginClockwise (state) {
-      console.log('not implemented')
+    rotateOriginClockwise ({ commit }) {
+      let matrix = rotationMatrix(10)
+      commit('applyMatrix', { matrix })
     },
-    rotateOriginCounterClockwise (state) {
-      console.log('not implemented')
+    rotateOriginCounterClockwise ({ commit }) {
+      let matrix = rotationMatrix(-10)
+      commit('applyMatrix', { matrix })
     },
-    rotatePointClockwise (state, { x, y }) {
-      console.log('not implemented', x, y)
+    rotatePointClockwise ({ commit }, { x, y }) {
+      let translation1 = translationMatrix(-x, -y)
+      let rotation = rotationMatrix(10)
+      let translation2 = translationMatrix(x, y)
+      let matrix = matricesMultiplication3x3(translation1, rotation, translation2)
+      commit('applyMatrix', { matrix })
     },
-    rotatePointCounterClockwise (state, { x, y }) {
-      console.log('not implemented', x, y)
+    rotatePointCounterClockwise ({ commit }, { x, y }) {
+      let translation1 = translationMatrix(-x, -y)
+      let rotation = rotationMatrix(10)
+      let translation2 = translationMatrix(x, y)
+      let matrix = matricesMultiplication3x3(translation1, rotation, translation2)
+      commit('applyMatrix', { matrix })
     },
     stretch (state) {
       console.log('not implemented')
@@ -75,20 +97,32 @@ export default new Vuex.Store({
     contract (state) {
       console.log('not implemented')
     },
-    sheerTopToRight (state) {
-      console.log('not implemented')
+    shearTopToRight ({ commit }) {
+      let matrix = shearMatrixX(2)
+      commit('applyMatrix', { matrix })
     },
-    sheerTopToLeft (state) {
-      console.log('not implemented')
+    shearTopToLeft ({ commit }) {
+      let matrix = shearMatrixX(-2)
+      commit('applyMatrix', { matrix })
     },
-    sheerRightToTop (state) {
-      console.log('not implemented')
+    shearRightToTop ({ commit }) {
+      let matrix = shearMatrixY(2)
+      commit('applyMatrix', { matrix })
     },
-    sheerRightToBottom (state) {
-      console.log('not implemented')
+    shearRightToBottom ({ commit }) {
+      let matrix = shearMatrixY(-2)
+      commit('applyMatrix', { matrix })
     },
     mirror (state, { a, b, c }) {
       console.log('not implemented', a, b, c)
+    }
+  },
+  mutations: {
+    applyMatrix (state, { matrix }) {
+      state.coordinates.a = { ...applyMatrixToVector(matrix, state.coordinates.a) }
+      state.coordinates.b = { ...applyMatrixToVector(matrix, state.coordinates.b) }
+      state.coordinates.c = { ...applyMatrixToVector(matrix, state.coordinates.c) }
+      state.coordinates.d = { ...applyMatrixToVector(matrix, state.coordinates.d) }
     }
   },
   strict: debug

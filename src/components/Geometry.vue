@@ -61,11 +61,11 @@
 
     <div class="col-2">
       <div>
-        <div class="mb-1 pt-1 font-weight-bold">Sheer</div>
-        <action-button icon="arrow-right" caption="Top to right" color="info" @click="sheerTopToRight"></action-button>
-        <action-button icon="arrow-left" caption="Top to left" color="info" @click="sheerTopToLeft"></action-button>
-        <action-button icon="arrow-up" caption="Right to top" color="info" @click="sheerRightToTop"></action-button>
-        <action-button icon="arrow-down" caption="Right to bottom" color="info" @click="sheerRightToBottom"></action-button>
+        <div class="mb-1 pt-1 font-weight-bold">shear</div>
+        <action-button icon="arrow-right" caption="Top to right" color="info" @click="shearTopToRight"></action-button>
+        <action-button icon="arrow-left" caption="Top to left" color="info" @click="shearTopToLeft"></action-button>
+        <action-button icon="arrow-up" caption="Right to top" color="info" @click="shearRightToTop"></action-button>
+        <action-button icon="arrow-down" caption="Right to bottom" color="info" @click="shearRightToBottom"></action-button>
       </div>
 
       <div>
@@ -163,55 +163,55 @@
     },
     methods: {
       moveUp () {
-        this.$store.commit('moveUp')
+        this.$store.dispatch('moveUp')
       },
       moveDown () {
-        this.$store.commit('moveDown')
+        this.$store.dispatch('moveDown')
       },
       moveRight () {
-        this.$store.commit('moveRight')
+        this.$store.dispatch('moveRight')
       },
       moveLeft () {
-        this.$store.commit('moveLeft')
+        this.$store.dispatch('moveLeft')
       },
       rotateCenterClockwise () {
-        this.$store.commit('rotateCenterClockwise')
+        this.$store.dispatch('rotateCenterClockwise')
       },
       rotateCenterCounterClockwise () {
-        this.$store.commit('rotateCenterCounterClockwise')
+        this.$store.dispatch('rotateCenterCounterClockwise')
       },
       rotateOriginClockwise () {
-        this.$store.commit('rotateOriginClockwise')
+        this.$store.dispatch('rotateOriginClockwise')
       },
       rotateOriginCounterClockwise () {
-        this.$store.commit('rotateOriginCounterClockwise')
+        this.$store.dispatch('rotateOriginCounterClockwise')
       },
       rotatePointClockwise () {
-        this.$store.commit('rotatePointClockwise', { x: this.m1, y: this.m2 })
+        this.$store.dispatch('rotatePointClockwise', { x: this.m1, y: this.m2 })
       },
       rotatePointCounterClockwise () {
-        this.$store.commit('rotatePointCounterClockwise', { x: this.m1, y: this.m2 })
+        this.$store.dispatch('rotatePointCounterClockwise', { x: this.m1, y: this.m2 })
       },
       stretch () {
-        this.$store.commit('stretch')
+        this.$store.dispatch('stretch')
       },
       contract () {
-        this.$store.commit('contract')
+        this.$store.dispatch('contract')
       },
-      sheerTopToRight () {
-        this.$store.commit('sheerTopToRight')
+      shearTopToRight () {
+        this.$store.dispatch('shearTopToRight')
       },
-      sheerTopToLeft () {
-        this.$store.commit('sheerTopToLeft')
+      shearTopToLeft () {
+        this.$store.dispatch('shearTopToLeft')
       },
-      sheerRightToTop () {
-        this.$store.commit('sheerRightToTop')
+      shearRightToTop () {
+        this.$store.dispatch('shearRightToTop')
       },
-      sheerRightToBottom () {
-        this.$store.commit('sheerRightToBottom')
+      shearRightToBottom () {
+        this.$store.dispatch('shearRightToBottom')
       },
       mirror () {
-        this.$store.commit('mirror', { a: this.a, b: this.b, c: this.c })
+        this.$store.dispatch('mirror', { a: this.a, b: this.b, c: this.c })
       }
     }
   }

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "bootstrap": "4.0.0-beta",
+    "lodash.clonedeep": "^4.5.0",
     "vue": "^2.4.2",
     "vue-awesome": "^2.3.3",
     "vuex": "^2.4.1"
