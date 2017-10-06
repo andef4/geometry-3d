@@ -11,7 +11,6 @@
         :u2="u2  === '' ? 0 : u2"
         :v1="v1  === '' ? 0 : v1"
         :v2="v2  === '' ? 0 : v2"
-        :perspectiveProjection="perspectiveProjection"
       ></geometry-canvas>
     </div>
     <div class="col-2">
@@ -25,14 +24,14 @@
 
       <div>
         <div class="mb-1 pt-1 font-weight-bold">Rotate around rectangle center</div>
-        <action-button icon="rotate-right" caption="Clockwise" color="success"></action-button>
-        <action-button icon="rotate-left" caption="Counterclockwise" color="success"></action-button>
+        <action-button icon="rotate-right" caption="Clockwise" color="success" @click="rotateCenterClockwise"></action-button>
+        <action-button icon="rotate-left" caption="Counterclockwise" color="success" @click="rotateCenterCounterClockwise"></action-button>
       </div>
 
       <div>
         <div class="mb-1 pt-1 font-weight-bold">Rotate around origin</div>
-        <action-button icon="rotate-right" caption="Clockwise" color="danger"></action-button>
-        <action-button icon="rotate-left" caption="Counterclockwise" color="danger"></action-button>
+        <action-button icon="rotate-right" caption="Clockwise" color="danger" @click="rotateOriginClockwise"></action-button>
+        <action-button icon="rotate-left" caption="Counterclockwise" color="danger" @click="rotateOriginCounterClockwise"></action-button>
       </div>
 
       <div>
@@ -49,24 +48,24 @@
             <input type="number" step="0.0001" class="form-control form-control-sm" id="m2" v-model.number="m2">
           </div>
         </div>
-        <action-button icon="rotate-right" caption="Clockwise" color="danger"></action-button>
-        <action-button icon="rotate-left" caption="Counterclockwise" color="danger"></action-button>
+        <action-button icon="rotate-right" caption="Clockwise" color="danger" @click="rotatePointClockwise"></action-button>
+        <action-button icon="rotate-left" caption="Counterclockwise" color="danger" @click="rotatePointCounterClockwise"></action-button>
       </div>
 
       <div>
         <div class="mb-1 pt-1 font-weight-bold">Stretch and contract</div>
-        <action-button icon="arrow-left" second-icon="arrow-right" caption="Stretch" color="warning"></action-button>
-        <action-button icon="arrow-right" second-icon="arrow-left" caption="Contract" color="warning"></action-button>
+        <action-button icon="arrow-left" second-icon="arrow-right" caption="Stretch" color="warning" @click="stretch"></action-button>
+        <action-button icon="arrow-right" second-icon="arrow-left" caption="Contract" color="warning" @click="contract"></action-button>
       </div>
     </div>
 
     <div class="col-2">
       <div>
         <div class="mb-1 pt-1 font-weight-bold">Sheer</div>
-        <action-button icon="arrow-right" caption="Top to right" color="info"></action-button>
-        <action-button icon="arrow-left" caption="Top to left" color="info"></action-button>
-        <action-button icon="arrow-up" caption="Right to top" color="info"></action-button>
-        <action-button icon="arrow-down" caption="Right to bottom" color="info"></action-button>
+        <action-button icon="arrow-right" caption="Top to right" color="info" @click="sheerTopToRight"></action-button>
+        <action-button icon="arrow-left" caption="Top to left" color="info" @click="sheerTopToLeft"></action-button>
+        <action-button icon="arrow-up" caption="Right to top" color="info" @click="sheerRightToTop"></action-button>
+        <action-button icon="arrow-down" caption="Right to bottom" color="info" @click="sheerRightToBottom"></action-button>
       </div>
 
       <div>
@@ -90,9 +89,10 @@
             <input type="number" step="0.0001" class="form-control form-control-sm" id="c" v-model.number="c">
           </div>
         </div>
-        <action-button icon="arrow-right" caption="Mirror" color="primary"></action-button>
+        <action-button icon="arrow-right" caption="Mirror" color="primary" @click="mirror"></action-button>
       </div>
 
+      <!--
       <div>
         <div class="mb-1 pt-1 font-weight-bold">Perspective projection</div>
           <div class="form-check">
@@ -126,6 +126,7 @@
           </div>
         </div>
       </div>
+      -->
     </div>
   </div>
 </template>
@@ -172,6 +173,45 @@
       },
       moveLeft () {
         this.$store.commit('moveLeft')
+      },
+      rotateCenterClockwise () {
+        this.$store.commit('rotateCenterClockwise')
+      },
+      rotateCenterCounterClockwise () {
+        this.$store.commit('rotateCenterCounterClockwise')
+      },
+      rotateOriginClockwise () {
+        this.$store.commit('rotateOriginClockwise')
+      },
+      rotateOriginCounterClockwise () {
+        this.$store.commit('rotateOriginCounterClockwise')
+      },
+      rotatePointClockwise () {
+        this.$store.commit('rotatePointClockwise', { x: this.m1, y: this.m2 })
+      },
+      rotatePointCounterClockwise () {
+        this.$store.commit('rotatePointCounterClockwise', { x: this.m1, y: this.m2 })
+      },
+      stretch () {
+        this.$store.commit('stretch')
+      },
+      contract () {
+        this.$store.commit('contract')
+      },
+      sheerTopToRight () {
+        this.$store.commit('sheerTopToRight')
+      },
+      sheerTopToLeft () {
+        this.$store.commit('sheerTopToLeft')
+      },
+      sheerRightToTop () {
+        this.$store.commit('sheerRightToTop')
+      },
+      sheerRightToBottom () {
+        this.$store.commit('sheerRightToBottom')
+      },
+      mirror () {
+        this.$store.commit('mirror', { a: this.a, b: this.b, c: this.c })
       }
     }
   }

@@ -15,8 +15,7 @@
       u1: Number,
       u2: Number,
       v1: Number,
-      v2: Number,
-      perspectiveProjection: Boolean
+      v2: Number
     },
     methods: {
       draw () {
@@ -36,7 +35,6 @@
       u2 () { this.draw() },
       v1 () { this.draw() },
       v2 () { this.draw() },
-      perspectiveProjection () { this.draw() },
       coordinates () { this.draw() }
     }
   }
