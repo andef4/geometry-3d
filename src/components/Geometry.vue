@@ -11,13 +11,13 @@
 
 
       <div class="mb-1 pt-1 font-weight-bold">Rotate around rectangle center</div>
-      <action-button icon="rotate-right" caption="Clockwise" @click="rotateClockwiseCenter" color="success"></action-button>
-      <action-button icon="rotate-left" caption="Counterclockwise" @click="rotateCounterclockwiseCenter" color="success"></action-button>
+      <action-button icon="rotate-right" caption="Clockwise" color="success"></action-button>
+      <action-button icon="rotate-left" caption="Counterclockwise" color="success"></action-button>
 
 
       <div class="mb-1 pt-1 font-weight-bold">Rotate around origin</div>
-      <action-button icon="rotate-right" caption="Clockwise" @click="rotateClockwiseOrigin" color="danger"></action-button>
-      <action-button icon="rotate-left" caption="Counterclockwise" @click="rotateCounterclockwiseOrigin" color="danger"></action-button>
+      <action-button icon="rotate-right" caption="Clockwise" color="danger"></action-button>
+      <action-button icon="rotate-left" caption="Counterclockwise" color="danger"></action-button>
 
       <div class="mb-1 pt-1 font-weight-bold">Rotate around point</div>
       <div class="form-group row">
@@ -33,13 +33,13 @@
         </div>
       </div>
 
-      <action-button icon="rotate-right" caption="Clockwise" @click="rotateClockwiseOrigin" color="danger"></action-button>
-      <action-button icon="rotate-left" caption="Counterclockwise" @click="rotateCounterclockwiseOrigin" color="danger"></action-button>
+      <action-button icon="rotate-right" caption="Clockwise" color="danger"></action-button>
+      <action-button icon="rotate-left" caption="Counterclockwise" color="danger"></action-button>
 
 
       <div class="mb-1 pt-1 font-weight-bold">Stretch and contract</div>
-      <action-button icon="arrow-left" second-icon="arrow-right" caption="Stretch" @click="moveDown" color="warning"></action-button>
-      <action-button icon="arrow-right" second-icon="arrow-left" caption="Contract" @click="moveUp" color="warning"></action-button>
+      <action-button icon="arrow-left" second-icon="arrow-right" caption="Stretch" color="warning"></action-button>
+      <action-button icon="arrow-right" second-icon="arrow-left" caption="Contract" color="warning"></action-button>
 
 
     </div>
@@ -47,10 +47,10 @@
     <div class="col-2">
 
       <div class="mb-1 pt-1 font-weight-bold">Sheer</div>
-      <action-button icon="arrow-right" caption="Top to right" @click="moveDown" color="info"></action-button>
-      <action-button icon="arrow-left" caption="Top to left" @click="moveUp" color="info"></action-button>
-      <action-button icon="arrow-up" caption="Right to top" @click="moveDown" color="info"></action-button>
-      <action-button icon="arrow-down" caption="Right to bottom" @click="moveUp" color="info"></action-button>
+      <action-button icon="arrow-right" caption="Top to right" color="info"></action-button>
+      <action-button icon="arrow-left" caption="Top to left" color="info"></action-button>
+      <action-button icon="arrow-up" caption="Right to top" color="info"></action-button>
+      <action-button icon="arrow-down" caption="Right to bottom" color="info"></action-button>
 
       <div>
         <div class="mb-1 pt-1 font-weight-bold">Mirror on line</div>
@@ -76,7 +76,7 @@
           </div>
         </div>
 
-        <action-button icon="arrow-right" caption="Mirror" @click="moveDown" color="primary"></action-button>
+        <action-button icon="arrow-right" caption="Mirror" color="primary"></action-button>
       </div>
 
       <div>
@@ -131,6 +131,20 @@
   export default {
     components: {
       ActionButton
+    },
+    methods: {
+      moveUp () {
+        this.$store.commit('moveUp')
+      },
+      moveDown () {
+        this.$store.commit('moveDown')
+      },
+      moveRight () {
+        this.$store.commit('moveRight')
+      },
+      moveLeft () {
+        this.$store.commit('moveLeft')
+      }
     }
   }
 </script>

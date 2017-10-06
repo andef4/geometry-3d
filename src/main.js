@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import Icon from 'vue-awesome/components/Icon'
+import store from './store'
 
 import './sass/main.sass'
 
@@ -15,5 +16,6 @@ Vue.component('icon', Icon)
 new Vue({
   el: '#app',
   template: '<App/>',
+  store,
   components: { App }
 })
