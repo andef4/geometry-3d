@@ -58,10 +58,10 @@ export function matricesMultiplication3x3 (matrix1, ...matrices) {
 }
 
 export function applyMatrixToVector (matrix, vector) {
-  let newVector = [vector.x, vector.y, 1]
-  newVector[0] = newVector[0] * matrix[0][0] + newVector[1] * matrix[0][1] + newVector[2] * matrix[0][2]
-  newVector[1] = newVector[0] * matrix[1][0] + newVector[1] * matrix[1][1] + newVector[2] * matrix[1][2]
-  newVector[2] = newVector[0] * matrix[2][0] + newVector[1] * matrix[2][1] + newVector[2] * matrix[2][2]
+  let newVector = [0, 0, 0]
+  newVector[0] = vector.x * matrix[0][0] + vector.y * matrix[0][1] + matrix[0][2]
+  newVector[1] = vector.x * matrix[1][0] + vector.y * matrix[1][1] + matrix[1][2]
+  newVector[2] = vector.x * matrix[2][0] + vector.y * matrix[2][1] + matrix[2][2]
   // convert back to non-homogeneous coordinates
   return {
     x: newVector[0] / newVector[2],
