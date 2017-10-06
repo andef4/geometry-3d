@@ -61,7 +61,7 @@ export default new Vuex.Store({
     rotateCenterClockwise ({ commit, getters }) {
       let center = getters.center
       let translation1 = translationMatrix(-center.x, -center.y)
-      let rotation = rotationMatrix(-90)
+      let rotation = rotationMatrix(-30)
       let translation2 = translationMatrix(center.x, center.y)
       let matrix = matricesMultiplication3x3(translation1, rotation, translation2)
       commit('applyMatrix', { matrix })
@@ -69,29 +69,29 @@ export default new Vuex.Store({
     rotateCenterCounterClockwise ({ commit, getters }) {
       let center = getters.center
       let translation1 = translationMatrix(-center.x, -center.y)
-      let rotation = rotationMatrix(90)
+      let rotation = rotationMatrix(30)
       let translation2 = translationMatrix(center.x, center.y)
       let matrix = matricesMultiplication3x3(translation1, rotation, translation2)
       commit('applyMatrix', { matrix })
     },
     rotateOriginClockwise ({ commit }) {
-      let matrix = rotationMatrix(-90)
+      let matrix = rotationMatrix(-30)
       commit('applyMatrix', { matrix })
     },
     rotateOriginCounterClockwise ({ commit }) {
-      let matrix = rotationMatrix(90)
+      let matrix = rotationMatrix(30)
       commit('applyMatrix', { matrix })
     },
     rotatePointClockwise ({ commit }, { x, y }) {
       let translation1 = translationMatrix(-x, -y)
-      let rotation = rotationMatrix(-0.2)
+      let rotation = rotationMatrix(-30)
       let translation2 = translationMatrix(x, y)
       let matrix = matricesMultiplication3x3(translation1, rotation, translation2)
       commit('applyMatrix', { matrix })
     },
     rotatePointCounterClockwise ({ commit }, { x, y }) {
       let translation1 = translationMatrix(-x, -y)
-      let rotation = rotationMatrix(0.2)
+      let rotation = rotationMatrix(30)
       let translation2 = translationMatrix(x, y)
       let matrix = matricesMultiplication3x3(translation1, rotation, translation2)
       commit('applyMatrix', { matrix })
