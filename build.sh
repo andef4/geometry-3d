@@ -3,7 +3,7 @@ rm -rf dist/
 npm run build
 mv dist/ /tmp/geometry-dist/
 git checkout gh-pages
-rm -rf *
+rm -rf static/ index.html
 mv /tmp/geometry-dist/* .
 git add .
 git commit -a -m "build"
