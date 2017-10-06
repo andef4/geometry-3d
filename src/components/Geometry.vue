@@ -155,8 +155,8 @@
   export default {
     data () {
       return {
-        m1: 350,
-        m2: 250,
+        m1: 200,
+        m2: 80,
         a: 0,
         b: 0,
         c: 0,
