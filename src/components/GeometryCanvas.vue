@@ -5,6 +5,13 @@
 <script>
   import { mapState } from 'vuex'
 
+  let mathToDiplayX = x => {
+    return x + 500
+  }
+  let mathToDisplayY = y => {
+    return -y + 500
+  }
+
   export default {
     props: {
       m1: Number,
@@ -26,7 +33,9 @@
         ctx.strokeStyle = 'grey'
         ctx.lineWidth = 1
 
-        // outline
+        /***********
+         * outline *
+         ***********/
         ctx.beginPath()
         ctx.moveTo(500, 0)
         ctx.lineTo(500, 1000)
@@ -40,6 +49,10 @@
         ctx.strokeStyle = 'black'
         ctx.fillStyle = 'red'
         ctx.lineWidth = 3
+
+        /**********
+         * square *
+         **********/
 
         // red rectangle
         ctx.beginPath()
@@ -80,6 +93,17 @@
         ctx.lineTo((this.coordinates.b.x + this.coordinates.c.x) / 2,
                    (this.coordinates.b.y + this.coordinates.c.y) / 2)
         ctx.stroke()
+
+        /**********
+         * points *
+         **********/
+        ctx.fillStyle = 'black'
+        ctx.font = '20px sans-serif'
+
+        ctx.beginPath()
+        ctx.arc(mathToDiplayX(this.m1) - 2, mathToDisplayY(this.m2) + 2, 4, 0, Math.PI * 2, true)
+        ctx.fill()
+        ctx.fillText('m', mathToDiplayX(this.m1) + 8, mathToDisplayY(this.m2) + 8)
       }
     },
     mounted () {
@@ -96,10 +120,10 @@
       }),
       coordinates () {
         return {
-          a: { x: this.originalCoordinates.a.x + 500, y: -this.originalCoordinates.a.y + 500 },
-          b: { x: this.originalCoordinates.b.x + 500, y: -this.originalCoordinates.b.y + 500 },
-          c: { x: this.originalCoordinates.c.x + 500, y: -this.originalCoordinates.c.y + 500 },
-          d: { x: this.originalCoordinates.d.x + 500, y: -this.originalCoordinates.d.y + 500 }
+          a: { x: mathToDiplayX(this.originalCoordinates.a.x), y: mathToDisplayY(this.originalCoordinates.a.y) },
+          b: { x: mathToDiplayX(this.originalCoordinates.b.x), y: mathToDisplayY(this.originalCoordinates.b.y) },
+          c: { x: mathToDiplayX(this.originalCoordinates.c.x), y: mathToDisplayY(this.originalCoordinates.c.y) },
+          d: { x: mathToDiplayX(this.originalCoordinates.d.x), y: mathToDisplayY(this.originalCoordinates.d.y) }
         }
       }
     },
