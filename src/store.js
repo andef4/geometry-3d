@@ -63,7 +63,7 @@ export default new Vuex.Store({
       let translation1 = translationMatrix(-center.x, -center.y)
       let rotation = rotationMatrix(-30)
       let translation2 = translationMatrix(center.x, center.y)
-      let matrix = matricesMultiplication3x3(translation1, rotation, translation2)
+      let matrix = matricesMultiplication3x3(translation2, rotation, translation1)
       commit('applyMatrix', { matrix })
     },
     rotateCenterCounterClockwise ({ commit, getters }) {
@@ -71,7 +71,7 @@ export default new Vuex.Store({
       let translation1 = translationMatrix(-center.x, -center.y)
       let rotation = rotationMatrix(30)
       let translation2 = translationMatrix(center.x, center.y)
-      let matrix = matricesMultiplication3x3(translation1, rotation, translation2)
+      let matrix = matricesMultiplication3x3(translation2, rotation, translation1)
       commit('applyMatrix', { matrix })
     },
     rotateOriginClockwise ({ commit }) {
@@ -86,14 +86,14 @@ export default new Vuex.Store({
       let translation1 = translationMatrix(-x, -y)
       let rotation = rotationMatrix(-30)
       let translation2 = translationMatrix(x, y)
-      let matrix = matricesMultiplication3x3(translation1, rotation, translation2)
+      let matrix = matricesMultiplication3x3(translation2, rotation, translation1)
       commit('applyMatrix', { matrix })
     },
     rotatePointCounterClockwise ({ commit }, { x, y }) {
       let translation1 = translationMatrix(-x, -y)
       let rotation = rotationMatrix(30)
       let translation2 = translationMatrix(x, y)
-      let matrix = matricesMultiplication3x3(translation1, rotation, translation2)
+      let matrix = matricesMultiplication3x3(translation2, rotation, translation1)
       commit('applyMatrix', { matrix })
     },
     stretchX ({ commit }) {

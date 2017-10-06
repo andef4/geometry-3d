@@ -42,17 +42,17 @@ export function matricesMultiplication3x3 (matrix1, ...matrices) {
   matrices.forEach((matrix) => {
     let tempMatrix = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     // first row
-    tempMatrix[0][0] = matrix1[0][0] * matrix[0][0] + matrix1[0][1] * matrix[1][0] + matrix1[0][2] * matrix[2][0]
-    tempMatrix[0][1] = matrix1[0][0] * matrix[0][1] + matrix1[0][1] * matrix[1][1] + matrix1[0][2] * matrix[2][1]
-    tempMatrix[0][2] = matrix1[0][0] * matrix[0][2] + matrix1[0][1] * matrix[1][2] + matrix1[0][2] * matrix[2][2]
+    tempMatrix[0][0] = newMatrix[0][0] * matrix[0][0] + newMatrix[0][1] * matrix[1][0] + newMatrix[0][2] * matrix[2][0]
+    tempMatrix[0][1] = newMatrix[0][0] * matrix[0][1] + newMatrix[0][1] * matrix[1][1] + newMatrix[0][2] * matrix[2][1]
+    tempMatrix[0][2] = newMatrix[0][0] * matrix[0][2] + newMatrix[0][1] * matrix[1][2] + newMatrix[0][2] * matrix[2][2]
     // second row
-    tempMatrix[1][0] = matrix1[1][0] * matrix[0][0] + matrix1[1][1] * matrix[1][0] + matrix1[1][2] * matrix[2][0]
-    tempMatrix[1][1] = matrix1[1][0] * matrix[0][1] + matrix1[1][1] * matrix[1][1] + matrix1[1][2] * matrix[2][1]
-    tempMatrix[1][2] = matrix1[1][0] * matrix[0][2] + matrix1[1][1] * matrix[1][2] + matrix1[1][2] * matrix[2][2]
+    tempMatrix[1][0] = newMatrix[1][0] * matrix[0][0] + newMatrix[1][1] * matrix[1][0] + newMatrix[1][2] * matrix[2][0]
+    tempMatrix[1][1] = newMatrix[1][0] * matrix[0][1] + newMatrix[1][1] * matrix[1][1] + newMatrix[1][2] * matrix[2][1]
+    tempMatrix[1][2] = newMatrix[1][0] * matrix[0][2] + newMatrix[1][1] * matrix[1][2] + newMatrix[1][2] * matrix[2][2]
     // third row
-    tempMatrix[2][0] = matrix1[2][0] * matrix[0][0] + matrix1[2][1] * matrix[1][0] + matrix1[2][2] * matrix[2][0]
-    tempMatrix[2][1] = matrix1[2][0] * matrix[0][1] + matrix1[2][1] * matrix[1][1] + matrix1[2][2] * matrix[2][1]
-    tempMatrix[2][2] = matrix1[2][0] * matrix[0][2] + matrix1[2][1] * matrix[1][2] + matrix1[2][2] * matrix[2][2]
+    tempMatrix[2][0] = newMatrix[2][0] * matrix[0][0] + newMatrix[2][1] * matrix[1][0] + newMatrix[2][2] * matrix[2][0]
+    tempMatrix[2][1] = newMatrix[2][0] * matrix[0][1] + newMatrix[2][1] * matrix[1][1] + newMatrix[2][2] * matrix[2][1]
+    tempMatrix[2][2] = newMatrix[2][0] * matrix[0][2] + newMatrix[2][1] * matrix[1][2] + newMatrix[2][2] * matrix[2][2]
     newMatrix = tempMatrix
   })
   return newMatrix
