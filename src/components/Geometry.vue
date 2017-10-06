@@ -57,8 +57,10 @@
 
           <div>
             <div class="mb-1 pt-1 font-weight-bold">Stretch and contract</div>
-            <action-button icon="arrow-left" second-icon="arrow-right" caption="Stretch" color="warning" @click="stretch"></action-button>
-            <action-button icon="arrow-right" second-icon="arrow-left" caption="Contract" color="warning" @click="contract"></action-button>
+            <action-button icon="arrow-left" second-icon="arrow-right" caption="Stretch X" color="warning" @click="stretchX"></action-button>
+            <action-button icon="arrow-right" second-icon="arrow-left" caption="Contract X" color="warning" @click="contractX"></action-button>
+            <action-button icon="arrow-up" second-icon="arrow-down" caption="Stretch Y" color="warning" @click="stretchY"></action-button>
+            <action-button icon="arrow-down" second-icon="arrow-up" caption="Contract Y" color="warning" @click="contractY"></action-button>
           </div>
         </div>
 
@@ -172,7 +174,7 @@
       ...mapActions([
         'moveUp', 'moveDown', 'moveRight', 'moveLeft', 'rotateCenterClockwise',
         'rotateCenterCounterClockwise', 'rotateOriginClockwise', 'rotateOriginCounterClockwise',
-        'stretch', 'contract', 'shearTopToRight', 'shearTopToLeft', 'shearRightToTop',
+        'stretchX', 'contractX', 'stretchY', 'contractY', 'shearTopToRight', 'shearTopToLeft', 'shearRightToTop',
         'shearRightToBottom'
       ]),
       ...mapMutations(['reset']),

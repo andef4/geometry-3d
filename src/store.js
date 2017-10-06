@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import { translationMatrix, rotationMatrix, matricesMultiplication3x3, applyMatrixToVector, shearMatrixX, shearMatrixY } from './math'
+import { translationMatrix, rotationMatrix, matricesMultiplication3x3, applyMatrixToVector, shearMatrixX, shearMatrixY,
+         stretchMatrixX, stretchMatrixY } from './math'
 
 Vue.use(Vuex)
 
@@ -95,11 +96,21 @@ export default new Vuex.Store({
       let matrix = matricesMultiplication3x3(translation1, rotation, translation2)
       commit('applyMatrix', { matrix })
     },
-    stretch (state) {
-      console.log('not implemented')
+    stretchX ({ commit }) {
+      let matrix = stretchMatrixX(2)
+      commit('applyMatrix', { matrix })
     },
-    contract (state) {
-      console.log('not implemented')
+    contractX ({ commit }) {
+      let matrix = stretchMatrixX(0.5)
+      commit('applyMatrix', { matrix })
+    },
+    stretchY ({ commit }) {
+      let matrix = stretchMatrixY(2)
+      commit('applyMatrix', { matrix })
+    },
+    contractY ({ commit }) {
+      let matrix = stretchMatrixY(0.5)
+      commit('applyMatrix', { matrix })
     },
     shearTopToRight ({ commit }) {
       let matrix = shearMatrixX(0.3)
