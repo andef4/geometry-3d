@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 rm -rf dist/
+rm -rf /tmp/geometry-dist/
 npm run build
 mv dist/ /tmp/geometry-dist/
 git checkout gh-pages
