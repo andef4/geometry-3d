@@ -4,7 +4,7 @@
         <icon :name="icon"></icon>
         <icon :name="secondIcon" v-if="secondIcon" class="second-icon"></icon>
       </div>
-      <span class="font-weight-bold">{{ caption }}</span>
+      <span class="">{{ caption }}</span>
       <div class="right"></div>
     </button>
 </template>
