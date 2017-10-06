@@ -1,6 +1,9 @@
 <template>
-    <button class="btn btn-sm d-flex justify-content-between align-items-center" :class="'btn-' + color" @click="click">
-      <icon :name="icon"></icon>
+    <button class="btn btn-sm d-flex justify-content-between" :class="'btn-' + color" @click="click">
+      <div class="d-flex align-items-center mr-1">
+        <icon :name="icon"></icon>
+        <icon :name="secondIcon" v-if="secondIcon" class="second-icon"></icon>
+      </div>
       <span class="font-weight-bold">{{ caption }}</span>
       <div class="right"></div>
     </button>
@@ -12,6 +15,9 @@
       icon: {
         type: String,
         required: true
+      },
+      secondIcon: {
+        type: String
       },
       caption: {
         type: String,
@@ -36,4 +42,6 @@
     margin-bottom: 10px
   .right
     width: 15px
+  .second-icon
+    margin-left: 1px
 </style>
