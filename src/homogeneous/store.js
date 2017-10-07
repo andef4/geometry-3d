@@ -1,5 +1,7 @@
-import { translationMatrix, rotationMatrix, matricesMultiplication3x3, applyMatrixToVector, shearMatrixX, shearMatrixY,
-         stretchMatrixX, stretchMatrixY } from './math'
+import {
+  translationMatrix, rotationMatrix, matricesMultiplication3x3, applyMatrixToVector, shearMatrixX, shearMatrixY,
+  stretchMatrixX, stretchMatrixY, mirrorMatrix
+} from './math'
 
 export let actions = {
   moveUp ({commit}) {
@@ -88,8 +90,12 @@ export let actions = {
     let matrix = shearMatrixY(-0.3)
     commit('applyMatrix', {matrix})
   },
-  mirror (state, {a, b, c}) {
-    console.log('not implemented', a, b, c)
+  mirror ({commit}, {a, b}) {
+    let translation1 = translationMatrix(0, -b)
+    let mirror = mirrorMatrix(Math.atan(a))
+    let translation2 = translationMatrix(0, b)
+    let matrix = matricesMultiplication3x3(translation2, mirror, translation1)
+    commit('applyMatrix', {matrix})
   }
 }
 

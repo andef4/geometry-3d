@@ -37,6 +37,12 @@ export function stretchMatrixY (y) {
           [0, 0, 1]]
 }
 
+export function mirrorMatrix (a) {
+  return [[Math.cos(2 * a), Math.sin(2 * a), 0],
+          [Math.sin(2 * a), -Math.cos(2 * a), 0],
+          [0, 0, 1]]
+}
+
 export function matricesMultiplication3x3 (matrix1, ...matrices) {
   let newMatrix = cloneDeep(matrix1)
   matrices.forEach((matrix) => {
