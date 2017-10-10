@@ -5,65 +5,65 @@ import {
 
 export let actions = {
   moveUp ({commit}) {
-    let matrix = translationMatrix(0, 20)
+    let matrix = translationMatrix(0, 25)
     commit('applyMatrix', {matrix})
   },
   moveDown ({commit}) {
-    let matrix = translationMatrix(0, -20)
+    let matrix = translationMatrix(0, -25)
     commit('applyMatrix', {matrix})
   },
   moveLeft ({commit}) {
-    let matrix = translationMatrix(-20, 0)
+    let matrix = translationMatrix(-25, 0)
     commit('applyMatrix', {matrix})
   },
   moveRight ({commit}) {
-    let matrix = translationMatrix(20, 0)
+    let matrix = translationMatrix(25, 0)
     commit('applyMatrix', {matrix})
   },
   rotateCenterClockwise ({ dispatch }) {
-    let matrix = rotationMatrix(-30)
+    let matrix = rotationMatrix(-15)
     dispatch('applyMatrixCenter', { matrix })
   },
   rotateCenterCounterClockwise ({ dispatch }) {
-    let matrix = rotationMatrix(30)
+    let matrix = rotationMatrix(15)
     dispatch('applyMatrixCenter', { matrix })
   },
   rotateOriginClockwise ({ commit }) {
-    let matrix = rotationMatrix(-30)
+    let matrix = rotationMatrix(-15)
     commit('applyMatrix', {matrix})
   },
   rotateOriginCounterClockwise ({ commit }) {
-    let matrix = rotationMatrix(30)
+    let matrix = rotationMatrix(15)
     commit('applyMatrix', {matrix})
   },
   rotatePointClockwise ({ commit }, { x, y }) {
     let translation1 = translationMatrix(-x, -y)
-    let rotation = rotationMatrix(-30)
+    let rotation = rotationMatrix(-15)
     let translation2 = translationMatrix(x, y)
     let matrix = matricesMultiplication3x3(translation2, rotation, translation1)
     commit('applyMatrix', {matrix})
   },
   rotatePointCounterClockwise ({ commit }, { x, y }) {
     let translation1 = translationMatrix(-x, -y)
-    let rotation = rotationMatrix(30)
+    let rotation = rotationMatrix(15)
     let translation2 = translationMatrix(x, y)
     let matrix = matricesMultiplication3x3(translation2, rotation, translation1)
     commit('applyMatrix', {matrix})
   },
   stretchX ({ dispatch }) {
-    let matrix = stretchMatrixX(2)
+    let matrix = stretchMatrixX(1.25)
     dispatch('applyMatrixCenter', { matrix })
   },
   contractX ({ dispatch }) {
-    let matrix = stretchMatrixX(0.5)
+    let matrix = stretchMatrixX(0.875)
     dispatch('applyMatrixCenter', { matrix })
   },
   stretchY ({ dispatch }) {
-    let matrix = stretchMatrixY(2)
+    let matrix = stretchMatrixY(1.25)
     dispatch('applyMatrixCenter', { matrix })
   },
   contractY ({ dispatch }) {
-    let matrix = stretchMatrixY(0.5)
+    let matrix = stretchMatrixY(0.875)
     dispatch('applyMatrixCenter', { matrix })
   },
   shearTopToRight ({ dispatch }) {
