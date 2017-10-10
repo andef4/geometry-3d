@@ -20,82 +20,82 @@ export let actions = {
     let matrix = translationMatrix(20, 0)
     commit('applyMatrix', {matrix})
   },
-  rotateCenterClockwise ({commit, getters}) {
-    let center = getters.center
-    let translation1 = translationMatrix(-center.x, -center.y)
-    let rotation = rotationMatrix(-30)
-    let translation2 = translationMatrix(center.x, center.y)
-    let matrix = matricesMultiplication3x3(translation2, rotation, translation1)
-    commit('applyMatrix', {matrix})
+  rotateCenterClockwise ({ dispatch }) {
+    let matrix = rotationMatrix(-30)
+    dispatch('applyMatrixCenter', { matrix })
   },
-  rotateCenterCounterClockwise ({commit, getters}) {
-    let center = getters.center
-    let translation1 = translationMatrix(-center.x, -center.y)
-    let rotation = rotationMatrix(30)
-    let translation2 = translationMatrix(center.x, center.y)
-    let matrix = matricesMultiplication3x3(translation2, rotation, translation1)
-    commit('applyMatrix', {matrix})
+  rotateCenterCounterClockwise ({ dispatch }) {
+    let matrix = rotationMatrix(30)
+    dispatch('applyMatrixCenter', { matrix })
   },
-  rotateOriginClockwise ({commit}) {
+  rotateOriginClockwise ({ commit }) {
     let matrix = rotationMatrix(-30)
     commit('applyMatrix', {matrix})
   },
-  rotateOriginCounterClockwise ({commit}) {
+  rotateOriginCounterClockwise ({ commit }) {
     let matrix = rotationMatrix(30)
     commit('applyMatrix', {matrix})
   },
-  rotatePointClockwise ({commit}, {x, y}) {
+  rotatePointClockwise ({ commit }, { x, y }) {
     let translation1 = translationMatrix(-x, -y)
     let rotation = rotationMatrix(-30)
     let translation2 = translationMatrix(x, y)
     let matrix = matricesMultiplication3x3(translation2, rotation, translation1)
     commit('applyMatrix', {matrix})
   },
-  rotatePointCounterClockwise ({commit}, {x, y}) {
+  rotatePointCounterClockwise ({ commit }, { x, y }) {
     let translation1 = translationMatrix(-x, -y)
     let rotation = rotationMatrix(30)
     let translation2 = translationMatrix(x, y)
     let matrix = matricesMultiplication3x3(translation2, rotation, translation1)
     commit('applyMatrix', {matrix})
   },
-  stretchX ({commit}) {
+  stretchX ({ dispatch }) {
     let matrix = stretchMatrixX(2)
-    commit('applyMatrix', {matrix})
+    dispatch('applyMatrixCenter', { matrix })
   },
-  contractX ({commit}) {
+  contractX ({ dispatch }) {
     let matrix = stretchMatrixX(0.5)
-    commit('applyMatrix', {matrix})
+    dispatch('applyMatrixCenter', { matrix })
   },
-  stretchY ({commit}) {
+  stretchY ({ dispatch }) {
     let matrix = stretchMatrixY(2)
-    commit('applyMatrix', {matrix})
+    dispatch('applyMatrixCenter', { matrix })
   },
-  contractY ({commit}) {
+  contractY ({ dispatch }) {
     let matrix = stretchMatrixY(0.5)
-    commit('applyMatrix', {matrix})
+    dispatch('applyMatrixCenter', { matrix })
   },
-  shearTopToRight ({commit}) {
+  shearTopToRight ({ dispatch }) {
     let matrix = shearMatrixX(0.3)
-    commit('applyMatrix', {matrix})
+    dispatch('applyMatrixCenter', { matrix })
   },
-  shearTopToLeft ({commit}) {
+  shearTopToLeft ({ dispatch }) {
     let matrix = shearMatrixX(-0.3)
-    commit('applyMatrix', {matrix})
+    dispatch('applyMatrixCenter', { matrix })
   },
-  shearRightToTop ({commit}) {
+  shearRightToTop ({ dispatch }) {
     let matrix = shearMatrixY(0.3)
-    commit('applyMatrix', {matrix})
+    dispatch('applyMatrixCenter', { matrix })
   },
-  shearRightToBottom ({commit}) {
+  shearRightToBottom ({ dispatch }) {
     let matrix = shearMatrixY(-0.3)
-    commit('applyMatrix', {matrix})
+    dispatch('applyMatrixCenter', { matrix })
   },
-  mirror ({commit}, {a, b}) {
+  mirror ({ commit }, { a, b }) {
     let translation1 = translationMatrix(0, -b)
     let mirror = mirrorMatrix(Math.atan(a))
     let translation2 = translationMatrix(0, b)
     let matrix = matricesMultiplication3x3(translation2, mirror, translation1)
     commit('applyMatrix', {matrix})
+  },
+
+  applyMatrixCenter ({ commit, getters }, { matrix }) {
+    let center = getters.center
+    let translation1 = translationMatrix(-center.x, -center.y)
+    let translation2 = translationMatrix(center.x, center.y)
+    let combinedMatrix = matricesMultiplication3x3(translation2, matrix, translation1)
+    commit('applyMatrix', { matrix: combinedMatrix })
   }
 }
 
