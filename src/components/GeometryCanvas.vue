@@ -34,10 +34,10 @@
     },
     methods: {
       mathToDisplayX (x) {
-        return (x + 500) * this.pixelRation
+        return Math.round((x + 500) * this.pixelRation) + 0.5
       },
       mathToDisplayY (y) {
-        return (-y + 500) * this.pixelRation
+        return Math.round((-y + 500) * this.pixelRation) + 0.5
       },
       draw () {
         let ctx = this.$refs.canvas.getContext('2d')
@@ -51,13 +51,13 @@
          * outline *
          ***********/
         ctx.beginPath()
-        ctx.moveTo(this.mathToDisplayX(0) + 0.5, this.mathToDisplayY(-500) + 0.5)
-        ctx.lineTo(this.mathToDisplayX(0) + 0.5, this.mathToDisplayY(500) + 0.5)
+        ctx.moveTo(this.mathToDisplayX(0), this.mathToDisplayY(-500))
+        ctx.lineTo(this.mathToDisplayX(0), this.mathToDisplayY(500))
         ctx.stroke()
 
         ctx.beginPath()
-        ctx.moveTo(this.mathToDisplayX(-500) + 0.5, this.mathToDisplayY(0) + 0.5)
-        ctx.lineTo(this.mathToDisplayX(500) + 0.5, this.mathToDisplayY(0) + 0.5)
+        ctx.moveTo(this.mathToDisplayX(-500), this.mathToDisplayY(0))
+        ctx.lineTo(this.mathToDisplayX(500), this.mathToDisplayY(0))
         ctx.stroke()
 
         /**********
@@ -70,41 +70,41 @@
         // red rectangle
         ctx.beginPath()
         // center
-        ctx.moveTo((this.coordinates.a.x + this.coordinates.c.x) / 2 + 0.5,
-                   (this.coordinates.a.y + this.coordinates.c.y) / 2 + 0.5)
+        ctx.moveTo((this.coordinates.a.x + this.coordinates.c.x) / 2,
+                   (this.coordinates.a.y + this.coordinates.c.y) / 2)
         // point between b and c
-        ctx.lineTo((this.coordinates.b.x + this.coordinates.c.x) / 2 + 0.5,
-                   (this.coordinates.b.y + this.coordinates.c.y) / 2 + 0.5)
+        ctx.lineTo((this.coordinates.b.x + this.coordinates.c.x) / 2,
+                   (this.coordinates.b.y + this.coordinates.c.y) / 2)
         // bottom right corner (c)
-        ctx.lineTo(this.coordinates.c.x + 0.5, this.coordinates.c.y + 0.5)
+        ctx.lineTo(this.coordinates.c.x, this.coordinates.c.y)
         // point between d and c
-        ctx.lineTo((this.coordinates.d.x + this.coordinates.c.x) / 2 + 0.5,
-                   (this.coordinates.d.y + this.coordinates.c.y) / 2 + 0.5)
+        ctx.lineTo((this.coordinates.d.x + this.coordinates.c.x) / 2,
+                   (this.coordinates.d.y + this.coordinates.c.y) / 2)
         ctx.fill()
 
         // outer rectangle
         ctx.beginPath()
-        ctx.moveTo(this.coordinates.a.x + 0.5, this.coordinates.a.y + 0.5)
-        ctx.lineTo(this.coordinates.b.x + 0.5, this.coordinates.b.y + 0.5)
-        ctx.lineTo(this.coordinates.c.x + 0.5, this.coordinates.c.y + 0.5)
-        ctx.lineTo(this.coordinates.d.x + 0.5, this.coordinates.d.y + 0.5)
+        ctx.moveTo(this.coordinates.a.x, this.coordinates.a.y)
+        ctx.lineTo(this.coordinates.b.x, this.coordinates.b.y)
+        ctx.lineTo(this.coordinates.c.x, this.coordinates.c.y)
+        ctx.lineTo(this.coordinates.d.x, this.coordinates.d.y)
         ctx.closePath()
         ctx.stroke()
 
         // line from top to bottom
         ctx.beginPath()
-        ctx.moveTo((this.coordinates.a.x + this.coordinates.b.x) / 2 + 0.5,
-                   (this.coordinates.a.y + this.coordinates.b.y) / 2 + 0.5)
-        ctx.lineTo((this.coordinates.d.x + this.coordinates.c.x) / 2 + 0.5,
-                   (this.coordinates.d.y + this.coordinates.c.y) / 2 + 0.5)
+        ctx.moveTo((this.coordinates.a.x + this.coordinates.b.x) / 2,
+                   (this.coordinates.a.y + this.coordinates.b.y) / 2)
+        ctx.lineTo((this.coordinates.d.x + this.coordinates.c.x) / 2,
+                   (this.coordinates.d.y + this.coordinates.c.y) / 2)
         ctx.stroke()
 
         // line from left to right
         ctx.beginPath()
-        ctx.moveTo((this.coordinates.a.x + this.coordinates.d.x) / 2 + 0.5,
-                   (this.coordinates.a.y + this.coordinates.d.y) / 2 + 0.5)
-        ctx.lineTo((this.coordinates.b.x + this.coordinates.c.x) / 2 + 0.5,
-                   (this.coordinates.b.y + this.coordinates.c.y) / 2 + 0.5)
+        ctx.moveTo((this.coordinates.a.x + this.coordinates.d.x) / 2,
+                   (this.coordinates.a.y + this.coordinates.d.y) / 2)
+        ctx.lineTo((this.coordinates.b.x + this.coordinates.c.x) / 2,
+                   (this.coordinates.b.y + this.coordinates.c.y) / 2)
         ctx.stroke()
 
         // labels
@@ -129,8 +129,8 @@
         let a = -(this.a / this.b)
         let b = -(this.c / this.b)
         ctx.beginPath()
-        ctx.moveTo(this.mathToDisplayX(500) + 0.5, this.mathToDisplayY(a * 500 + b) + 0.5)
-        ctx.lineTo(this.mathToDisplayX(-500) + 0.5, this.mathToDisplayY(a * -500 + b) + 0.5)
+        ctx.moveTo(this.mathToDisplayX(500), this.mathToDisplayY(a * 500 + b))
+        ctx.lineTo(this.mathToDisplayX(-500), this.mathToDisplayY(a * -500 + b))
         ctx.stroke()
       }
     },
