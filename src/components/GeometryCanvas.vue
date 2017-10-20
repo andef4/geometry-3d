@@ -37,13 +37,13 @@
          * outline *
          ***********/
         ctx.beginPath()
-        ctx.moveTo(mathToDisplayX(0), mathToDisplayY(-500))
-        ctx.lineTo(mathToDisplayX(0), mathToDisplayY(500))
+        ctx.moveTo(mathToDisplayX(0) + 0.5, mathToDisplayY(-500) + 0.5)
+        ctx.lineTo(mathToDisplayX(0 + 0.5), mathToDisplayY(500) + 0.5)
         ctx.stroke()
 
         ctx.beginPath()
-        ctx.moveTo(mathToDisplayX(-500), mathToDisplayY(0))
-        ctx.lineTo(mathToDisplayX(500), mathToDisplayY(0))
+        ctx.moveTo(mathToDisplayX(-500) + 0.5, mathToDisplayY(0) + 0.5)
+        ctx.lineTo(mathToDisplayX(500) + 0.5, mathToDisplayY(0) + 0.5)
         ctx.stroke()
 
         /**********
@@ -70,27 +70,27 @@
 
         // outer rectangle
         ctx.beginPath()
-        ctx.moveTo(this.coordinates.a.x, this.coordinates.a.y)
-        ctx.lineTo(this.coordinates.b.x, this.coordinates.b.y)
-        ctx.lineTo(this.coordinates.c.x, this.coordinates.c.y)
-        ctx.lineTo(this.coordinates.d.x, this.coordinates.d.y)
+        ctx.moveTo(this.coordinates.a.x + 0.5, this.coordinates.a.y + 0.5)
+        ctx.lineTo(this.coordinates.b.x + 0.5, this.coordinates.b.y + 0.5)
+        ctx.lineTo(this.coordinates.c.x + 0.5, this.coordinates.c.y + 0.5)
+        ctx.lineTo(this.coordinates.d.x + 0.5, this.coordinates.d.y + 0.5)
         ctx.closePath()
         ctx.stroke()
 
         // line from top to bottom
         ctx.beginPath()
-        ctx.moveTo((this.coordinates.a.x + this.coordinates.b.x) / 2,
-                   (this.coordinates.a.y + this.coordinates.b.y) / 2)
-        ctx.lineTo((this.coordinates.d.x + this.coordinates.c.x) / 2,
-                   (this.coordinates.d.y + this.coordinates.c.y) / 2)
+        ctx.moveTo((this.coordinates.a.x + this.coordinates.b.x) / 2 + 0.5,
+                   (this.coordinates.a.y + this.coordinates.b.y) / 2 + 0.5)
+        ctx.lineTo((this.coordinates.d.x + this.coordinates.c.x) / 2 + 0.5,
+                   (this.coordinates.d.y + this.coordinates.c.y) / 2 + 0.5)
         ctx.stroke()
 
         // line from left to right
         ctx.beginPath()
-        ctx.moveTo((this.coordinates.a.x + this.coordinates.d.x) / 2,
-                   (this.coordinates.a.y + this.coordinates.d.y) / 2)
-        ctx.lineTo((this.coordinates.b.x + this.coordinates.c.x) / 2,
-                   (this.coordinates.b.y + this.coordinates.c.y) / 2)
+        ctx.moveTo((this.coordinates.a.x + this.coordinates.d.x) / 2 + 0.5,
+                   (this.coordinates.a.y + this.coordinates.d.y) / 2 + 0.5)
+        ctx.lineTo((this.coordinates.b.x + this.coordinates.c.x) / 2 + 0.5,
+                   (this.coordinates.b.y + this.coordinates.c.y) / 2 + 0.5)
         ctx.stroke()
 
         // labels
@@ -115,8 +115,8 @@
         let a = -(this.a / this.b)
         let b = -(this.c / this.b)
         ctx.beginPath()
-        ctx.moveTo(mathToDisplayX(500), mathToDisplayY(a * 500 + b))
-        ctx.lineTo(mathToDisplayX(-500), mathToDisplayY(a * -500 + b))
+        ctx.moveTo(mathToDisplayX(500) + 0.5, mathToDisplayY(a * 500 + b) + 0.5)
+        ctx.lineTo(mathToDisplayX(-500) + 0.5, mathToDisplayY(a * -500 + b) + 0.5)
         ctx.stroke()
       }
     },
