@@ -7,7 +7,7 @@ import {
   actions as homogeneousActions
 } from '../homogeneous/store'
 
-import { complexMultiplication } from './math'
+import { complexMultiplication, complexRotation } from './math'
 
 export let actions = {
   ...homogeneousActions,
@@ -20,28 +20,12 @@ export let actions = {
     dispatch('applyMatrixCenter', { matrix })
   },
   rotateOriginClockwise ({ commit, state }) {
-    let complexA = {re: state.coordinates.a.x, im: state.coordinates.a.y}
-    let complexB = {re: state.coordinates.b.x, im: state.coordinates.b.y}
-    let complexC = {re: state.coordinates.c.x, im: state.coordinates.c.y}
-    let complexD = {re: state.coordinates.d.x, im: state.coordinates.d.y}
-
-    let radians = -15 * (Math.PI / 180)
-    let complexRotation = {re: Math.cos(radians), im: Math.sin(radians)}
-    complexA = complexMultiplication(complexA, complexRotation)
-    complexB = complexMultiplication(complexB, complexRotation)
-    complexC = complexMultiplication(complexC, complexRotation)
-    complexD = complexMultiplication(complexD, complexRotation)
-
-    commit('updateCoordinates', {
-      a: {x: complexA.re, y: complexA.im},
-      b: {x: complexB.re, y: complexB.im},
-      c: {x: complexC.re, y: complexC.im},
-      d: {x: complexD.re, y: complexD.im}
-    })
+    let complex = complexRotation(-15)
+    commit('applyComplex', { complex })
   },
   rotateOriginCounterClockwise ({ commit }) {
-    let matrix = rotationMatrix(15)
-    commit('applyMatrix', {matrix})
+    let complex = complexRotation(15)
+    commit('applyComplex', { complex })
   },
   rotatePointClockwise ({ commit }, { x, y }) {
     let translation1 = translationMatrix(-x, -y)
@@ -61,10 +45,21 @@ export let actions = {
 
 export let mutations = {
   ...homogeneousMutations,
-  updateCoordinates (state, {a, b, c, d}) {
-    state.coordinates.a = a
-    state.coordinates.b = b
-    state.coordinates.c = c
-    state.coordinates.d = d
+
+  applyComplex (state, { complex }) {
+    let complexA = {re: state.coordinates.a.x, im: state.coordinates.a.y}
+    let complexB = {re: state.coordinates.b.x, im: state.coordinates.b.y}
+    let complexC = {re: state.coordinates.c.x, im: state.coordinates.c.y}
+    let complexD = {re: state.coordinates.d.x, im: state.coordinates.d.y}
+
+    complexA = complexMultiplication(complexA, complex)
+    complexB = complexMultiplication(complexB, complex)
+    complexC = complexMultiplication(complexC, complex)
+    complexD = complexMultiplication(complexD, complex)
+
+    state.coordinates.b = {x: complexB.re, y: complexB.im}
+    state.coordinates.a = {x: complexA.re, y: complexA.im}
+    state.coordinates.c = {x: complexC.re, y: complexC.im}
+    state.coordinates.d = {x: complexD.re, y: complexD.im}
   }
 }
