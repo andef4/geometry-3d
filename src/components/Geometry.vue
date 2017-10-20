@@ -194,6 +194,7 @@
       },
       resetEverything () {
         Object.assign(this, initialData())
+        this.reset()
       }
     }
   }
