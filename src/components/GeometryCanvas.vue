@@ -37,22 +37,21 @@
          * outline *
          ***********/
         ctx.beginPath()
-        ctx.moveTo(500, 0)
-        ctx.lineTo(500, 1000)
+        ctx.moveTo(mathToDisplayX(0), mathToDisplayY(-500))
+        ctx.lineTo(mathToDisplayX(0), mathToDisplayY(500))
         ctx.stroke()
 
         ctx.beginPath()
-        ctx.moveTo(0, 500)
-        ctx.lineTo(1000, 500)
+        ctx.moveTo(mathToDisplayX(-500), mathToDisplayY(0))
+        ctx.lineTo(mathToDisplayX(500), mathToDisplayY(0))
         ctx.stroke()
-
-        ctx.strokeStyle = 'black'
-        ctx.fillStyle = 'red'
-        ctx.lineWidth = 3
 
         /**********
          * square *
          **********/
+        ctx.strokeStyle = 'black'
+        ctx.fillStyle = 'red'
+        ctx.lineWidth = 3
 
         // red rectangle
         ctx.beginPath()
