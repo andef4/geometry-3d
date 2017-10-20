@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import Icon from 'vue-awesome/components/Icon'
-import store from './store'
+import store from './store/store'
 
 import './sass/main.sass'
 
