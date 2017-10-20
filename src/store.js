@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import { actions, mutations } from './homogeneous/store'
+// import { actions, mutations } from './homogeneous/store'
+import { actions, mutations } from './complex/store'
 
 Vue.use(Vuex)
 
