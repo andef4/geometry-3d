@@ -94,12 +94,17 @@
                    (this.coordinates.b.y + this.coordinates.c.y) / 2)
         ctx.stroke()
 
+        // labels
+        ctx.fillStyle = 'black'
+        ctx.font = '20px sans-serif'
+        ctx.fillText('x: 500', mathToDisplayX(435), mathToDisplayY(10))
+        ctx.fillText('x: -500', mathToDisplayX(-500), mathToDisplayY(10))
+        ctx.fillText('y: -500', mathToDisplayX(5), mathToDisplayY(-490))
+        ctx.fillText('y: 500', mathToDisplayX(5), mathToDisplayY(485))
+
         /**********
          * points *
          **********/
-        ctx.fillStyle = 'black'
-        ctx.font = '20px sans-serif'
-
         ctx.beginPath()
         ctx.arc(mathToDisplayX(this.m1) - 2, mathToDisplayY(this.m2) + 2, 4, 0, Math.PI * 2, true)
         ctx.fill()
