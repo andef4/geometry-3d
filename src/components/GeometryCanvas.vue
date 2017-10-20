@@ -18,6 +18,7 @@
       m2: Number,
       a: Number,
       b: Number,
+      c: Number,
       u1: Number,
       u2: Number,
       v1: Number,
@@ -107,9 +108,11 @@
         /********
          * line *
          ********/
+        let a = -(this.a / this.b)
+        let b = -(this.c / this.b)
         ctx.beginPath()
-        ctx.moveTo(mathToDisplayX(500), mathToDisplayY(this.a * 500 + this.b))
-        ctx.lineTo(mathToDisplayX(-500), mathToDisplayY(this.a * -500 + this.b))
+        ctx.moveTo(mathToDisplayX(500), mathToDisplayY(a * 500 + b))
+        ctx.lineTo(mathToDisplayX(-500), mathToDisplayY(a * -500 + b))
         ctx.stroke()
       }
     },

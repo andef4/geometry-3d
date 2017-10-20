@@ -6,6 +6,7 @@
         :m2="m2  === '' ? 0 : m2"
         :a="a  === '' ? 0 : a"
         :b="b  === '' ? 0 : b"
+        :c="c  === '' ? 0 : c"
         :u1="u1  === '' ? 0 : u1"
         :u2="u2  === '' ? 0 : u2"
         :v1="v1  === '' ? 0 : v1"
@@ -75,17 +76,23 @@
 
           <div>
             <div class="mb-1 pt-1 font-weight-bold">Mirror on line</div>
-            <div>y = a∙x + b</div>
+            <div>a∙x + b∙y + c = 0</div>
             <div class="form-group row">
               <label for="a" class="col-sm-2 col-form-label">a:</label>
               <div class="col-sm-10">
-                <input type="number" step="0.01" class="form-control form-control-sm" id="a" v-model.number="a">
+                <input type="number" step="0.1" class="form-control form-control-sm" id="a" v-model.number="a">
               </div>
             </div>
             <div class="form-group row">
               <label for="b" class="col-sm-2 col-form-label">b:</label>
               <div class="col-sm-10">
-                <input type="number" class="form-control form-control-sm" id="b" v-model.number="b">
+                <input type="number" step="0.1" class="form-control form-control-sm" id="b" v-model.number="b">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="c" class="col-sm-2 col-form-label">c:</label>
+              <div class="col-sm-10">
+                <input type="number" step="10" class="form-control form-control-sm" id="c" v-model.number="c">
               </div>
             </div>
             <action-button icon="arrow-right" caption="Mirror" color="primary" @click="mirror"></action-button>
@@ -150,8 +157,9 @@
       return {
         m1: 200,
         m2: 80,
-        a: -1.85,
-        b: 100,
+        a: 5,
+        b: 3,
+        c: 300,
         u1: 0,
         u2: 0,
         v1: 0,

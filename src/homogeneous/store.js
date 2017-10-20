@@ -82,10 +82,13 @@ export let actions = {
     let matrix = shearMatrixY(-0.3)
     dispatch('applyMatrixCenter', { matrix })
   },
-  mirror ({ commit }, { a, b }) {
-    let translation1 = translationMatrix(0, -b)
-    let mirror = mirrorMatrix(Math.atan(a))
-    let translation2 = translationMatrix(0, b)
+  mirror ({ commit }, { a, b, c }) {
+    let aNorm = -(a / b)
+    let bNorm = -(c / b)
+
+    let translation1 = translationMatrix(0, -bNorm)
+    let mirror = mirrorMatrix(Math.atan(aNorm))
+    let translation2 = translationMatrix(0, bNorm)
     let matrix = matricesMultiplication3x3(translation2, mirror, translation1)
     commit('applyMatrix', {matrix})
   },
