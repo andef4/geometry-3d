@@ -14,7 +14,7 @@
       ></geometry-canvas>
     </div>
     <div class="col-4">
-      <button class="btn btn-danger w-100 mb-2" @click="reset">Reset</button>
+      <button class="btn btn-danger w-100 mb-2" @click="resetEverything">Reset</button>
       <div class="row">
         <div class="col-6">
           <div>
@@ -152,20 +152,24 @@
 
   import { mapActions, mapMutations } from 'vuex'
 
+  const initialData = () => {
+    return {
+      m1: 200,
+      m2: 80,
+      a: 5,
+      b: 3,
+      c: 300,
+      u1: 0,
+      u2: 0,
+      v1: 0,
+      v2: 0,
+      perspectiveProjection: false
+    }
+  }
+
   export default {
     data () {
-      return {
-        m1: 200,
-        m2: 80,
-        a: 5,
-        b: 3,
-        c: 300,
-        u1: 0,
-        u2: 0,
-        v1: 0,
-        v2: 0,
-        perspectiveProjection: false
-      }
+      return initialData()
     },
     components: {
       ActionButton,
@@ -187,6 +191,9 @@
       },
       mirror () {
         this.$store.dispatch('mirror', { a: this.a, b: this.b, c: this.c })
+      },
+      resetEverything () {
+        Object.assign(this, initialData())
       }
     }
   }
