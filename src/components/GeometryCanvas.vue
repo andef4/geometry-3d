@@ -45,7 +45,7 @@
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
 
         ctx.strokeStyle = 'grey'
-        ctx.lineWidth = 1
+        ctx.lineWidth = 1 * this.pixelRation
 
         /***********
          * outline *
@@ -65,7 +65,7 @@
          **********/
         ctx.strokeStyle = 'black'
         ctx.fillStyle = 'red'
-        ctx.lineWidth = 3
+        ctx.lineWidth = 3 * this.pixelRation
 
         // red rectangle
         ctx.beginPath()
@@ -109,8 +109,8 @@
 
         // labels
         ctx.fillStyle = 'black'
-        ctx.font = '20px sans-serif'
-        ctx.fillText('x: 500', this.mathToDisplayX(435), this.mathToDisplayY(10))
+        ctx.font = `${this.pixelRation * 20}px sans-serif`
+        ctx.fillText('x: 500', this.mathToDisplayX(430), this.mathToDisplayY(10))
         ctx.fillText('x: -500', this.mathToDisplayX(-500), this.mathToDisplayY(10))
         ctx.fillText('y: -500', this.mathToDisplayX(5), this.mathToDisplayY(-490))
         ctx.fillText('y: 500', this.mathToDisplayX(5), this.mathToDisplayY(485))
@@ -119,7 +119,7 @@
          * points *
          **********/
         ctx.beginPath()
-        ctx.arc(this.mathToDisplayX(this.m1) - 2, this.mathToDisplayY(this.m2) + 2, 4, 0, Math.PI * 2, true)
+        ctx.arc(this.mathToDisplayX(this.m1) - 2, this.mathToDisplayY(this.m2) + 2, 4 * this.pixelRation, 0, Math.PI * 2, true)
         ctx.fill()
         ctx.fillText('m', this.mathToDisplayX(this.m1) + 8, this.mathToDisplayY(this.m2) + 8)
 
