@@ -5,13 +5,6 @@
 <script>
   import { mapState } from 'vuex'
 
-  let mathToDisplayX = x => {
-    return x + 500
-  }
-  let mathToDisplayY = y => {
-    return -y + 500
-  }
-
   export default {
     props: {
       m1: Number,
@@ -24,7 +17,28 @@
       v1: Number,
       v2: Number
     },
+    data () {
+      return {
+        pixelRation: 0
+      }
+    },
+    mounted () {
+      // make canvas a square
+      this.$refs.canvas.style.height = `${this.$refs.canvas.offsetWidth}px`
+      // set internal resolution of the canvas
+      this.$refs.canvas.height = this.$refs.canvas.offsetWidth
+      this.$refs.canvas.width = this.$refs.canvas.offsetWidth
+
+      this.pixelRation = this.$refs.canvas.offsetWidth / 1000
+      this.draw()
+    },
     methods: {
+      mathToDisplayX (x) {
+        return (x + 500) * this.pixelRation
+      },
+      mathToDisplayY (y) {
+        return (-y + 500) * this.pixelRation
+      },
       draw () {
         let ctx = this.$refs.canvas.getContext('2d')
         // clear canvas
@@ -37,13 +51,13 @@
          * outline *
          ***********/
         ctx.beginPath()
-        ctx.moveTo(mathToDisplayX(0) + 0.5, mathToDisplayY(-500) + 0.5)
-        ctx.lineTo(mathToDisplayX(0 + 0.5), mathToDisplayY(500) + 0.5)
+        ctx.moveTo(this.mathToDisplayX(0) + 0.5, this.mathToDisplayY(-500) + 0.5)
+        ctx.lineTo(this.mathToDisplayX(0) + 0.5, this.mathToDisplayY(500) + 0.5)
         ctx.stroke()
 
         ctx.beginPath()
-        ctx.moveTo(mathToDisplayX(-500) + 0.5, mathToDisplayY(0) + 0.5)
-        ctx.lineTo(mathToDisplayX(500) + 0.5, mathToDisplayY(0) + 0.5)
+        ctx.moveTo(this.mathToDisplayX(-500) + 0.5, this.mathToDisplayY(0) + 0.5)
+        ctx.lineTo(this.mathToDisplayX(500) + 0.5, this.mathToDisplayY(0) + 0.5)
         ctx.stroke()
 
         /**********
@@ -56,16 +70,16 @@
         // red rectangle
         ctx.beginPath()
         // center
-        ctx.moveTo((this.coordinates.a.x + this.coordinates.c.x) / 2,
-                   (this.coordinates.a.y + this.coordinates.c.y) / 2)
+        ctx.moveTo((this.coordinates.a.x + this.coordinates.c.x) / 2 + 0.5,
+                   (this.coordinates.a.y + this.coordinates.c.y) / 2 + 0.5)
         // point between b and c
-        ctx.lineTo((this.coordinates.b.x + this.coordinates.c.x) / 2,
-                   (this.coordinates.b.y + this.coordinates.c.y) / 2)
+        ctx.lineTo((this.coordinates.b.x + this.coordinates.c.x) / 2 + 0.5,
+                   (this.coordinates.b.y + this.coordinates.c.y) / 2 + 0.5)
         // bottom right corner (c)
-        ctx.lineTo(this.coordinates.c.x, this.coordinates.c.y)
+        ctx.lineTo(this.coordinates.c.x + 0.5, this.coordinates.c.y + 0.5)
         // point between d and c
-        ctx.lineTo((this.coordinates.d.x + this.coordinates.c.x) / 2,
-                   (this.coordinates.d.y + this.coordinates.c.y) / 2)
+        ctx.lineTo((this.coordinates.d.x + this.coordinates.c.x) / 2 + 0.5,
+                   (this.coordinates.d.y + this.coordinates.c.y) / 2 + 0.5)
         ctx.fill()
 
         // outer rectangle
@@ -96,18 +110,18 @@
         // labels
         ctx.fillStyle = 'black'
         ctx.font = '20px sans-serif'
-        ctx.fillText('x: 500', mathToDisplayX(435), mathToDisplayY(10))
-        ctx.fillText('x: -500', mathToDisplayX(-500), mathToDisplayY(10))
-        ctx.fillText('y: -500', mathToDisplayX(5), mathToDisplayY(-490))
-        ctx.fillText('y: 500', mathToDisplayX(5), mathToDisplayY(485))
+        ctx.fillText('x: 500', this.mathToDisplayX(435), this.mathToDisplayY(10))
+        ctx.fillText('x: -500', this.mathToDisplayX(-500), this.mathToDisplayY(10))
+        ctx.fillText('y: -500', this.mathToDisplayX(5), this.mathToDisplayY(-490))
+        ctx.fillText('y: 500', this.mathToDisplayX(5), this.mathToDisplayY(485))
 
         /**********
          * points *
          **********/
         ctx.beginPath()
-        ctx.arc(mathToDisplayX(this.m1) - 2, mathToDisplayY(this.m2) + 2, 4, 0, Math.PI * 2, true)
+        ctx.arc(this.mathToDisplayX(this.m1) - 2, this.mathToDisplayY(this.m2) + 2, 4, 0, Math.PI * 2, true)
         ctx.fill()
-        ctx.fillText('m', mathToDisplayX(this.m1) + 8, mathToDisplayY(this.m2) + 8)
+        ctx.fillText('m', this.mathToDisplayX(this.m1) + 8, this.mathToDisplayY(this.m2) + 8)
 
         /********
          * line *
@@ -115,18 +129,10 @@
         let a = -(this.a / this.b)
         let b = -(this.c / this.b)
         ctx.beginPath()
-        ctx.moveTo(mathToDisplayX(500) + 0.5, mathToDisplayY(a * 500 + b) + 0.5)
-        ctx.lineTo(mathToDisplayX(-500) + 0.5, mathToDisplayY(a * -500 + b) + 0.5)
+        ctx.moveTo(this.mathToDisplayX(500) + 0.5, this.mathToDisplayY(a * 500 + b) + 0.5)
+        ctx.lineTo(this.mathToDisplayX(-500) + 0.5, this.mathToDisplayY(a * -500 + b) + 0.5)
         ctx.stroke()
       }
-    },
-    mounted () {
-      // make canvas a square
-      this.$refs.canvas.style.height = `${this.$refs.canvas.offsetWidth}px`
-      // set internal resolution of the canvas
-      this.$refs.canvas.height = 1000
-      this.$refs.canvas.width = 1000
-      this.draw()
     },
     computed: {
       ...mapState({
@@ -134,10 +140,10 @@
       }),
       coordinates () {
         return {
-          a: { x: mathToDisplayX(this.originalCoordinates.a.x), y: mathToDisplayY(this.originalCoordinates.a.y) },
-          b: { x: mathToDisplayX(this.originalCoordinates.b.x), y: mathToDisplayY(this.originalCoordinates.b.y) },
-          c: { x: mathToDisplayX(this.originalCoordinates.c.x), y: mathToDisplayY(this.originalCoordinates.c.y) },
-          d: { x: mathToDisplayX(this.originalCoordinates.d.x), y: mathToDisplayY(this.originalCoordinates.d.y) }
+          a: { x: this.mathToDisplayX(this.originalCoordinates.a.x), y: this.mathToDisplayY(this.originalCoordinates.a.y) },
+          b: { x: this.mathToDisplayX(this.originalCoordinates.b.x), y: this.mathToDisplayY(this.originalCoordinates.b.y) },
+          c: { x: this.mathToDisplayX(this.originalCoordinates.c.x), y: this.mathToDisplayY(this.originalCoordinates.c.y) },
+          d: { x: this.mathToDisplayX(this.originalCoordinates.d.x), y: this.mathToDisplayY(this.originalCoordinates.d.y) }
         }
       }
     },
