@@ -254,10 +254,20 @@
     xEnd = Math.round(xEnd)
     yStart = Math.round(yStart)
     yEnd = Math.round(yEnd)
-    let xStep = xStart < xEnd ? 1 : -1
+
+    if (xStart > xEnd) {
+      let tmpX = xStart
+      let tmpY = yStart
+      xStart = xEnd
+      yStart = yEnd
+      xEnd = tmpX
+      yEnd = tmpY
+    }
+
     let yStep = (yStart - yEnd) / Math.abs(xStart - xEnd)
     let yValue = yStart
-    for (let x = xStart; x < xEnd; x += xStep, yValue -= yStep) {
+
+    for (let x = xStart; x < xEnd; x++, yValue -= yStep) {
       if (zbuffer[x].distance > yValue) {
         zbuffer[x].distance = yValue
         zbuffer[x].color = color
