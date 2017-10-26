@@ -7,10 +7,10 @@
         :a="a  === '' ? 0 : a"
         :b="b  === '' ? 0 : b"
         :c="c  === '' ? 0 : c"
-        :u1="u1  === '' ? 0 : u1"
-        :u2="u2  === '' ? 0 : u2"
-        :v1="v1  === '' ? 0 : v1"
-        :v2="v2  === '' ? 0 : v2"
+        :ux="ux  === '' ? 0 : ux"
+        :uy="uy  === '' ? 0 : uy"
+        :vx="vx  === '' ? 0 : vx"
+        :vy="vy  === '' ? 0 : vy"
       ></geometry-canvas>
     </div>
     <div class="col-4">
@@ -67,7 +67,7 @@
 
         <div class="col-6">
           <div>
-            <div class="mb-1 pt-1 font-weight-bold">shear</div>
+            <div class="mb-1 pt-1 font-weight-bold">Shear</div>
             <action-button icon="arrow-right" caption="Top to right" color="info" @click="shearTopToRight"></action-button>
             <action-button icon="arrow-left" caption="Top to left" color="info" @click="shearTopToLeft"></action-button>
             <action-button icon="arrow-up" caption="Right to top" color="info" @click="shearRightToTop"></action-button>
@@ -98,41 +98,34 @@
             <action-button icon="arrow-right" caption="Mirror" color="primary" @click="mirror"></action-button>
           </div>
 
-          <!--
           <div>
             <div class="mb-1 pt-1 font-weight-bold">Perspective projection</div>
-              <div class="form-check">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" value=""  v-model="perspectiveProjection">
-                Activate
-              </label>
-            </div>
             <div class="form-group row">
-              <label for="u1" class="col-sm-2 col-form-label">u<sub>1</sub>:</label>
+              <label for="ux" class="col-sm-2 col-form-label">u<sub>x</sub>:</label>
               <div class="col-sm-10">
-                <input type="number" class="form-control form-control-sm" id="u1" v-model.number="u1">
+                <input type="number" class="form-control form-control-sm" id="ux" v-model.number="ux">
               </div>
             </div>
             <div class="form-group row">
-              <label for="u2" class="col-sm-2 col-form-label">u<sub>2</sub>:</label>
+              <label for="uy" class="col-sm-2 col-form-label">u<sub>y</sub>:</label>
               <div class="col-sm-10">
-                <input type="number" class="form-control form-control-sm" id="u2" v-model.number="u2">
+                <input type="number" class="form-control form-control-sm" id="uy" v-model.number="uy">
               </div>
             </div>
             <div class="form-group row">
-              <label for="v1" class="col-sm-2 col-form-label">v<sub>1</sub>:</label>
+              <label for="vx" class="col-sm-2 col-form-label">v<sub>x</sub>:</label>
               <div class="col-sm-10">
-                <input type="number" class="form-control form-control-sm" id="v1" v-model.number="v1">
+                <input type="number" class="form-control form-control-sm" id="vx" v-model.number="vx">
               </div>
             </div>
             <div class="form-group row">
-              <label for="v2" class="col-sm-2 col-form-label">v<sub>2</sub>:</label>
+              <label for="vy" class="col-sm-2 col-form-label">v<sub>y</sub>:</label>
               <div class="col-sm-10">
-                <input type="number" class="form-control form-control-sm" id="v2" v-model.number="v2">
+                <input type="number" class="form-control form-control-sm" id="vy" v-model.number="vy">
               </div>
             </div>
+            <action-button icon="video-camera" caption="Project" color="success" @click="perspectiveProjection"></action-button>
           </div>
-          -->
         </div>
       </div>
     </div>
@@ -146,6 +139,7 @@
   import 'vue-awesome/icons/arrow-left'
   import 'vue-awesome/icons/rotate-left'
   import 'vue-awesome/icons/rotate-right'
+  import 'vue-awesome/icons/video-camera'
 
   import ActionButton from './ActionButton'
   import GeometryCanvas from './GeometryCanvas'
@@ -159,11 +153,10 @@
       a: 5,
       b: 3,
       c: 300,
-      u1: 0,
-      u2: 0,
-      v1: 0,
-      v2: 0,
-      perspectiveProjection: false
+      ux: 0,
+      uy: 0,
+      vx: 0,
+      vy: 0
     }
   }
 
@@ -191,6 +184,9 @@
       },
       mirror () {
         this.$store.dispatch('mirror', { a: this.a, b: this.b, c: this.c })
+      },
+      perspectiveProjection () {
+        this.$store.dispatch('perspectiveProjection', { ux: this.ux, uy: this.uy, vx: this.vx, vy: this.vy })
       },
       resetEverything () {
         Object.assign(this, initialData())
