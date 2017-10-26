@@ -196,49 +196,53 @@
       },
       perspectiveProjection () {
         let translation = translationMatrix(-this.ux, -this.uy)
-        this.vx -= this.ux
-        this.vy -= this.uy
-        this.ux = 0
-        this.uy = 0
+        let vx = this.vx - this.ux
+        let vy = this.vy - this.uy
 
-        let length = Math.sqrt(this.vx * this.vx + this.vy * this.vy)
-        let angle = Math.acos(this.vx / length) * (180 / Math.PI)
+        let length = Math.sqrt(vx * vx + vy * vy)
+        let angle = Math.acos(vx / length) * (180 / Math.PI)
 
         let rotation = rotationMatrix(-angle)
-        let v = applyMatrixToVector(rotation, { x: this.vx, y: this.vy })
-        this.vx = Math.round(v.x)
-        this.vy = 0
+        let v = applyMatrixToVector(rotation, { x: vx, y: vy })
+        vx = Math.round(v.x)
+        vy = 0
 
         let matrix = matricesMultiplication3x3(rotation, translation)
-        this.$store.commit('applyMatrix', { matrix })
+
+        let coordinates = {
+          a: { ...applyMatrixToVector(matrix, this.coordinates.a) },
+          b: { ...applyMatrixToVector(matrix, this.coordinates.b) },
+          c: { ...applyMatrixToVector(matrix, this.coordinates.c) },
+          d: { ...applyMatrixToVector(matrix, this.coordinates.d) }
+        }
 
         const COLOR_TRANSPARENT = 0
         const COLOR_RED = 1
         const COLOR_BLACK = 2
 
         let zBuffer = []
-        for (let x = 0; x < this.vx; x++) {
+        for (let x = 0; x < vx; x++) {
           zBuffer.push({ color: COLOR_TRANSPARENT, distance: 10000 })
         }
 
         // A => B
-        fillZBuffer(zBuffer, COLOR_BLACK, this.coordinates.a.x, this.coordinates.a.y,
-          this.coordinates.b.x, this.coordinates.b.y)
+        fillZBuffer(zBuffer, COLOR_BLACK, coordinates.a.x, coordinates.a.y,
+          coordinates.b.x, coordinates.b.y)
         // B => middle of B/C
-        fillZBuffer(zBuffer, COLOR_BLACK, this.coordinates.b.x, this.coordinates.b.y,
-          (this.coordinates.b.x + this.coordinates.c.x) / 2, (this.coordinates.b.y + this.coordinates.c.y) / 2)
+        fillZBuffer(zBuffer, COLOR_BLACK, coordinates.b.x, coordinates.b.y,
+          (coordinates.b.x + coordinates.c.x) / 2, (coordinates.b.y + coordinates.c.y) / 2)
         // middle of B/C => C
-        fillZBuffer(zBuffer, COLOR_RED, (this.coordinates.b.x + this.coordinates.c.x) / 2,
-          (this.coordinates.b.y + this.coordinates.c.y) / 2, this.coordinates.c.x, this.coordinates.c.y)
+        fillZBuffer(zBuffer, COLOR_RED, (coordinates.b.x + coordinates.c.x) / 2,
+          (coordinates.b.y + coordinates.c.y) / 2, coordinates.c.x, coordinates.c.y)
         // C => middle of C/D
-        fillZBuffer(zBuffer, COLOR_RED, this.coordinates.c.x, this.coordinates.c.y,
-          (this.coordinates.c.x + this.coordinates.d.x) / 2, (this.coordinates.c.y + this.coordinates.d.y) / 2)
+        fillZBuffer(zBuffer, COLOR_RED, coordinates.c.x, coordinates.c.y,
+          (coordinates.c.x + coordinates.d.x) / 2, (coordinates.c.y + coordinates.d.y) / 2)
         // middle of C/D => D
-        fillZBuffer(zBuffer, COLOR_BLACK, (this.coordinates.c.x + this.coordinates.c.x) / 2,
-          (this.coordinates.c.y + this.coordinates.d.y) / 2, this.coordinates.c.x, this.coordinates.d.y)
+        fillZBuffer(zBuffer, COLOR_BLACK, (coordinates.c.x + coordinates.c.x) / 2,
+          (coordinates.c.y + coordinates.d.y) / 2, coordinates.c.x, coordinates.d.y)
         // D => A
-        fillZBuffer(zBuffer, COLOR_BLACK, this.coordinates.d.x, this.coordinates.d.y,
-          this.coordinates.a.x, this.coordinates.a.y)
+        fillZBuffer(zBuffer, COLOR_BLACK, coordinates.d.x, coordinates.d.y,
+          coordinates.a.x, coordinates.a.y)
 
         this.zBuffer = zBuffer
       },

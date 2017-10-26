@@ -178,6 +178,7 @@
       uy () { this.draw() },
       vx () { this.draw() },
       vy () { this.draw() },
+      zBuffer () { this.draw() },
       coordinates: {
         handler () { this.draw() },
         deep: true
