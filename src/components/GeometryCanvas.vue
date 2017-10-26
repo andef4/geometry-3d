@@ -142,10 +142,10 @@
         for (let i = 0; i < this.zBuffer.length; i++) {
           if (this.zBuffer[i].color === 1) {
             ctx.fillStyle = 'red'
-            ctx.fillRect(this.mathToDisplayX(this.zBuffer[i].x), this.mathToDisplayY(this.zBuffer[i].y), 1, 1)
+            ctx.fillRect(this.mathToDisplayX(this.zBuffer[i].x) - 1, this.mathToDisplayY(this.zBuffer[i].y) - 1, 2, 2)
           } else if (this.zBuffer[i].color === 2) {
             ctx.fillStyle = 'black'
-            ctx.fillRect(this.mathToDisplayX(this.zBuffer[i].x), this.mathToDisplayY(this.zBuffer[i].y), 1, 1)
+            ctx.fillRect(this.mathToDisplayX(this.zBuffer[i].x) - 1, this.mathToDisplayY(this.zBuffer[i].y) - 1, 2, 2)
           }
         }
       }
