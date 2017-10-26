@@ -11,6 +11,7 @@
         :uy="uy === '' ? 0 : uy"
         :vx="vx === '' ? 0 : vx"
         :vy="vy === '' ? 0 : vy"
+        :zBuffer="zBuffer"
       ></geometry-canvas>
     </div>
     <div class="col-4">
@@ -160,7 +161,8 @@
       ux: 210,
       uy: -160,
       vx: 380,
-      vy: -75
+      vy: -75,
+      zBuffer: []
     }
   }
 
@@ -238,7 +240,7 @@
         fillZBuffer(zBuffer, COLOR_BLACK, this.coordinates.d.x, this.coordinates.d.y,
           this.coordinates.a.x, this.coordinates.a.y)
 
-        console.log(zBuffer)
+        this.zBuffer = zBuffer
       },
       resetEverything () {
         Object.assign(this, initialData())

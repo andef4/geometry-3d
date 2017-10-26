@@ -15,7 +15,8 @@
       ux: Number,
       uy: Number,
       vx: Number,
-      vy: Number
+      vy: Number,
+      zBuffer: Array
     },
     data () {
       return {
@@ -136,12 +137,22 @@
         /**************************
          * perspective projection *
          **************************/
-        ctx.lineWidth = 3 * this.pixelRation
+        ctx.lineWidth = 1
         ctx.strokeStyle = '#218838'
         ctx.beginPath()
         ctx.moveTo(this.mathToDisplayX(this.ux), this.mathToDisplayY(this.uy))
         ctx.lineTo(this.mathToDisplayX(this.vx), this.mathToDisplayY(this.vy))
         ctx.stroke()
+
+        for (let i = 0; i < this.zBuffer.length; i++) {
+          if (this.zBuffer[i].color === 1) {
+            ctx.fillStyle = 'black'
+            ctx.fillRect(this.mathToDisplayX(i), this.mathToDisplayX(5), 1, 1)
+          } else if (this.zBuffer[i].color === 2) {
+            ctx.fillStyle = 'red'
+            ctx.fillRect(this.mathToDisplayX(i), this.mathToDisplayX(5), 1, 1)
+          }
+        }
       }
     },
     computed: {
