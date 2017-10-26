@@ -144,7 +144,7 @@
   import ActionButton from './ActionButton'
   import GeometryCanvas from './GeometryCanvas'
 
-  import { mapActions, mapMutations } from 'vuex'
+  import { mapActions, mapMutations, mapState } from 'vuex'
 
   import {
     translationMatrix, rotationMatrix, applyMatrixToVector, matricesMultiplication3x3
@@ -171,6 +171,9 @@
     components: {
       ActionButton,
       GeometryCanvas
+    },
+    computed: {
+      ...mapState(['coordinates'])
     },
     methods: {
       ...mapActions([
@@ -206,10 +209,56 @@
 
         let matrix = matricesMultiplication3x3(rotation, translation)
         this.$store.commit('applyMatrix', { matrix })
+
+        const COLOR_TRANSPARENT = 0
+        const COLOR_RED = 1
+        const COLOR_BLACK = 2
+
+        let zBuffer = []
+        for (let x = 0; x < this.vx; x++) {
+          zBuffer.push({ color: COLOR_TRANSPARENT, distance: 10000 })
+        }
+
+        // A => B
+        fillZBuffer(zBuffer, COLOR_BLACK, this.coordinates.a.x, this.coordinates.a.y,
+          this.coordinates.b.x, this.coordinates.b.y)
+        // B => middle of B/C
+        fillZBuffer(zBuffer, COLOR_BLACK, this.coordinates.b.x, this.coordinates.b.y,
+          (this.coordinates.b.x + this.coordinates.c.x) / 2, (this.coordinates.b.y + this.coordinates.c.y) / 2)
+        // middle of B/C => C
+        fillZBuffer(zBuffer, COLOR_RED, (this.coordinates.b.x + this.coordinates.c.x) / 2,
+          (this.coordinates.b.y + this.coordinates.c.y) / 2, this.coordinates.c.x, this.coordinates.c.y)
+        // C => middle of C/D
+        fillZBuffer(zBuffer, COLOR_RED, this.coordinates.c.x, this.coordinates.c.y,
+          (this.coordinates.c.x + this.coordinates.d.x) / 2, (this.coordinates.c.y + this.coordinates.d.y) / 2)
+        // middle of C/D => D
+        fillZBuffer(zBuffer, COLOR_BLACK, (this.coordinates.c.x + this.coordinates.c.x) / 2,
+          (this.coordinates.c.y + this.coordinates.d.y) / 2, this.coordinates.c.x, this.coordinates.d.y)
+        // D => A
+        fillZBuffer(zBuffer, COLOR_BLACK, this.coordinates.d.x, this.coordinates.d.y,
+          this.coordinates.a.x, this.coordinates.a.y)
+
+        console.log(zBuffer)
       },
       resetEverything () {
         Object.assign(this, initialData())
         this.reset()
+      }
+    }
+  }
+
+  const fillZBuffer = (zbuffer, color, xStart, yStart, xEnd, yEnd) => {
+    xStart = Math.round(xStart)
+    xEnd = Math.round(xEnd)
+    yStart = Math.round(yStart)
+    yEnd = Math.round(yEnd)
+    let xStep = xStart < xEnd ? 1 : -1
+    let yStep = (yStart - yEnd) / Math.abs(xStart - xEnd)
+    let yValue = yStart
+    for (let x = xStart; x < xEnd; x += xStep, yValue -= yStep) {
+      if (zbuffer[x].distance > yValue) {
+        zbuffer[x].distance = yValue
+        zbuffer[x].color = color
       }
     }
   }
