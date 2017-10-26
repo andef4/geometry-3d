@@ -146,7 +146,9 @@
 
   import { mapActions, mapMutations } from 'vuex'
 
-  import { translationMatrix, rotationMatrix, applyMatrixToVector } from '@/store/homogeneous/math'
+  import {
+    translationMatrix, rotationMatrix, applyMatrixToVector, matricesMultiplication3x3
+  } from '@/store/homogeneous/math'
 
   const initialData = () => {
     return {
@@ -188,8 +190,7 @@
         this.$store.dispatch('mirror', { a: this.a, b: this.b, c: this.c })
       },
       perspectiveProjection () {
-        let tm = translationMatrix(this.ux, this.uy)
-        console.log(tm)
+        let translation = translationMatrix(-this.ux, -this.uy)
         this.vx -= this.ux
         this.vy -= this.uy
         this.ux = 0
@@ -198,10 +199,13 @@
         let length = Math.sqrt(this.vx * this.vx + this.vy * this.vy)
         let angle = Math.acos(this.vx / length) * (180 / Math.PI)
 
-        let rm = rotationMatrix(-angle)
-        let v = applyMatrixToVector(rm, { x: this.vx, y: this.vy })
+        let rotation = rotationMatrix(-angle)
+        let v = applyMatrixToVector(rotation, { x: this.vx, y: this.vy })
         this.vx = Math.round(v.x)
         this.vy = 0
+
+        let matrix = matricesMultiplication3x3(rotation, translation)
+        this.$store.commit('applyMatrix', { matrix })
       },
       resetEverything () {
         Object.assign(this, initialData())
