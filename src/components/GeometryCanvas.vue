@@ -12,10 +12,10 @@
       a: Number,
       b: Number,
       c: Number,
-      u1: Number,
-      u2: Number,
-      v1: Number,
-      v2: Number
+      ux: Number,
+      uy: Number,
+      vx: Number,
+      vy: Number
     },
     data () {
       return {
@@ -132,6 +132,16 @@
         ctx.moveTo(this.mathToDisplayX(500), this.mathToDisplayY(a * 500 + b))
         ctx.lineTo(this.mathToDisplayX(-500), this.mathToDisplayY(a * -500 + b))
         ctx.stroke()
+
+        /**************************
+         * perspective projection *
+         **************************/
+        ctx.lineWidth = 3 * this.pixelRation
+        ctx.strokeStyle = '#218838'
+        ctx.beginPath()
+        ctx.moveTo(this.mathToDisplayX(this.ux), this.mathToDisplayY(this.uy))
+        ctx.lineTo(this.mathToDisplayX(this.vx), this.mathToDisplayY(this.vy))
+        ctx.stroke()
       }
     },
     computed: {
@@ -153,10 +163,10 @@
       a () { this.draw() },
       b () { this.draw() },
       c () { this.draw() },
-      u1 () { this.draw() },
-      u2 () { this.draw() },
-      v1 () { this.draw() },
-      v2 () { this.draw() },
+      ux () { this.draw() },
+      uy () { this.draw() },
+      vx () { this.draw() },
+      vy () { this.draw() },
       coordinates: {
         handler () { this.draw() },
         deep: true

@@ -3,14 +3,14 @@
     <div class="col">
       <geometry-canvas
         :m1="m1 === '' ? 0 : m1"
-        :m2="m2  === '' ? 0 : m2"
-        :a="a  === '' ? 0 : a"
-        :b="b  === '' ? 0 : b"
-        :c="c  === '' ? 0 : c"
-        :ux="ux  === '' ? 0 : ux"
-        :uy="uy  === '' ? 0 : uy"
-        :vx="vx  === '' ? 0 : vx"
-        :vy="vy  === '' ? 0 : vy"
+        :m2="m2 === '' ? 0 : m2"
+        :a="a === '' ? 0 : a"
+        :b="b === '' ? 0 : b"
+        :c="c === '' ? 0 : c"
+        :ux="ux === '' ? 0 : ux"
+        :uy="uy === '' ? 0 : uy"
+        :vx="vx === '' ? 0 : vx"
+        :vy="vy === '' ? 0 : vy"
       ></geometry-canvas>
     </div>
     <div class="col-4">
@@ -103,25 +103,25 @@
             <div class="form-group row">
               <label for="ux" class="col-sm-2 col-form-label">u<sub>x</sub>:</label>
               <div class="col-sm-10">
-                <input type="number" class="form-control form-control-sm" id="ux" v-model.number="ux">
+                <input type="number" step="5" class="form-control form-control-sm" id="ux" v-model.number="ux">
               </div>
             </div>
             <div class="form-group row">
               <label for="uy" class="col-sm-2 col-form-label">u<sub>y</sub>:</label>
               <div class="col-sm-10">
-                <input type="number" class="form-control form-control-sm" id="uy" v-model.number="uy">
+                <input type="number" step="5" class="form-control form-control-sm" id="uy" v-model.number="uy">
               </div>
             </div>
             <div class="form-group row">
               <label for="vx" class="col-sm-2 col-form-label">v<sub>x</sub>:</label>
               <div class="col-sm-10">
-                <input type="number" class="form-control form-control-sm" id="vx" v-model.number="vx">
+                <input type="number" step="5" class="form-control form-control-sm" id="vx" v-model.number="vx">
               </div>
             </div>
             <div class="form-group row">
               <label for="vy" class="col-sm-2 col-form-label">v<sub>y</sub>:</label>
               <div class="col-sm-10">
-                <input type="number" class="form-control form-control-sm" id="vy" v-model.number="vy">
+                <input type="number" step="5" class="form-control form-control-sm" id="vy" v-model.number="vy">
               </div>
             </div>
             <action-button icon="video-camera" caption="Project" color="success" @click="perspectiveProjection"></action-button>
@@ -153,10 +153,10 @@
       a: 5,
       b: 3,
       c: 300,
-      ux: 0,
-      uy: 0,
-      vx: 0,
-      vy: 0
+      ux: 210,
+      uy: -160,
+      vx: 380,
+      vy: -75
     }
   }
 
