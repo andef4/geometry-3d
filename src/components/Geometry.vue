@@ -43,13 +43,13 @@
             <action-button icon="rotate-left" caption="Counterclockwise" color="warning" @click="rotatePointCounterClockwise"></action-button>
 
             <div class="form-group row">
-              <label for="m1" class="col-sm-2 col-form-label">m<sub>1</sub>:</label>
+              <label for="m1" class="col-sm-2 col-form-label">m<sub>x</sub>:</label>
               <div class="col-sm-10">
                 <input type="number" class="form-control form-control-sm" id="m1" v-model.number="m1">
               </div>
             </div>
             <div class="form-group row">
-              <label for="m2" class="col-sm-2 col-form-label">m<sub>2</sub>:</label>
+              <label for="m2" class="col-sm-2 col-form-label">m<sub>y</sub>:</label>
               <div class="col-sm-10">
                 <input type="number" class="form-control form-control-sm" id="m2" v-model.number="m2">
               </div>
