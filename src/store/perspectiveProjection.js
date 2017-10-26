@@ -54,7 +54,7 @@ export default function (state) {
   return zBuffer
 }
 
-const fillZBuffer = (zbuffer, color, xStart, yStart, xEnd, yEnd) => {
+const fillZBuffer = (zBuffer, color, xStart, yStart, xEnd, yEnd) => {
   xStart = Math.round(xStart)
   xEnd = Math.round(xEnd)
   yStart = Math.round(yStart)
@@ -72,10 +72,18 @@ const fillZBuffer = (zbuffer, color, xStart, yStart, xEnd, yEnd) => {
   let yStep = (yStart - yEnd) / Math.abs(xStart - xEnd)
   let yValue = yStart
 
+  if (xStart < 0) {
+    yValue += yStep * -xStart
+    xStart = 0
+  }
+  if (xEnd >= zBuffer.length) {
+    xEnd = zBuffer.length - 1
+  }
+
   for (let x = xStart; x < xEnd; x++, yValue -= yStep) {
-    if (zbuffer[x].distance > yValue) {
-      zbuffer[x].distance = yValue
-      zbuffer[x].color = color
+    if (zBuffer[x].distance > yValue) {
+      zBuffer[x].distance = yValue
+      zBuffer[x].color = color
     }
   }
 }
