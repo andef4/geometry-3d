@@ -7,11 +7,6 @@
         :a="a === '' ? 0 : a"
         :b="b === '' ? 0 : b"
         :c="c === '' ? 0 : c"
-        :ux="ux === '' ? 0 : ux"
-        :uy="uy === '' ? 0 : uy"
-        :vx="vx === '' ? 0 : vx"
-        :vy="vy === '' ? 0 : vy"
-        :zBuffer="zBuffer"
       ></geometry-canvas>
     </div>
     <div class="col-4">
@@ -104,28 +99,27 @@
             <div class="form-group row">
               <label for="ux" class="col-sm-2 col-form-label">u<sub>x</sub>:</label>
               <div class="col-sm-10">
-                <input type="number" step="5" class="form-control form-control-sm" id="ux" v-model.number="ux">
+                <input type="number" step="5" class="form-control form-control-sm" id="ux" :value="uv.ux" @input="updateUV">
               </div>
             </div>
             <div class="form-group row">
               <label for="uy" class="col-sm-2 col-form-label">u<sub>y</sub>:</label>
               <div class="col-sm-10">
-                <input type="number" step="5" class="form-control form-control-sm" id="uy" v-model.number="uy">
+                <input type="number" step="5" class="form-control form-control-sm" id="uy" :value="uv.uy" @input="updateUV">
               </div>
             </div>
             <div class="form-group row">
               <label for="vx" class="col-sm-2 col-form-label">v<sub>x</sub>:</label>
               <div class="col-sm-10">
-                <input type="number" step="5" class="form-control form-control-sm" id="vx" v-model.number="vx">
+                <input type="number" step="5" class="form-control form-control-sm" id="vx" :value="uv.vx" @input="updateUV">
               </div>
             </div>
             <div class="form-group row">
               <label for="vy" class="col-sm-2 col-form-label">v<sub>y</sub>:</label>
               <div class="col-sm-10">
-                <input type="number" step="5" class="form-control form-control-sm" id="vy" v-model.number="vy">
+                <input type="number" step="5" class="form-control form-control-sm" id="vy" :value="uv.vy" @input="updateUV">
               </div>
             </div>
-            <action-button icon="video-camera" caption="Project" color="success" @click="perspectiveProjection"></action-button>
           </div>
         </div>
       </div>
@@ -147,22 +141,13 @@
 
   import { mapActions, mapMutations, mapState } from 'vuex'
 
-  import {
-    translationMatrix, rotationMatrix, applyMatrixToVector, matricesMultiplication3x3
-  } from '@/store/homogeneous/math'
-
   const initialData = () => {
     return {
       m1: 200,
       m2: 80,
       a: 5,
       b: 3,
-      c: 300,
-      ux: 210,
-      uy: -160,
-      vx: 380,
-      vy: -75,
-      zBuffer: []
+      c: 300
     }
   }
 
@@ -175,7 +160,7 @@
       GeometryCanvas
     },
     computed: {
-      ...mapState(['coordinates'])
+      ...mapState(['coordinates', 'uv'])
     },
     methods: {
       ...mapActions([
@@ -194,88 +179,14 @@
       mirror () {
         this.$store.dispatch('mirror', { a: this.a, b: this.b, c: this.c })
       },
-      perspectiveProjection () {
-        let translation = translationMatrix(-this.ux, -this.uy)
-        let vx = this.vx - this.ux
-        let vy = this.vy - this.uy
-
-        let length = Math.sqrt(vx * vx + vy * vy)
-        let angle = Math.acos(vx / length) * (180 / Math.PI)
-
-        let rotation = rotationMatrix(-angle)
-        let v = applyMatrixToVector(rotation, { x: vx, y: vy })
-        vx = Math.round(v.x)
-        vy = 0
-
-        let matrix = matricesMultiplication3x3(rotation, translation)
-
-        let coordinates = {
-          a: { ...applyMatrixToVector(matrix, this.coordinates.a) },
-          b: { ...applyMatrixToVector(matrix, this.coordinates.b) },
-          c: { ...applyMatrixToVector(matrix, this.coordinates.c) },
-          d: { ...applyMatrixToVector(matrix, this.coordinates.d) }
-        }
-
-        const COLOR_TRANSPARENT = 0
-        const COLOR_RED = 1
-        const COLOR_BLACK = 2
-
-        let zBuffer = []
-        for (let x = 0; x < vx; x++) {
-          zBuffer.push({ color: COLOR_TRANSPARENT, distance: 10000 })
-        }
-
-        // A => B
-        fillZBuffer(zBuffer, COLOR_BLACK, coordinates.a.x, coordinates.a.y,
-          coordinates.b.x, coordinates.b.y)
-        // B => middle of B/C
-        fillZBuffer(zBuffer, COLOR_BLACK, coordinates.b.x, coordinates.b.y,
-          (coordinates.b.x + coordinates.c.x) / 2, (coordinates.b.y + coordinates.c.y) / 2)
-        // middle of B/C => C
-        fillZBuffer(zBuffer, COLOR_RED, (coordinates.b.x + coordinates.c.x) / 2,
-          (coordinates.b.y + coordinates.c.y) / 2, coordinates.c.x, coordinates.c.y)
-        // C => middle of C/D
-        fillZBuffer(zBuffer, COLOR_RED, coordinates.c.x, coordinates.c.y,
-          (coordinates.c.x + coordinates.d.x) / 2, (coordinates.c.y + coordinates.d.y) / 2)
-        // middle of C/D => D
-        fillZBuffer(zBuffer, COLOR_BLACK, (coordinates.c.x + coordinates.c.x) / 2,
-          (coordinates.c.y + coordinates.d.y) / 2, coordinates.c.x, coordinates.d.y)
-        // D => A
-        fillZBuffer(zBuffer, COLOR_BLACK, coordinates.d.x, coordinates.d.y,
-          coordinates.a.x, coordinates.a.y)
-
-        this.zBuffer = zBuffer
-      },
       resetEverything () {
         Object.assign(this, initialData())
         this.reset()
+      },
+      updateUV (e) {
+        this.$store.commit('updateUV', {[e.target.id]: parseInt(e.target.value)})
       }
     }
   }
 
-  const fillZBuffer = (zbuffer, color, xStart, yStart, xEnd, yEnd) => {
-    xStart = Math.round(xStart)
-    xEnd = Math.round(xEnd)
-    yStart = Math.round(yStart)
-    yEnd = Math.round(yEnd)
-
-    if (xStart > xEnd) {
-      let tmpX = xStart
-      let tmpY = yStart
-      xStart = xEnd
-      yStart = yEnd
-      xEnd = tmpX
-      yEnd = tmpY
-    }
-
-    let yStep = (yStart - yEnd) / Math.abs(xStart - xEnd)
-    let yValue = yStart
-
-    for (let x = xStart; x < xEnd; x++, yValue -= yStep) {
-      if (zbuffer[x].distance > yValue) {
-        zbuffer[x].distance = yValue
-        zbuffer[x].color = color
-      }
-    }
-  }
 </script>

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
+  import { mapState, mapGetters } from 'vuex'
 
   export default {
     props: {
@@ -11,12 +11,7 @@
       m2: Number,
       a: Number,
       b: Number,
-      c: Number,
-      ux: Number,
-      uy: Number,
-      vx: Number,
-      vy: Number,
-      zBuffer: Array
+      c: Number
     },
     data () {
       return {
@@ -140,8 +135,8 @@
         ctx.lineWidth = 1
         ctx.strokeStyle = '#218838'
         ctx.beginPath()
-        ctx.moveTo(this.mathToDisplayX(this.ux), this.mathToDisplayY(this.uy))
-        ctx.lineTo(this.mathToDisplayX(this.vx), this.mathToDisplayY(this.vy))
+        ctx.moveTo(this.mathToDisplayX(this.uv.ux), this.mathToDisplayY(this.uv.uy))
+        ctx.lineTo(this.mathToDisplayX(this.uv.vx), this.mathToDisplayY(this.uv.vy))
         ctx.stroke()
 
         for (let i = 0; i < this.zBuffer.length; i++) {
@@ -157,8 +152,10 @@
     },
     computed: {
       ...mapState({
-        originalCoordinates: 'coordinates'
+        originalCoordinates: 'coordinates',
+        uv: 'uv'
       }),
+      ...mapGetters(['zBuffer']),
       coordinates () {
         return {
           a: { x: this.mathToDisplayX(this.originalCoordinates.a.x), y: this.mathToDisplayY(this.originalCoordinates.a.y) },
@@ -174,10 +171,7 @@
       a () { this.draw() },
       b () { this.draw() },
       c () { this.draw() },
-      ux () { this.draw() },
-      uy () { this.draw() },
-      vx () { this.draw() },
-      vy () { this.draw() },
+      uv () { this.draw() },
       zBuffer () { this.draw() },
       coordinates: {
         handler () { this.draw() },
