@@ -92,9 +92,6 @@ export let actions = {
     let matrix = matricesMultiplication3x3(translation2, mirror, translation1)
     commit('applyMatrix', {matrix})
   },
-  perspectiveProjection ({ commit }, { ux, uy, vx, vy }) {
-    console.log('perspectiveProjection', ux, uy, vx, vy)
-  },
 
   applyMatrixCenter ({ commit, getters }, { matrix }) {
     let center = getters.center
