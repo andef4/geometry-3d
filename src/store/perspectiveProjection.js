@@ -4,6 +4,7 @@ import {
 
 export default function (state) {
   let translation = translationMatrix(-state.uv.ux, -state.uv.uy)
+  let translationInverse = translationMatrix(state.uv.ux, state.uv.uy)
   let vx = state.uv.vx - state.uv.ux
   let vy = state.uv.vy - state.uv.uy
 
@@ -11,10 +12,12 @@ export default function (state) {
   let angle = Math.acos(vx / length) * (180 / Math.PI)
 
   let rotation = rotationMatrix(-angle)
+  let rotationInverse = rotationMatrix(angle)
   let v = applyMatrixToVector(rotation, {x: vx, y: vy})
   vx = Math.round(v.x)
 
   let matrix = matricesMultiplication3x3(rotation, translation)
+  let matrixInverse = matricesMultiplication3x3(translationInverse, rotationInverse)
 
   let coordinates = {
     a: {...applyMatrixToVector(matrix, state.coordinates.a)},
@@ -51,7 +54,14 @@ export default function (state) {
   fillZBuffer(zBuffer, COLOR_BLACK, coordinates.d.x, coordinates.d.y,
     coordinates.a.x, coordinates.a.y)
 
-  return zBuffer
+  let zBufferCoordinates = []
+  for (let x = 0; x < zBuffer.length; x++) {
+    zBufferCoordinates.push({
+      ...applyMatrixToVector(matrixInverse, { x, y: 0 }),
+      color: zBuffer[x].color
+    })
+  }
+  return zBufferCoordinates
 }
 
 const fillZBuffer = (zBuffer, color, xStart, yStart, xEnd, yEnd) => {
