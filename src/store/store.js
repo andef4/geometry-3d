@@ -49,7 +49,7 @@ export default new Vuex.Store({
         y: (state.coordinates.a.y + state.coordinates.c.y) / 2
       }
     },
-    zBuffer: camera
+    camera
   },
   actions: actions,
   mutations: {

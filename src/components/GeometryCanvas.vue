@@ -139,13 +139,13 @@
         ctx.lineTo(this.mathToDisplayX(this.uv.vx), this.mathToDisplayY(this.uv.vy))
         ctx.stroke()
 
-        for (let i = 0; i < this.zBuffer.length; i++) {
-          if (this.zBuffer[i].color === 1) {
+        for (let i = 0; i < this.camera.length; i++) {
+          if (this.camera[i].color === 1) {
             ctx.fillStyle = 'red'
-            ctx.fillRect(this.mathToDisplayX(this.zBuffer[i].x) - 1, this.mathToDisplayY(this.zBuffer[i].y) - 1, 2, 2)
-          } else if (this.zBuffer[i].color === 2) {
+            ctx.fillRect(this.mathToDisplayX(this.camera[i].x) - 1, this.mathToDisplayY(this.camera[i].y) - 1, 2, 2)
+          } else if (this.camera[i].color === 2) {
             ctx.fillStyle = 'black'
-            ctx.fillRect(this.mathToDisplayX(this.zBuffer[i].x) - 1, this.mathToDisplayY(this.zBuffer[i].y) - 1, 2, 2)
+            ctx.fillRect(this.mathToDisplayX(this.camera[i].x) - 1, this.mathToDisplayY(this.camera[i].y) - 1, 2, 2)
           }
         }
       }
@@ -155,7 +155,7 @@
         originalCoordinates: 'coordinates',
         uv: 'uv'
       }),
-      ...mapGetters(['zBuffer']),
+      ...mapGetters(['camera']),
       coordinates () {
         return {
           a: { x: this.mathToDisplayX(this.originalCoordinates.a.x), y: this.mathToDisplayY(this.originalCoordinates.a.y) },
@@ -172,7 +172,7 @@
       b () { this.draw() },
       c () { this.draw() },
       uv () { this.draw() },
-      zBuffer () { this.draw() },
+      camera () { this.draw() },
       coordinates: {
         handler () { this.draw() },
         deep: true
