@@ -14,12 +14,13 @@ export default function (state) {
   let vx = state.uv.vx - state.uv.ux
   let vy = state.uv.vy - state.uv.uy
 
-  let length = Math.sqrt(vx * vx + vy * vy)
-  let angle = Math.acos(vx / length) * (180 / Math.PI)
+  let imageWidth = Math.sqrt(vx * vx + vy * vy)
+  let angle = Math.acos(vx / imageWidth) * (180 / Math.PI)
+  imageWidth = Math.round(imageWidth)
 
   let translation1 = translationMatrix(-state.uv.ux, -state.uv.uy)
   let translationInverse = translationMatrix(state.uv.ux, state.uv.uy)
-  let translation2 = translationMatrix(-length / 2, focalLength)
+  let translation2 = translationMatrix(-imageWidth / 2, focalLength)
 
   let rotation = rotationMatrix(-angle)
   let rotationInverse = rotationMatrix(angle)
@@ -39,29 +40,29 @@ export default function (state) {
   const COLOR_BLACK = 2
 
   let zBuffer = []
-  for (let x = 0; x < Math.round(length); x++) {
+  for (let x = 0; x < imageWidth; x++) {
     zBuffer.push({color: COLOR_TRANSPARENT, distance: 10000})
   }
 
   let projection = projectionMatrix(focalLength)
 
   // A => B
-  fillZBuffer(zBuffer, projection, COLOR_BLACK, coordinates.a.x, coordinates.a.y,
+  fillZBuffer(zBuffer, projection, imageWidth, COLOR_BLACK, coordinates.a.x, coordinates.a.y,
     coordinates.b.x, coordinates.b.y)
   // B => middle of B/C
-  fillZBuffer(zBuffer, projection, COLOR_BLACK, coordinates.b.x, coordinates.b.y,
+  fillZBuffer(zBuffer, projection, imageWidth, COLOR_BLACK, coordinates.b.x, coordinates.b.y,
     (coordinates.b.x + coordinates.c.x) / 2, (coordinates.b.y + coordinates.c.y) / 2)
   // middle of B/C => C
-  fillZBuffer(zBuffer, projection, COLOR_RED, (coordinates.b.x + coordinates.c.x) / 2,
+  fillZBuffer(zBuffer, projection, imageWidth, COLOR_RED, (coordinates.b.x + coordinates.c.x) / 2,
     (coordinates.b.y + coordinates.c.y) / 2, coordinates.c.x, coordinates.c.y)
   // C => middle of C/D
-  fillZBuffer(zBuffer, projection, COLOR_RED, coordinates.c.x, coordinates.c.y,
+  fillZBuffer(zBuffer, projection, imageWidth, COLOR_RED, coordinates.c.x, coordinates.c.y,
     (coordinates.c.x + coordinates.d.x) / 2, (coordinates.c.y + coordinates.d.y) / 2)
   // middle of C/D => D
-  fillZBuffer(zBuffer, projection, COLOR_BLACK, (coordinates.c.x + coordinates.c.x) / 2,
+  fillZBuffer(zBuffer, projection, imageWidth, COLOR_BLACK, (coordinates.c.x + coordinates.c.x) / 2,
     (coordinates.c.y + coordinates.d.y) / 2, coordinates.c.x, coordinates.d.y)
   // D => A
-  fillZBuffer(zBuffer, projection, COLOR_BLACK, coordinates.d.x, coordinates.d.y,
+  fillZBuffer(zBuffer, projection, imageWidth, COLOR_BLACK, coordinates.d.x, coordinates.d.y,
     coordinates.a.x, coordinates.a.y)
 
   let zBufferCoordinates = []
@@ -74,7 +75,7 @@ export default function (state) {
   return zBufferCoordinates
 }
 
-const fillZBuffer = (zBuffer, projection, color, xStart, yStart, xEnd, yEnd) => {
+const fillZBuffer = (zBuffer, projection, imageWidth, color, xStart, yStart, xEnd, yEnd) => {
   xStart = Math.round(xStart)
   xEnd = Math.round(xEnd)
   yStart = Math.round(yStart)
@@ -90,10 +91,10 @@ const fillZBuffer = (zBuffer, projection, color, xStart, yStart, xEnd, yEnd) => 
   }
 
   xStart = applyMatrixToVector(projection, { x: xStart, y: yStart }).x
-  xStart = Math.round(xStart)
+  xStart = Math.round(xStart) + imageWidth / 2
 
   xEnd = applyMatrixToVector(projection, { x: xEnd, y: yEnd }).x
-  xEnd = Math.round(xEnd)
+  xEnd = Math.round(xEnd) + imageWidth / 2
 
   let yStep = (yStart - yEnd) / Math.abs(xStart - xEnd)
   let yValue = yStart
