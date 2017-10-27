@@ -11,20 +11,20 @@ const projectionMatrix = (yIntercept) => {
 }
 
 export default function (state) {
-  let translation = translationMatrix(-state.uv.ux, -state.uv.uy + focalLength)
-  let translationInverse = translationMatrix(state.uv.ux, state.uv.uy)
   let vx = state.uv.vx - state.uv.ux
   let vy = state.uv.vy - state.uv.uy
 
   let length = Math.sqrt(vx * vx + vy * vy)
   let angle = Math.acos(vx / length) * (180 / Math.PI)
 
+  let translation1 = translationMatrix(-state.uv.ux, -state.uv.uy)
+  let translationInverse = translationMatrix(state.uv.ux, state.uv.uy)
+  let translation2 = translationMatrix(-length / 2, focalLength)
+
   let rotation = rotationMatrix(-angle)
   let rotationInverse = rotationMatrix(angle)
-  let v = applyMatrixToVector(rotation, {x: vx, y: vy})
-  vx = Math.round(v.x)
 
-  let matrix = matricesMultiplication3x3(rotation, translation)
+  let matrix = matricesMultiplication3x3(translation2, rotation, translation1)
   let matrixInverse = matricesMultiplication3x3(translationInverse, rotationInverse)
 
   let coordinates = {
@@ -39,7 +39,7 @@ export default function (state) {
   const COLOR_BLACK = 2
 
   let zBuffer = []
-  for (let x = 0; x < vx; x++) {
+  for (let x = 0; x < Math.round(length); x++) {
     zBuffer.push({color: COLOR_TRANSPARENT, distance: 10000})
   }
 
