@@ -5,7 +5,7 @@ import { actions, mutations } from './homogeneous/store'
 // import { actions, mutations } from './complex/store'
 // import { actions, mutations } from './affine/store'
 
-import perspectiveProjection from './perspectiveProjection'
+import camera from './camera'
 
 Vue.use(Vuex)
 
@@ -49,7 +49,7 @@ export default new Vuex.Store({
         y: (state.coordinates.a.y + state.coordinates.c.y) / 2
       }
     },
-    zBuffer: perspectiveProjection
+    zBuffer: camera
   },
   actions: actions,
   mutations: {

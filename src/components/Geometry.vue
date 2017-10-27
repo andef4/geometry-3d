@@ -95,7 +95,7 @@
           </div>
 
           <div>
-            <div class="mb-1 pt-1 font-weight-bold">Perspective projection</div>
+            <div class="mb-1 pt-1 font-weight-bold">Camera</div>
             <div class="form-group row">
               <label for="ux" class="col-sm-2 col-form-label">u<sub>x</sub>:</label>
               <div class="col-sm-10">
