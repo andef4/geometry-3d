@@ -2,7 +2,7 @@ import {
   translationMatrix, rotationMatrix, applyMatrixToVector, matricesMultiplication3x3
 } from '@/store/homogeneous/math'
 
-const focalLength = 100
+const focalLength = 300
 
 const projectionMatrix = (yIntercept) => {
   return [[1, 0, 0],
@@ -89,6 +89,12 @@ const fillZBuffer = (zBuffer, projection, color, xStart, yStart, xEnd, yEnd) => 
     yEnd = tmpY
   }
 
+  xStart = applyMatrixToVector(projection, { x: xStart, y: yStart }).x
+  xStart = Math.round(xStart)
+
+  xEnd = applyMatrixToVector(projection, { x: xEnd, y: yEnd }).x
+  xEnd = Math.round(xEnd)
+
   let yStep = (yStart - yEnd) / Math.abs(xStart - xEnd)
   let yValue = yStart
 
@@ -101,12 +107,9 @@ const fillZBuffer = (zBuffer, projection, color, xStart, yStart, xEnd, yEnd) => 
   }
 
   for (let x = xStart; x < xEnd; x++, yValue -= yStep) {
-    let { x: projectedX } = applyMatrixToVector(projection, { x, y: yValue })
-    projectedX = Math.round(projectedX)
-
-    if (zBuffer[projectedX].distance > yValue) {
-      zBuffer[projectedX].distance = yValue
-      zBuffer[projectedX].color = color
+    if (zBuffer[x].distance > yValue) {
+      zBuffer[x].distance = yValue
+      zBuffer[x].color = color
     }
   }
 }
