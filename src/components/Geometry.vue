@@ -97,29 +97,19 @@
           <div>
             <div class="mb-1 pt-1 font-weight-bold">Camera</div>
             <div class="form-group row">
-              <label for="ux" class="col-sm-2 col-form-label">u<sub>x</sub>:</label>
+              <label for="y" class="col-sm-2 col-form-label">x:</label>
               <div class="col-sm-10">
-                <input type="number" step="5" class="form-control form-control-sm" id="ux" :value="uv.ux" @input="updateUV">
+                <input type="number" step="5" class="form-control form-control-sm" id="x" :value="camera.x" @input="updateCamera">
               </div>
             </div>
             <div class="form-group row">
-              <label for="uy" class="col-sm-2 col-form-label">u<sub>y</sub>:</label>
+              <label for="y" class="col-sm-2 col-form-label">y:</label>
               <div class="col-sm-10">
-                <input type="number" step="5" class="form-control form-control-sm" id="uy" :value="uv.uy" @input="updateUV">
+                <input type="number" step="5" class="form-control form-control-sm" id="y" :value="camera.y" @input="updateCamera">
               </div>
             </div>
-            <div class="form-group row">
-              <label for="vx" class="col-sm-2 col-form-label">v<sub>x</sub>:</label>
-              <div class="col-sm-10">
-                <input type="number" step="5" class="form-control form-control-sm" id="vx" :value="uv.vx" @input="updateUV">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="vy" class="col-sm-2 col-form-label">v<sub>y</sub>:</label>
-              <div class="col-sm-10">
-                <input type="number" step="5" class="form-control form-control-sm" id="vy" :value="uv.vy" @input="updateUV">
-              </div>
-            </div>
+              <label for="rotation">Rotation:</label>
+              <input type="number" step="5" class="form-control form-control-sm" id="rotation" :value="camera.rotation" @input="updateCamera">
           </div>
         </div>
       </div>
@@ -160,7 +150,7 @@
       GeometryCanvas
     },
     computed: {
-      ...mapState(['coordinates', 'uv'])
+      ...mapState(['coordinates', 'camera'])
     },
     methods: {
       ...mapActions([
@@ -183,8 +173,8 @@
         Object.assign(this, initialData())
         this.reset()
       },
-      updateUV (e) {
-        this.$store.commit('updateUV', {[e.target.id]: parseInt(e.target.value)})
+      updateCamera (e) {
+        this.$store.commit('updateCamera', {[e.target.id]: parseInt(e.target.value)})
       }
     }
   }

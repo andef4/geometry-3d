@@ -5,7 +5,7 @@ import { actions, mutations } from './homogeneous/store'
 // import { actions, mutations } from './complex/store'
 // import { actions, mutations } from './affine/store'
 
-import camera from './camera'
+import camera, { xyRotationToUV } from './camera'
 
 Vue.use(Vuex)
 
@@ -31,11 +31,10 @@ const initialState = () => {
         y: 150
       }
     },
-    uv: {
-      ux: 210,
-      uy: -160,
-      vx: 380,
-      vy: -75
+    camera: {
+      x: 270,
+      y: -240,
+      rotation: 20
     }
   }
 }
@@ -49,7 +48,8 @@ export default new Vuex.Store({
         y: (state.coordinates.a.y + state.coordinates.c.y) / 2
       }
     },
-    camera
+    cameraImage: camera,
+    uv: xyRotationToUV
   },
   actions: actions,
   mutations: {
@@ -57,8 +57,8 @@ export default new Vuex.Store({
     reset (state) {
       Object.assign(state, initialState())
     },
-    updateUV (state, uv) {
-      Object.assign(state.uv, uv)
+    updateCamera (state, camera) {
+      Object.assign(state.camera, camera)
     }
   },
   strict: debug

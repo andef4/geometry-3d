@@ -137,15 +137,17 @@
         ctx.beginPath()
         ctx.moveTo(this.mathToDisplayX(this.uv.ux), this.mathToDisplayY(this.uv.uy))
         ctx.lineTo(this.mathToDisplayX(this.uv.vx), this.mathToDisplayY(this.uv.vy))
+        ctx.lineTo(this.mathToDisplayX(this.camera.x), this.mathToDisplayY(this.camera.y))
+        ctx.lineTo(this.mathToDisplayX(this.uv.ux), this.mathToDisplayY(this.uv.uy))
         ctx.stroke()
 
-        for (let i = 0; i < this.camera.length; i++) {
-          if (this.camera[i].color === 1) {
+        for (let i = 0; i < this.cameraImage.length; i++) {
+          if (this.cameraImage[i].color === 1) {
             ctx.fillStyle = 'red'
-            ctx.fillRect(this.mathToDisplayX(this.camera[i].x) - 1, this.mathToDisplayY(this.camera[i].y) - 1, 2, 2)
-          } else if (this.camera[i].color === 2) {
+            ctx.fillRect(this.mathToDisplayX(this.cameraImage[i].x) - 1, this.mathToDisplayY(this.cameraImage[i].y) - 1, 2, 2)
+          } else if (this.cameraImage[i].color === 2) {
             ctx.fillStyle = 'black'
-            ctx.fillRect(this.mathToDisplayX(this.camera[i].x) - 1, this.mathToDisplayY(this.camera[i].y) - 1, 2, 2)
+            ctx.fillRect(this.mathToDisplayX(this.cameraImage[i].x) - 1, this.mathToDisplayY(this.cameraImage[i].y) - 1, 2, 2)
           }
         }
       }
@@ -153,9 +155,9 @@
     computed: {
       ...mapState({
         originalCoordinates: 'coordinates',
-        uv: 'uv'
+        camera: 'camera'
       }),
-      ...mapGetters(['camera']),
+      ...mapGetters(['cameraImage', 'uv']),
       coordinates () {
         return {
           a: { x: this.mathToDisplayX(this.originalCoordinates.a.x), y: this.mathToDisplayY(this.originalCoordinates.a.y) },

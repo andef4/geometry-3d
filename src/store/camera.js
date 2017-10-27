@@ -2,7 +2,7 @@ import {
   translationMatrix, rotationMatrix, applyMatrixToVector, matricesMultiplication3x3
 } from '@/store/homogeneous/math'
 
-const focalLength = 300
+const focalLength = 200
 
 const projectionMatrix = (yIntercept) => {
   return [[1, 0, 0],
@@ -10,16 +10,28 @@ const projectionMatrix = (yIntercept) => {
           [0, 1 / yIntercept, 0]]
 }
 
-export default function (state) {
-  let vx = state.uv.vx - state.uv.ux
-  let vy = state.uv.vy - state.uv.uy
+export function xyRotationToUV (state) {
+  let u = applyMatrixToVector(rotationMatrix(state.camera.rotation + 15), { x: 0, y: focalLength })
+  let v = applyMatrixToVector(rotationMatrix(state.camera.rotation - 15), { x: 0, y: focalLength })
+
+  return {
+    ux: u.x + state.camera.x,
+    uy: u.y + state.camera.y,
+    vx: v.x + state.camera.x,
+    vy: v.y + state.camera.y
+  }
+}
+
+export default function (state, getters) {
+  let vx = getters.uv.vx - getters.uv.ux
+  let vy = getters.uv.vy - getters.uv.uy
 
   let imageWidth = Math.sqrt(vx * vx + vy * vy)
   let angle = Math.acos(vx / imageWidth) * (180 / Math.PI)
   imageWidth = Math.round(imageWidth)
 
-  let translation1 = translationMatrix(-state.uv.ux, -state.uv.uy)
-  let translationInverse = translationMatrix(state.uv.ux, state.uv.uy)
+  let translation1 = translationMatrix(-getters.uv.ux, -getters.uv.uy)
+  let translationInverse = translationMatrix(getters.uv.ux, getters.uv.uy)
   let translation2 = translationMatrix(-imageWidth / 2, focalLength)
 
   let rotation = rotationMatrix(-angle)
