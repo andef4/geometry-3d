@@ -55,7 +55,7 @@ export default new Vuex.Store({
   mutations: {
     ...mutations,
     reset (state) {
-      state.coordinates = initialState()
+      Object.assign(state, initialState())
     },
     updateUV (state, uv) {
       Object.assign(state.uv, uv)
