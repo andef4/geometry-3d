@@ -29,7 +29,12 @@ export let actions = {
     dispatch('applyMatrixCenter', { matrix })
   },
   rotateOriginClockwise ({ commit }) {
-    let matrix = rotationMatrix(-15)
+    const projectionMatrix = (yIntercept) => {
+      return [[1, 0, 0],
+              [0, 1, 0],
+              [0, 1 / yIntercept, 0]]
+    }
+    let matrix = projectionMatrix(100)
     commit('applyMatrix', {matrix})
   },
   rotateOriginCounterClockwise ({ commit }) {
