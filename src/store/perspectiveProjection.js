@@ -91,10 +91,10 @@ const fillZBuffer = (zBuffer, projection, imageWidth, color, xStart, yStart, xEn
   }
 
   xStart = applyMatrixToVector(projection, { x: xStart, y: yStart }).x
-  xStart = Math.round(xStart) + imageWidth / 2
+  xStart = Math.round(xStart + imageWidth / 2)
 
   xEnd = applyMatrixToVector(projection, { x: xEnd, y: yEnd }).x
-  xEnd = Math.round(xEnd) + imageWidth / 2
+  xEnd = Math.round(xEnd + imageWidth / 2)
 
   let yStep = (yStart - yEnd) / Math.abs(xStart - xEnd)
   let yValue = yStart
