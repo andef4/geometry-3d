@@ -28,6 +28,9 @@ export default function (state, getters) {
 
   let imageWidth = Math.sqrt(vx * vx + vy * vy)
   let angle = Math.acos(vx / imageWidth) * (180 / Math.PI)
+  if (vy < 0) {
+    angle = -angle
+  }
   imageWidth = Math.round(imageWidth)
 
   let translation1 = translationMatrix(-getters.uv.ux, -getters.uv.uy)
