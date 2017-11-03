@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 
 import { actions, mutations } from './homogeneous/store'
 // import { actions, mutations } from './complex/store'
+
+// attention: perspective projection does not work on affine implementation
 // import { actions, mutations } from './affine/store'
 
 import camera, { xyRotationToUV } from './camera'
