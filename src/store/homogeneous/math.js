@@ -43,6 +43,12 @@ export function mirrorMatrix (a) {
           [0, 0, 1]]
 }
 
+export function perspectiveProjectionMatrix (xIntercept, yIntercept) {
+  return [[1, 0, 0],
+          [0, 1, 0],
+          [1 / xIntercept, 1 / yIntercept, 1]]
+}
+
 export function matricesMultiplication3x3 (matrix1, ...matrices) {
   let newMatrix = cloneDeep(matrix1)
   matrices.forEach((matrix) => {
