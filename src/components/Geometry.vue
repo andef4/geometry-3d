@@ -119,7 +119,7 @@
             <input type="number" step="5" class="form-control form-control-sm" id="xIntercept" v-model.number="xIntercept">
             <label for="yIntercept">y intercept:</label>
             <input type="number" step="5" class="form-control form-control-sm" id="yIntercept" v-model.number="yIntercept">
-            <action-button class="mt-3" icon="video-camera" caption="Project" color="success" @click="perspectiveProjection"></action-button>
+            <action-button class="mt-3" icon="video-camera" caption="Project" color="danger" @click="perspectiveProjection"></action-button>
           </div>
         </div>
       </div>
