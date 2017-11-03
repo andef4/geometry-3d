@@ -11,7 +11,9 @@
       m2: Number,
       a: Number,
       b: Number,
-      c: Number
+      c: Number,
+      xIntercept: Number,
+      yIntercept: Number
     },
     data () {
       return {
@@ -132,6 +134,17 @@
         /**************************
          * perspective projection *
          **************************/
+        ctx.fillStyle = '#c82333'
+        ctx.beginPath()
+        ctx.arc(this.mathToDisplayX(this.xIntercept), this.mathToDisplayY(0), 4 * this.pixelRation, 0, Math.PI * 2, true)
+        ctx.fill()
+        ctx.beginPath()
+        ctx.arc(this.mathToDisplayX(0), this.mathToDisplayY(this.yIntercept), 4 * this.pixelRation, 0, Math.PI * 2, true)
+        ctx.fill()
+
+        /**************************
+         * camera *
+         **************************/
         ctx.lineWidth = 1
         ctx.strokeStyle = '#218838'
         ctx.beginPath()
@@ -173,6 +186,8 @@
       a () { this.draw() },
       b () { this.draw() },
       c () { this.draw() },
+      xIntercept () { this.draw() },
+      yIntercept () { this.draw() },
       uv () { this.draw() },
       camera () { this.draw() },
       coordinates: {

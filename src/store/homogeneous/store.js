@@ -1,6 +1,6 @@
 import {
   translationMatrix, rotationMatrix, matricesMultiplication3x3, applyMatrixToVector, shearMatrixX, shearMatrixY,
-  stretchMatrixX, stretchMatrixY, mirrorMatrix
+  stretchMatrixX, stretchMatrixY, mirrorMatrix, perspectiveProjectionMatrix
 } from './math'
 
 export let actions = {
@@ -90,7 +90,12 @@ export let actions = {
     let mirror = mirrorMatrix(Math.atan(aNorm))
     let translation2 = translationMatrix(0, bNorm)
     let matrix = matricesMultiplication3x3(translation2, mirror, translation1)
-    commit('applyMatrix', {matrix})
+    commit('applyMatrix', { matrix })
+  },
+
+  perspectiveProjection ({ commit }, { xIntercept, yIntercept }) {
+    let matrix = perspectiveProjectionMatrix(xIntercept, yIntercept)
+    commit('applyMatrix', { matrix })
   },
 
   applyMatrixCenter ({ commit, getters }, { matrix }) {

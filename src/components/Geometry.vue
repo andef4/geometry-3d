@@ -7,6 +7,8 @@
         :a="a === '' ? 0 : a"
         :b="b === '' ? 0 : b"
         :c="c === '' ? 0 : c"
+        :x-intercept="xIntercept === '' ? 0 : xIntercept"
+        :y-intercept="yIntercept === '' ? 0 : yIntercept"
       ></geometry-canvas>
     </div>
     <div class="col-4">
@@ -108,8 +110,16 @@
                 <input type="number" step="5" class="form-control form-control-sm" id="y" :value="camera.y" @input="updateCamera">
               </div>
             </div>
-              <label for="rotation">Rotation:</label>
-              <input type="number" step="5" class="form-control form-control-sm" id="rotation" :value="camera.rotation" @input="updateCamera">
+            <label for="rotation">Rotation:</label>
+            <input type="number" step="5" class="form-control form-control-sm" id="rotation" :value="camera.rotation" @input="updateCamera">
+          </div>
+          <div class="mt-1">
+            <div class="mb-1 pt-1 font-weight-bold">Perspective projection</div>
+            <label for="xIntercept">x intercept:</label>
+            <input type="number" step="5" class="form-control form-control-sm" id="xIntercept" v-model.number="xIntercept">
+            <label for="yIntercept">y intercept:</label>
+            <input type="number" step="5" class="form-control form-control-sm" id="yIntercept" v-model.number="yIntercept">
+            <action-button class="mt-3" icon="video-camera" caption="Project" color="success" @click="perspectiveProjection"></action-button>
           </div>
         </div>
       </div>
@@ -137,7 +147,9 @@
       m2: 80,
       a: 5,
       b: 3,
-      c: 300
+      c: 300,
+      xIntercept: 300,
+      yIntercept: -400
     }
   }
 
@@ -168,6 +180,9 @@
       },
       mirror () {
         this.$store.dispatch('mirror', { a: this.a, b: this.b, c: this.c })
+      },
+      perspectiveProjection () {
+        this.$store.dispatch('perspectiveProjection', { xIntercept: this.xIntercept, yIntercept: this.yIntercept })
       },
       resetEverything () {
         Object.assign(this, initialData())
