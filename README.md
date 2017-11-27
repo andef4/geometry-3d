@@ -1,8 +1,8 @@
-# geometry-2d
+# geometry-3d
 
-Transform an object with matrices in 2D
+Transform an object with matrices in 3D
 
-Try it out here: https://andef4.github.io/geometry-2d/
+Try it out here: https://andef4.github.io/geometry-3d/
 
 ## Build Setup
 

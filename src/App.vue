@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="navbar navbar-dark bg-dark">
-      <span class="navbar-brand">Geometry 2D</span>
+      <span class="navbar-brand">Geometry 3D</span>
     </nav>
     <div class="container">
       <geometry></geometry>

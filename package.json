@@ -1,7 +1,7 @@
 {
-  "name": "geometry-2d",
+  "name": "geometry-3d",
   "version": "1.0.0",
-  "description": "Geometry 2D",
+  "description": "Geometry 3D",
   "author": "andef4@bfh.ch",
   "private": true,
   "scripts": {
@@ -13,6 +13,7 @@
   "dependencies": {
     "bootstrap": "4.0.0-beta",
     "lodash.clonedeep": "^4.5.0",
+    "three": "^0.88.0",
     "vue": "^2.4.2",
     "vue-awesome": "^2.3.3",
     "vuex": "^2.4.1"

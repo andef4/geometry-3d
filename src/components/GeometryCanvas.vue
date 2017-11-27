@@ -1,25 +1,14 @@
 <template>
-  <canvas ref="canvas"></canvas>
+  <div ref="canvas"></div>
 </template>
 
 <script>
-  import { mapState, mapGetters } from 'vuex'
+  import { mapState } from 'vuex'
+
+  import { Scene, WebGLRenderer, PerspectiveCamera, Mesh, MeshBasicMaterial, BoxGeometry } from 'three/build/three.module'
+  import OrbitControls from './OrbitalControls'
 
   export default {
-    props: {
-      m1: Number,
-      m2: Number,
-      a: Number,
-      b: Number,
-      c: Number,
-      xIntercept: Number,
-      yIntercept: Number
-    },
-    data () {
-      return {
-        pixelRation: 0
-      }
-    },
     mounted () {
       // make canvas a square
       this.$refs.canvas.style.height = `${this.$refs.canvas.offsetWidth}px`
@@ -27,169 +16,32 @@
       this.$refs.canvas.height = this.$refs.canvas.offsetWidth
       this.$refs.canvas.width = this.$refs.canvas.offsetWidth
 
-      this.pixelRation = this.$refs.canvas.offsetWidth / 1000
-      this.draw()
-    },
-    methods: {
-      mathToDisplayX (x) {
-        return Math.round((x + 500) * this.pixelRation) + 0.5
-      },
-      mathToDisplayY (y) {
-        return Math.round((-y + 500) * this.pixelRation) + 0.5
-      },
-      draw () {
-        let ctx = this.$refs.canvas.getContext('2d')
-        // clear canvas
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+      let scene = new Scene()
 
-        ctx.strokeStyle = 'grey'
-        ctx.lineWidth = 1 * this.pixelRation
+      let renderer = new WebGLRenderer()
+      renderer.setPixelRatio(window.devicePixelRatio)
+      renderer.setSize(this.$refs.canvas.offsetWidth, this.$refs.canvas.offsetWidth)
+      this.$refs.canvas.appendChild(renderer.domElement)
 
-        /***********
-         * outline *
-         ***********/
-        ctx.beginPath()
-        ctx.moveTo(this.mathToDisplayX(0), this.mathToDisplayY(-500))
-        ctx.lineTo(this.mathToDisplayX(0), this.mathToDisplayY(500))
-        ctx.stroke()
+      let camera = new PerspectiveCamera(75, 1, 0.1, 1000)
+      camera.position.z = 3
 
-        ctx.beginPath()
-        ctx.moveTo(this.mathToDisplayX(-500), this.mathToDisplayY(0))
-        ctx.lineTo(this.mathToDisplayX(500), this.mathToDisplayY(0))
-        ctx.stroke()
+      let controls = new OrbitControls(camera, renderer.domElement)
+      controls.addEventListener('change', render)
 
-        /**********
-         * square *
-         **********/
-        ctx.strokeStyle = 'black'
-        ctx.fillStyle = 'red'
-        ctx.lineWidth = 3 * this.pixelRation
+      let cube = new Mesh(new BoxGeometry(1, 1, 1), new MeshBasicMaterial({color: 0xFFFFFF}))
+      scene.add(cube)
 
-        // red rectangle
-        ctx.beginPath()
-        // center
-        ctx.moveTo((this.coordinates.a.x + this.coordinates.c.x) / 2,
-                   (this.coordinates.a.y + this.coordinates.c.y) / 2)
-        // point between b and c
-        ctx.lineTo((this.coordinates.b.x + this.coordinates.c.x) / 2,
-                   (this.coordinates.b.y + this.coordinates.c.y) / 2)
-        // bottom right corner (c)
-        ctx.lineTo(this.coordinates.c.x, this.coordinates.c.y)
-        // point between d and c
-        ctx.lineTo((this.coordinates.d.x + this.coordinates.c.x) / 2,
-                   (this.coordinates.d.y + this.coordinates.c.y) / 2)
-        ctx.fill()
-
-        // outer rectangle
-        ctx.beginPath()
-        ctx.moveTo(this.coordinates.a.x, this.coordinates.a.y)
-        ctx.lineTo(this.coordinates.b.x, this.coordinates.b.y)
-        ctx.lineTo(this.coordinates.c.x, this.coordinates.c.y)
-        ctx.lineTo(this.coordinates.d.x, this.coordinates.d.y)
-        ctx.closePath()
-        ctx.stroke()
-
-        // line from top to bottom
-        ctx.beginPath()
-        ctx.moveTo((this.coordinates.a.x + this.coordinates.b.x) / 2,
-                   (this.coordinates.a.y + this.coordinates.b.y) / 2)
-        ctx.lineTo((this.coordinates.d.x + this.coordinates.c.x) / 2,
-                   (this.coordinates.d.y + this.coordinates.c.y) / 2)
-        ctx.stroke()
-
-        // line from left to right
-        ctx.beginPath()
-        ctx.moveTo((this.coordinates.a.x + this.coordinates.d.x) / 2,
-                   (this.coordinates.a.y + this.coordinates.d.y) / 2)
-        ctx.lineTo((this.coordinates.b.x + this.coordinates.c.x) / 2,
-                   (this.coordinates.b.y + this.coordinates.c.y) / 2)
-        ctx.stroke()
-
-        // labels
-        ctx.fillStyle = 'black'
-        ctx.font = `${this.pixelRation * 20}px sans-serif`
-        ctx.fillText('x: 500', this.mathToDisplayX(430), this.mathToDisplayY(10))
-        ctx.fillText('x: -500', this.mathToDisplayX(-500), this.mathToDisplayY(10))
-        ctx.fillText('y: -500', this.mathToDisplayX(5), this.mathToDisplayY(-490))
-        ctx.fillText('y: 500', this.mathToDisplayX(5), this.mathToDisplayY(485))
-
-        /**********
-         * points *
-         **********/
-        ctx.beginPath()
-        ctx.arc(this.mathToDisplayX(this.m1) - 2, this.mathToDisplayY(this.m2) + 2, 4 * this.pixelRation, 0, Math.PI * 2, true)
-        ctx.fill()
-        ctx.fillText('m', this.mathToDisplayX(this.m1) + 8, this.mathToDisplayY(this.m2) + 8)
-
-        /********
-         * line *
-         ********/
-        let a = -(this.a / this.b)
-        let b = -(this.c / this.b)
-        ctx.beginPath()
-        ctx.moveTo(this.mathToDisplayX(500), this.mathToDisplayY(a * 500 + b))
-        ctx.lineTo(this.mathToDisplayX(-500), this.mathToDisplayY(a * -500 + b))
-        ctx.stroke()
-
-        /**************************
-         * perspective projection *
-         **************************/
-        ctx.fillStyle = '#c82333'
-        ctx.beginPath()
-        ctx.arc(this.mathToDisplayX(this.xIntercept), this.mathToDisplayY(0), 4 * this.pixelRation, 0, Math.PI * 2, true)
-        ctx.fill()
-        ctx.beginPath()
-        ctx.arc(this.mathToDisplayX(0), this.mathToDisplayY(this.yIntercept), 4 * this.pixelRation, 0, Math.PI * 2, true)
-        ctx.fill()
-
-        /**************************
-         * camera *
-         **************************/
-        ctx.lineWidth = 1
-        ctx.strokeStyle = '#218838'
-        ctx.beginPath()
-        ctx.moveTo(this.mathToDisplayX(this.uv.ux), this.mathToDisplayY(this.uv.uy))
-        ctx.lineTo(this.mathToDisplayX(this.uv.vx), this.mathToDisplayY(this.uv.vy))
-        ctx.lineTo(this.mathToDisplayX(this.camera.x), this.mathToDisplayY(this.camera.y))
-        ctx.lineTo(this.mathToDisplayX(this.uv.ux), this.mathToDisplayY(this.uv.uy))
-        ctx.stroke()
-
-        for (let i = 0; i < this.cameraImage.length; i++) {
-          if (this.cameraImage[i].color === 1) {
-            ctx.fillStyle = 'red'
-            ctx.fillRect(this.mathToDisplayX(this.cameraImage[i].x) - 1, this.mathToDisplayY(this.cameraImage[i].y) - 1, 2, 2)
-          } else if (this.cameraImage[i].color === 2) {
-            ctx.fillStyle = 'black'
-            ctx.fillRect(this.mathToDisplayX(this.cameraImage[i].x) - 1, this.mathToDisplayY(this.cameraImage[i].y) - 1, 2, 2)
-          }
-        }
+      const render = () => {
+        renderer.render(scene, camera)
+        requestAnimationFrame(render)
       }
+      render()
     },
     computed: {
-      ...mapState({
-        originalCoordinates: 'coordinates',
-        camera: 'camera'
-      }),
-      ...mapGetters(['cameraImage', 'uv']),
-      coordinates () {
-        return {
-          a: { x: this.mathToDisplayX(this.originalCoordinates.a.x), y: this.mathToDisplayY(this.originalCoordinates.a.y) },
-          b: { x: this.mathToDisplayX(this.originalCoordinates.b.x), y: this.mathToDisplayY(this.originalCoordinates.b.y) },
-          c: { x: this.mathToDisplayX(this.originalCoordinates.c.x), y: this.mathToDisplayY(this.originalCoordinates.c.y) },
-          d: { x: this.mathToDisplayX(this.originalCoordinates.d.x), y: this.mathToDisplayY(this.originalCoordinates.d.y) }
-        }
-      }
+      ...mapState(['coordinates'])
     },
     watch: {
-      m1 () { this.draw() },
-      m2 () { this.draw() },
-      a () { this.draw() },
-      b () { this.draw() },
-      c () { this.draw() },
-      xIntercept () { this.draw() },
-      yIntercept () { this.draw() },
-      uv () { this.draw() },
-      camera () { this.draw() },
       coordinates: {
         handler () { this.draw() },
         deep: true
