@@ -46,10 +46,10 @@
       scene.background = new Color(0xFFFFFF)
 
       let textureLoader = new TextureLoader()
-      let blankTexture = textureLoader.load('/static/blank.png')
-      let redRightBottomTexture = textureLoader.load('/static/red_rb.png')
-      let redRightTopTexture = textureLoader.load('/static/red_rt.png')
-      let redLeftBottomTexture = textureLoader.load('/static/red_lb.png')
+      let blankTexture = textureLoader.load('./static/blank.png')
+      let redRightBottomTexture = textureLoader.load('./static/red_rb.png')
+      let redRightTopTexture = textureLoader.load('./static/red_rt.png')
+      let redLeftBottomTexture = textureLoader.load('./static/red_lb.png')
 
       let materials = [
         new MeshBasicMaterial({ map: redLeftBottomTexture }),
