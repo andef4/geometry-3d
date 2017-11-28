@@ -27,7 +27,9 @@
 
       // camera and controls setup
       let camera = new PerspectiveCamera(75, 1, 0.1, 1000)
-      camera.position.z = 3
+      camera.position.x = 6.5
+      camera.position.y = 4
+      camera.position.z = 8.5
 
       let controls = new OrbitControls(camera, renderer.domElement)
       controls.addEventListener('change', render)
@@ -52,6 +54,10 @@
       ]
 
       let cube = new Mesh(new BoxGeometry(1, 1, 1), materials)
+      cube.position.x = 3
+      cube.position.y = 1
+      cube.position.z = 2
+
       scene.add(cube)
 
       let axesHelper = new AxesHelper(100)
