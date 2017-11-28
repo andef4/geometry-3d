@@ -5,7 +5,10 @@
 <script>
   import { mapState } from 'vuex'
 
-  import { Scene, WebGLRenderer, PerspectiveCamera, Mesh, BoxGeometry, TextureLoader, MeshBasicMaterial, Color } from 'three/build/three.module'
+  import { Scene, WebGLRenderer, PerspectiveCamera, Mesh, BoxGeometry, TextureLoader, MeshBasicMaterial,
+    Color, AxesHelper }
+  from 'three/build/three.module'
+
   import OrbitControls from './OrbitalControls'
 
   export default {
@@ -50,6 +53,9 @@
 
       let cube = new Mesh(new BoxGeometry(1, 1, 1), materials)
       scene.add(cube)
+
+      let axesHelper = new AxesHelper(100)
+      scene.add(axesHelper)
 
       // rendering
       const render = () => {
