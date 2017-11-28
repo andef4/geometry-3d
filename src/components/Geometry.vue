@@ -9,10 +9,12 @@
         <div class="col-6">
           <div>
             <div class="mb-1 pt-1 font-weight-bold">Move</div>
-            <action-button icon="arrow-up" caption="Up" @click="moveUp"></action-button>
-            <action-button icon="arrow-down" caption="Down" @click="moveDown"></action-button>
-            <action-button icon="arrow-right" caption="Right" @click="moveRight"></action-button>
-            <action-button icon="arrow-left" caption="Left" @click="moveLeft"></action-button>
+            <action-button icon="arrow-up" caption="Up" @click="moveXup"></action-button>
+            <action-button icon="arrow-down" caption="Down" @click="moveXdown"></action-button>
+            <action-button icon="arrow-right" caption="Right" @click="moveYup"></action-button>
+            <action-button icon="arrow-left" caption="Left" @click="moveYdown"></action-button>
+            <action-button icon="arrow-right" caption="Right" @click="moveZup"></action-button>
+            <action-button icon="arrow-left" caption="Left" @click="moveZdown"></action-button>
           </div>
         </div>
       </div>
@@ -48,7 +50,7 @@
     },
     methods: {
       ...mapActions([
-        'moveUp', 'moveDown', 'moveRight', 'moveLeft'
+        'moveXup', 'moveXdown', 'moveYup', 'moveYdown', 'moveZup', 'moveZdown'
       ]),
       ...mapMutations(['reset'])
     }

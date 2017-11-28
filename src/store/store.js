@@ -11,24 +11,16 @@ const debug = process.env.NODE_ENV !== 'production'
 
 const initialState = () => {
   return {
-    coordinates: {
-      a: {
-        x: 100,
-        y: 200
-      },
-      b: {
-        x: 150,
-        y: 200
-      },
-      c: {
-        x: 150,
-        y: 150
-      },
-      d: {
-        x: 100,
-        y: 150
-      }
-    }
+    coordinates: [
+      { x: 0.5, y: 0.5, z: 0.5 },
+      { x: 0.5, y: 0.5, z: -0.5 },
+      { x: 0.5, y: -0.5, z: 0.5 },
+      { x: 0.5, y: -0.5, z: -0.5 },
+      { x: -0.5, y: 0.5, z: -0.5 },
+      { x: -0.5, y: 0.5, z: 0.5 },
+      { x: -0.5, y: -0.5, z: -0.5 },
+      { x: -0.5, y: -0.5, z: 0.5 }
+    ]
   }
 }
 
@@ -36,27 +28,27 @@ export default new Vuex.Store({
   state: initialState(),
   actions: {
     moveXup ({commit}) {
-      let matrix = translationMatrix(25, 0, 0)
+      let matrix = translationMatrix(1, 0, 0)
       commit('applyMatrix4', {matrix})
     },
     moveXdown ({commit}) {
-      let matrix = translationMatrix(-25, 0, 0)
+      let matrix = translationMatrix(-1, 0, 0)
       commit('applyMatrix4', {matrix})
     },
     moveYup ({commit}) {
-      let matrix = translationMatrix(0, 25, 0)
+      let matrix = translationMatrix(0, 1, 0)
       commit('applyMatrix4', {matrix})
     },
     moveYdown ({commit}) {
-      let matrix = translationMatrix(0, -25, 0)
+      let matrix = translationMatrix(0, -1, 0)
       commit('applyMatrix4', {matrix})
     },
     moveZup ({commit}) {
-      let matrix = translationMatrix(0, 0, 25)
+      let matrix = translationMatrix(0, 0, 1)
       commit('applyMatrix4', {matrix})
     },
     moveZdown ({commit}) {
-      let matrix = translationMatrix(0, 0, -25)
+      let matrix = translationMatrix(0, 0, -1)
       commit('applyMatrix4', {matrix})
     }
   },
@@ -68,10 +60,9 @@ export default new Vuex.Store({
       state.coordinates.d = { ...applyMatrixToVector3(matrix, state.coordinates.d) }
     },
     applyMatrix4 (state, { matrix }) {
-      state.coordinates.a = { ...applyMatrixToVector4(matrix, state.coordinates.a) }
-      state.coordinates.b = { ...applyMatrixToVector4(matrix, state.coordinates.b) }
-      state.coordinates.c = { ...applyMatrixToVector4(matrix, state.coordinates.c) }
-      state.coordinates.d = { ...applyMatrixToVector4(matrix, state.coordinates.d) }
+      for (let i = 0; i < state.coordinates.length; i++) {
+        Vue.set(state.coordinates, i, applyMatrixToVector4(matrix, state.coordinates[i]))
+      }
     },
     reset (state) {
       Object.assign(state, initialState())

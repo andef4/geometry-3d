@@ -11,7 +11,14 @@
 
   import OrbitControls from './OrbitalControls'
 
+  let geometry = new BoxGeometry(1, 1, 1)
+
   export default {
+    data () {
+      return {
+        geometry: null
+      }
+    },
     mounted () {
       // make canvas a square
       this.$refs.canvas.style.height = `${this.$refs.canvas.offsetWidth}px`
@@ -53,10 +60,9 @@
         new MeshBasicMaterial({ map: blankTexture })
       ]
 
-      let cube = new Mesh(new BoxGeometry(1, 1, 1), materials)
-      cube.position.x = 3
-      cube.position.y = 1
-      cube.position.z = 2
+      // this.geometry = new BoxGeometry(1, 1, 1)
+      let cube = new Mesh(geometry, materials)
+      geometry.vertices = Object.assign({}, this.coordinates)
 
       scene.add(cube)
 
@@ -75,7 +81,14 @@
     },
     watch: {
       coordinates: {
-        handler () { this.draw() },
+        handler (value) {
+          for (let i = 0; i < value.length; i++) {
+            geometry.vertices[i].x = value[i].x
+            geometry.vertices[i].y = value[i].y
+            geometry.vertices[i].z = value[i].z
+          }
+          geometry.verticesNeedUpdate = true
+        },
         deep: true
       }
     }
