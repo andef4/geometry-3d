@@ -22,7 +22,7 @@
       // renderer setup
       let renderer = new WebGLRenderer({ antialias: true })
       renderer.setPixelRatio(window.devicePixelRatio)
-      renderer.setSize(this.$refs.canvas.offsetWidth, this.$refs.canvas.offsetWidth)
+      renderer.setSize(this.$refs.canvas.offsetWidth - 1, this.$refs.canvas.offsetWidth - 1)
       this.$refs.canvas.appendChild(renderer.domElement)
 
       // camera and controls setup
