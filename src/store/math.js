@@ -35,6 +35,27 @@ export function shearMatrix (yx, zx, xy, zy, xz, yz) {
           [0, 0, 0, 1]]
 }
 
+export function rotationMatrixX (a) {
+  let radians = a * (Math.PI / 180)
+  return [[Math.cos(radians), -Math.sin(radians), 0],
+          [Math.sin(radians), Math.cos(radians), 0],
+          [0, 0, 1]]
+}
+
+export function rotationMatrixY (a) {
+  let radians = a * (Math.PI / 180)
+  return [[Math.cos(radians), -Math.sin(radians), 0],
+          [Math.sin(radians), Math.cos(radians), 0],
+          [0, 0, 1]]
+}
+
+export function rotationMatrixZ (a) {
+  let radians = a * (Math.PI / 180)
+  return [[Math.cos(radians), -Math.sin(radians), 0],
+          [Math.sin(radians), Math.cos(radians), 0],
+          [0, 0, 1]]
+}
+
 export function matricesMultiplication3 (matrix1, ...matrices) {
   let newMatrix = cloneDeep(matrix1)
   matrices.forEach((matrix) => {

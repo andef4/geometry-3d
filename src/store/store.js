@@ -126,6 +126,55 @@ export default new Vuex.Store({
       let matrix = shearMatrix(0, 0, 0, 0, 0, -0.5)
       dispatch('applyMatrixCenter4', { matrix })
     },
+     rotateOriginClockwiseX ({ dispatch }) {
+      let matrix = ()
+      commit('applyMatrix4', { matrix })
+    },
+     rotateOriginCounterClockwiseX ({ dispatch }) {
+      let matrix = ()
+      commit('applyMatrix4', { matrix })
+    },
+     rotateOriginClockwiseY ({ dispatch }) {
+      let matrix = ()
+      commit('applyMatrix4', { matrix })
+    },
+     rotateOriginCounterClockwiseY ({ dispatch }) {
+      let matrix = ()
+      commit('applyMatrix4', { matrix })
+    },
+     rotateOriginClockwiseZ ({ dispatch }) {
+      let matrix = ()
+      commit('applyMatrix4', { matrix })
+    },
+     rotateOriginCounterClockwiseZ ({ dispatch }) {
+      let matrix = ()
+      commit('applyMatrix4', { matrix })
+    },
+
+     rotateCenterClockwiseX ({ dispatch }) {
+      let matrix = ()
+      commit('applyMatrixCenter4', { matrix })
+    },
+     rotateCenterCounterClockwiseX ({ dispatch }) {
+      let matrix = ()
+      commit('applyMatrixCenter4', { matrix })
+    },
+     rotateCenterClockwiseY ({ dispatch }) {
+      let matrix = ()
+      commit('applyMatrixCenter4', { matrix })
+    },
+     rotateCenterCounterClockwiseY ({ dispatch }) {
+      let matrix = ()
+      commit('applyMatrixCenter4', { matrix })
+    },
+     rotateCenterClockwiseZ ({ dispatch }) {
+      let matrix = ()
+      commit('applyMatrixCenter4', { matrix })
+    },
+     rotateCenterCounterClockwiseZ ({ dispatch }) {
+      let matrix = ()
+      commit('applyMatrixCenter4', { matrix })
+    },
 
     applyMatrixCenter4 ({ commit, getters }, { matrix }) {
       let center = getters.center

@@ -69,6 +69,39 @@
             </div>
           </div>
         </div>
+        <div class="col-6">
+          <div>
+            <div class="mb-1 pt-1 font-weight-bold">Rotate around origin</div>
+            <div class="d-flex">
+              <action-button icon="rotate-right" caption="x" @click="rotateOriginClockwiseX" color="danger" class="mr-2"></action-button>
+              <action-button icon="rotate-left" caption="x" @click="rotateOriginCounterClockwiseX" color="danger"></action-button>
+            </div>
+            <div class="d-flex">
+              <action-button icon="rotate-right" caption="y" @click="rotateOriginClockwiseY" color="success" class="mr-2"></action-button>
+              <action-button icon="rotate-left" caption="y" @click="rotateOriginCounterClockwiseY" color="success"></action-button>
+            </div>
+            <div class="d-flex">
+              <action-button icon="rotate-right" caption="z" @click="rotateOriginClockwiseZ" class="mr-2"></action-button>
+              <action-button icon="rotate-left" caption="z" @click="rotateOriginCounterClockwiseZ"></action-button>
+            </div>
+          </div>
+
+          <div>
+            <div class="mb-1 pt-1 font-weight-bold">Rotate around center</div>
+            <div class="d-flex">
+              <action-button icon="rotate-right" caption="x" @click="rotateCenterClockwiseX" color="danger" class="mr-2"></action-button>
+              <action-button icon="rotate-left" caption="x" @click="rotateCenterCounterClockwiseX" color="danger"></action-button>
+            </div>
+            <div class="d-flex">
+              <action-button icon="rotate-right" caption="y" @click="rotateCenterClockwiseY" color="success" class="mr-2"></action-button>
+              <action-button icon="rotate-left" caption="y" @click="rotateCenterCounterClockwiseY" color="success"></action-button>
+            </div>
+            <div class="d-flex">
+              <action-button icon="rotate-right" caption="z" @click="rotateCenterClockwiseZ" class="mr-2"></action-button>
+              <action-button icon="rotate-left" caption="z" @click="rotateCenterCounterClockwiseZ"></action-button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -81,6 +114,8 @@
   import 'vue-awesome/icons/arrow-left'
   import 'vue-awesome/icons/plus'
   import 'vue-awesome/icons/minus'
+  import 'vue-awesome/icons/rotate-right'
+  import 'vue-awesome/icons/rotate-left'
 
   import ActionButton from './ActionButton'
   import GeometryCanvas from './GeometryCanvas'
@@ -109,7 +144,11 @@
 
         // yx, zx, xy, zy, xz, yz
         'shearYXup', 'shearYXdown', 'shearZXup', 'shearZXdown', 'shearXYup', 'shearXYdown',
-        'shearZYup', 'shearZYdown', 'shearXZup', 'shearXZdown', 'shearYZup', 'shearYZdown'
+        'shearZYup', 'shearZYdown', 'shearXZup', 'shearXZdown', 'shearYZup', 'shearYZdown',
+        'rotateOriginClockwiseX', 'rotateOriginCounterClockwiseX', 'rotateOriginClockwiseY',
+        'rotateOriginCounterClockwiseY', 'rotateOriginClockwiseZ', 'rotateOriginCounterClockwiseZ',
+        'rotateCenterClockwiseX', 'rotateCenterCounterClockwiseX', 'rotateCenterClockwiseY',
+        'rotateCenterCounterClockwiseY', 'rotateCenterClockwiseZ', 'rotateCenterCounterClockwiseZ'
       ]),
       ...mapMutations(['reset'])
     }
