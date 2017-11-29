@@ -26,16 +26,16 @@
           <div>
             <div class="mb-1 pt-1 font-weight-bold">Stretch</div>
             <div class="d-flex">
-              <action-button icon="plus" caption="x" @click="moveXdown" color="danger" class="mr-2"></action-button>
-              <action-button icon="minus" caption="x" @click="moveXdown" color="danger"></action-button>
+              <action-button icon="plus" caption="x" @click="stretchX" color="danger" class="mr-2"></action-button>
+              <action-button icon="minus" caption="x" @click="contractX" color="danger"></action-button>
             </div>
             <div class="d-flex">
-              <action-button icon="plus" caption="y" @click="moveXdown" color="success" class="mr-2"></action-button>
-              <action-button icon="minus" caption="y" @click="moveXdown" color="success"></action-button>
+              <action-button icon="plus" caption="y" @click="stretchY" color="success" class="mr-2"></action-button>
+              <action-button icon="minus" caption="y" @click="contractY" color="success"></action-button>
             </div>
             <div class="d-flex">
-              <action-button icon="plus" caption="z" @click="moveXdown" class="mr-2"></action-button>
-              <action-button icon="minus" caption="z" @click="moveXdown"></action-button>
+              <action-button icon="plus" caption="z" @click="stretchZ" class="mr-2"></action-button>
+              <action-button icon="minus" caption="z" @click="contractZ"></action-button>
             </div>
           </div>
         </div>
@@ -74,7 +74,8 @@
     },
     methods: {
       ...mapActions([
-        'moveXup', 'moveXdown', 'moveYup', 'moveYdown', 'moveZup', 'moveZdown'
+        'moveXup', 'moveXdown', 'moveYup', 'moveYdown', 'moveZup', 'moveZdown',
+        'stretchX', 'contractX', 'stretchY', 'contractY', 'stretchZ', 'contractZ'
       ]),
       ...mapMutations(['reset'])
     }

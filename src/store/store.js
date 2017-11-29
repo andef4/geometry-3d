@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import {
-  translationMatrix, applyMatrixToVector3, applyMatrixToVector4
+  translationMatrix, applyMatrixToVector3, applyMatrixToVector4,
+  stretchMatrixX, stretchMatrixY, stretchMatrixZ
 } from './math'
 
 Vue.use(Vuex)
@@ -27,29 +28,53 @@ const initialState = () => {
 export default new Vuex.Store({
   state: initialState(),
   actions: {
-    moveXup ({commit}) {
+    moveXup ({ commit }) {
       let matrix = translationMatrix(1, 0, 0)
-      commit('applyMatrix4', {matrix})
+      commit('applyMatrix4', { matrix })
     },
-    moveXdown ({commit}) {
+    moveXdown ({ commit }) {
       let matrix = translationMatrix(-1, 0, 0)
-      commit('applyMatrix4', {matrix})
+      commit('applyMatrix4', { matrix })
     },
-    moveYup ({commit}) {
+    moveYup ({ commit }) {
       let matrix = translationMatrix(0, 1, 0)
-      commit('applyMatrix4', {matrix})
+      commit('applyMatrix4', { matrix })
     },
-    moveYdown ({commit}) {
+    moveYdown ({ commit }) {
       let matrix = translationMatrix(0, -1, 0)
-      commit('applyMatrix4', {matrix})
+      commit('applyMatrix4', { matrix })
     },
-    moveZup ({commit}) {
+    moveZup ({ commit }) {
       let matrix = translationMatrix(0, 0, 1)
-      commit('applyMatrix4', {matrix})
+      commit('applyMatrix4', { matrix })
     },
-    moveZdown ({commit}) {
+    moveZdown ({ commit }) {
       let matrix = translationMatrix(0, 0, -1)
-      commit('applyMatrix4', {matrix})
+      commit('applyMatrix4', { matrix })
+    },
+    stretchX ({ commit }) {
+      let matrix = stretchMatrixX(1.25)
+      commit('applyMatrix4', { matrix })
+    },
+    contractX ({ commit }) {
+      let matrix = stretchMatrixX(0.875)
+      commit('applyMatrix4', { matrix })
+    },
+    stretchY ({ commit }) {
+      let matrix = stretchMatrixY(1.25)
+      commit('applyMatrix4', { matrix })
+    },
+    contractY ({ commit }) {
+      let matrix = stretchMatrixY(0.875)
+      commit('applyMatrix4', { matrix })
+    },
+    stretchZ ({ commit }) {
+      let matrix = stretchMatrixZ(1.25)
+      commit('applyMatrix4', { matrix })
+    },
+    contractZ ({ commit }) {
+      let matrix = stretchMatrixZ(0.875)
+      commit('applyMatrix4', { matrix })
     }
   },
   mutations: {
