@@ -9,12 +9,34 @@
         <div class="col-6">
           <div>
             <div class="mb-1 pt-1 font-weight-bold">Move</div>
-            <action-button icon="arrow-up" caption="x up" @click="moveXup" color="danger"></action-button>
-            <action-button icon="arrow-down" caption="x down" @click="moveXdown" color="danger"></action-button>
-            <action-button icon="arrow-up" caption="y up" @click="moveYup" color="success"></action-button>
-            <action-button icon="arrow-down" caption="y down" @click="moveYdown"color="success"></action-button>
-            <action-button icon="arrow-up" caption="z up" @click="moveZup"></action-button>
-            <action-button icon="arrow-down" caption="z down" @click="moveZdown"></action-button>
+            <div class="d-flex">
+              <action-button icon="plus" caption="x" @click="moveXup" color="danger" class="mr-2"></action-button>
+              <action-button icon="minus" caption="x" @click="moveXdown" color="danger"></action-button>
+            </div>
+            <div class="d-flex">
+              <action-button icon="plus" caption="y" @click="moveYup" color="success" class="mr-2"></action-button>
+              <action-button icon="minus" caption="y" @click="moveYdown" color="success"></action-button>
+            </div>
+            <div class="d-flex">
+              <action-button icon="plus" caption="z" @click="moveZup" class="mr-2"></action-button>
+              <action-button icon="minus" caption="z" @click="moveZdown"></action-button>
+            </div>
+          </div>
+
+          <div>
+            <div class="mb-1 pt-1 font-weight-bold">Stretch</div>
+            <div class="d-flex">
+              <action-button icon="plus" caption="x" @click="moveXdown" color="danger" class="mr-2"></action-button>
+              <action-button icon="minus" caption="x" @click="moveXdown" color="danger"></action-button>
+            </div>
+            <div class="d-flex">
+              <action-button icon="plus" caption="y" @click="moveXdown" color="success" class="mr-2"></action-button>
+              <action-button icon="minus" caption="y" @click="moveXdown" color="success"></action-button>
+            </div>
+            <div class="d-flex">
+              <action-button icon="plus" caption="z" @click="moveXdown" class="mr-2"></action-button>
+              <action-button icon="minus" caption="z" @click="moveXdown"></action-button>
+            </div>
           </div>
         </div>
       </div>
@@ -27,6 +49,8 @@
   import 'vue-awesome/icons/arrow-down'
   import 'vue-awesome/icons/arrow-right'
   import 'vue-awesome/icons/arrow-left'
+  import 'vue-awesome/icons/plus'
+  import 'vue-awesome/icons/minus'
 
   import ActionButton from './ActionButton'
   import GeometryCanvas from './GeometryCanvas'
