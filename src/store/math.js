@@ -28,6 +28,13 @@ export function stretchMatrixZ (z) {
           [0, 0, 0, 1]]
 }
 
+export function shearMatrix (yx, zx, xy, zy, xz, yz) {
+  return [[1, yx, zx, 0],
+          [xy, 1, zy, 0],
+          [xz, yz, 1, 0],
+          [0, 0, 0, 1]]
+}
+
 export function matricesMultiplication3 (matrix1, ...matrices) {
   let newMatrix = cloneDeep(matrix1)
   matrices.forEach((matrix) => {

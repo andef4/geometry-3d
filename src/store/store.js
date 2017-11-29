@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 import {
   translationMatrix, applyMatrixToVector4, matricesMultiplication4,
-  stretchMatrixX, stretchMatrixY, stretchMatrixZ
+  stretchMatrixX, stretchMatrixY, stretchMatrixZ, shearMatrix
 } from './math'
 
 Vue.use(Vuex)
@@ -74,6 +74,56 @@ export default new Vuex.Store({
     },
     contractZ ({ dispatch }) {
       let matrix = stretchMatrixZ(0.875)
+      dispatch('applyMatrixCenter4', { matrix })
+    },
+
+    shearYXup ({ dispatch }) {
+      console.log(1)
+      let matrix = shearMatrix(0.5, 0, 0, 0, 0, 0)
+      dispatch('applyMatrixCenter4', { matrix })
+    },
+    shearYXdown ({ dispatch }) {
+      let matrix = shearMatrix(-0.5, 0, 0, 0, 0, 0)
+      dispatch('applyMatrixCenter4', { matrix })
+    },
+    shearZXup ({ dispatch }) {
+      let matrix = shearMatrix(0, 0.5, 0, 0, 0, 0)
+      dispatch('applyMatrixCenter4', { matrix })
+    },
+    shearZXdown ({ dispatch }) {
+      let matrix = shearMatrix(0, -0.5, 0, 0, 0, 0)
+      dispatch('applyMatrixCenter4', { matrix })
+    },
+    shearXYup ({ dispatch }) {
+      let matrix = shearMatrix(0, 0, 0.5, 0, 0, 0)
+      dispatch('applyMatrixCenter4', { matrix })
+    },
+    shearXYdown ({ dispatch }) {
+      let matrix = shearMatrix(0, 0, -0.5, 0, 0, 0)
+      dispatch('applyMatrixCenter4', { matrix })
+    },
+    shearZYup ({ dispatch }) {
+      let matrix = shearMatrix(0, 0, 0, 0.5, 0, 0)
+      dispatch('applyMatrixCenter4', { matrix })
+    },
+    shearZYdown ({ dispatch }) {
+      let matrix = shearMatrix(0, 0, 0, -0.5, 0, 0)
+      dispatch('applyMatrixCenter4', { matrix })
+    },
+    shearXZup ({ dispatch }) {
+      let matrix = shearMatrix(0, 0, 0, 0, 0.5, 0)
+      dispatch('applyMatrixCenter4', { matrix })
+    },
+    shearXZdown ({ dispatch }) {
+      let matrix = shearMatrix(0, 0, 0, 0, -0.5, 0)
+      dispatch('applyMatrixCenter4', { matrix })
+    },
+    shearYZup ({ dispatch }) {
+      let matrix = shearMatrix(0, 0, 0, 0, 0, 0.5)
+      dispatch('applyMatrixCenter4', { matrix })
+    },
+    shearYZdown ({ dispatch }) {
+      let matrix = shearMatrix(0, 0, 0, 0, 0, -0.5)
       dispatch('applyMatrixCenter4', { matrix })
     },
 

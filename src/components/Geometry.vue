@@ -38,6 +38,36 @@
               <action-button icon="minus" caption="z" @click="contractZ"></action-button>
             </div>
           </div>
+
+          <div>
+            <div class="mb-1 pt-1 font-weight-bold">Shear</div>
+            <div class="d-flex">
+              <action-button icon="plus" caption="Y ⮕ X" @click="shearYXup" color="danger" class="mr-2"></action-button>
+              <action-button icon="minus" caption="Y ⮕ X" @click="shearYXdown" color="danger"></action-button>
+            </div>
+            <div class="d-flex">
+              <action-button icon="plus" caption="Z ⮕ X" @click="shearZXup" color="danger" class="mr-2"></action-button>
+              <action-button icon="minus" caption="Z ⮕ X" @click="shearZXdown" color="danger"></action-button>
+            </div>
+
+            <div class="d-flex">
+              <action-button icon="plus" caption="X ⮕ Y" @click="shearXYup" color="success" class="mr-2"></action-button>
+              <action-button icon="minus" caption="X ⮕ Y" @click="shearXYdown" color="success"></action-button>
+            </div>
+            <div class="d-flex">
+              <action-button icon="plus" caption="Z ⮕ Y" @click="shearZYup" color="success" class="mr-2"></action-button>
+              <action-button icon="minus" caption="Z ⮕ Y" @click="shearZYdown" color="success"></action-button>
+            </div>
+
+            <div class="d-flex">
+              <action-button icon="plus" caption="X ⮕ Z" @click="shearXZup" class="mr-2"></action-button>
+              <action-button icon="minus" caption="X ⮕ Z" @click="shearXZdown"></action-button>
+            </div>
+            <div class="d-flex">
+              <action-button icon="plus" caption="Y ⮕ Z" @click="shearYZup" class="mr-2"></action-button>
+              <action-button icon="minus" caption="Y ⮕ Z" @click="shearYZdown"></action-button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -75,7 +105,11 @@
     methods: {
       ...mapActions([
         'moveXup', 'moveXdown', 'moveYup', 'moveYdown', 'moveZup', 'moveZdown',
-        'stretchX', 'contractX', 'stretchY', 'contractY', 'stretchZ', 'contractZ'
+        'stretchX', 'contractX', 'stretchY', 'contractY', 'stretchZ', 'contractZ',
+
+        // yx, zx, xy, zy, xz, yz
+        'shearYXup', 'shearYXdown', 'shearZXup', 'shearZXdown', 'shearXYup', 'shearXYdown',
+        'shearZYup', 'shearZYdown', 'shearXZup', 'shearXZdown', 'shearYZup', 'shearYZdown'
       ]),
       ...mapMutations(['reset'])
     }
