@@ -3,7 +3,8 @@ import Vuex from 'vuex'
 
 import {
   translationMatrix, applyMatrixToVector4, matricesMultiplication4,
-  stretchMatrixX, stretchMatrixY, stretchMatrixZ, shearMatrix
+  stretchMatrixX, stretchMatrixY, stretchMatrixZ, shearMatrix,
+  rotationMatrixX, rotationMatrixY, rotationMatrixZ
 } from './math'
 
 Vue.use(Vuex)
@@ -126,54 +127,55 @@ export default new Vuex.Store({
       let matrix = shearMatrix(0, 0, 0, 0, 0, -0.5)
       dispatch('applyMatrixCenter4', { matrix })
     },
-     rotateOriginClockwiseX ({ dispatch }) {
-      let matrix = ()
+
+    rotateOriginClockwiseX ({ commit }) {
+      let matrix = rotationMatrixX(15)
       commit('applyMatrix4', { matrix })
     },
-     rotateOriginCounterClockwiseX ({ dispatch }) {
-      let matrix = ()
+    rotateOriginCounterClockwiseX ({ commit }) {
+      let matrix = rotationMatrixX(-15)
       commit('applyMatrix4', { matrix })
     },
-     rotateOriginClockwiseY ({ dispatch }) {
-      let matrix = ()
+    rotateOriginClockwiseY ({ commit }) {
+      let matrix = rotationMatrixY(15)
       commit('applyMatrix4', { matrix })
     },
-     rotateOriginCounterClockwiseY ({ dispatch }) {
-      let matrix = ()
+    rotateOriginCounterClockwiseY ({ commit }) {
+      let matrix = rotationMatrixY(-15)
       commit('applyMatrix4', { matrix })
     },
-     rotateOriginClockwiseZ ({ dispatch }) {
-      let matrix = ()
+    rotateOriginClockwiseZ ({ commit }) {
+      let matrix = rotationMatrixZ(15)
       commit('applyMatrix4', { matrix })
     },
-     rotateOriginCounterClockwiseZ ({ dispatch }) {
-      let matrix = ()
+    rotateOriginCounterClockwiseZ ({ commit }) {
+      let matrix = rotationMatrixZ(-15)
       commit('applyMatrix4', { matrix })
     },
 
-     rotateCenterClockwiseX ({ dispatch }) {
-      let matrix = ()
-      commit('applyMatrixCenter4', { matrix })
+    rotateCenterClockwiseX ({ dispatch }) {
+      let matrix = rotationMatrixX(15)
+      dispatch('applyMatrixCenter4', { matrix })
     },
-     rotateCenterCounterClockwiseX ({ dispatch }) {
-      let matrix = ()
-      commit('applyMatrixCenter4', { matrix })
+    rotateCenterCounterClockwiseX ({ dispatch }) {
+      let matrix = rotationMatrixX(-15)
+      dispatch('applyMatrixCenter4', { matrix })
     },
-     rotateCenterClockwiseY ({ dispatch }) {
-      let matrix = ()
-      commit('applyMatrixCenter4', { matrix })
+    rotateCenterClockwiseY ({ dispatch }) {
+      let matrix = rotationMatrixY(15)
+      dispatch('applyMatrixCenter4', { matrix })
     },
-     rotateCenterCounterClockwiseY ({ dispatch }) {
-      let matrix = ()
-      commit('applyMatrixCenter4', { matrix })
+    rotateCenterCounterClockwiseY ({ dispatch }) {
+      let matrix = rotationMatrixY(-15)
+      dispatch('applyMatrixCenter4', { matrix })
     },
-     rotateCenterClockwiseZ ({ dispatch }) {
-      let matrix = ()
-      commit('applyMatrixCenter4', { matrix })
+    rotateCenterClockwiseZ ({ dispatch }) {
+      let matrix = rotationMatrixZ(15)
+      dispatch('applyMatrixCenter4', { matrix })
     },
-     rotateCenterCounterClockwiseZ ({ dispatch }) {
-      let matrix = ()
-      commit('applyMatrixCenter4', { matrix })
+    rotateCenterCounterClockwiseZ ({ dispatch }) {
+      let matrix = rotationMatrixZ(-15)
+      dispatch('applyMatrixCenter4', { matrix })
     },
 
     applyMatrixCenter4 ({ commit, getters }, { matrix }) {

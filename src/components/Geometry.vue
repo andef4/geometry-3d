@@ -71,7 +71,7 @@
         </div>
         <div class="col-6">
           <div>
-            <div class="mb-1 pt-1 font-weight-bold">Rotate around origin</div>
+            <div class="mb-1 pt-1 font-weight-bold">Rotate around axis</div>
             <div class="d-flex">
               <action-button icon="rotate-right" caption="x" @click="rotateOriginClockwiseX" color="danger" class="mr-2"></action-button>
               <action-button icon="rotate-left" caption="x" @click="rotateOriginCounterClockwiseX" color="danger"></action-button>
