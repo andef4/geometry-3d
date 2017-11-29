@@ -64,23 +64,27 @@ export function applyMatrixToVector3 (matrix, vector) {
 export function matricesMultiplication4 (matrix1, ...matrices) {
   let newMatrix = cloneDeep(matrix1)
   matrices.forEach((matrix) => {
-    let tempMatrix = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+    let tempMatrix = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
     // first row
-    tempMatrix[0][0] = newMatrix[0][0] * matrix[0][0] + newMatrix[0][1] * matrix[1][0] + newMatrix[0][2] * matrix[2][0]
-    tempMatrix[0][1] = newMatrix[0][0] * matrix[0][1] + newMatrix[0][1] * matrix[1][1] + newMatrix[0][2] * matrix[2][1]
-    tempMatrix[0][2] = newMatrix[0][0] * matrix[0][2] + newMatrix[0][1] * matrix[1][2] + newMatrix[0][2] * matrix[2][2]
+    tempMatrix[0][0] = newMatrix[0][0] * matrix[0][0] + newMatrix[0][1] * matrix[1][0] + newMatrix[0][2] * matrix[2][0] + newMatrix[0][3] * matrix[3][0]
+    tempMatrix[0][1] = newMatrix[0][0] * matrix[0][1] + newMatrix[0][1] * matrix[1][1] + newMatrix[0][2] * matrix[2][1] + newMatrix[0][3] * matrix[3][1]
+    tempMatrix[0][2] = newMatrix[0][0] * matrix[0][2] + newMatrix[0][1] * matrix[1][2] + newMatrix[0][2] * matrix[2][2] + newMatrix[0][3] * matrix[3][2]
+    tempMatrix[0][3] = newMatrix[0][0] * matrix[0][3] + newMatrix[0][1] * matrix[1][3] + newMatrix[0][2] * matrix[2][3] + newMatrix[0][3] * matrix[3][3]
     // second row
-    tempMatrix[1][0] = newMatrix[1][0] * matrix[0][0] + newMatrix[1][1] * matrix[1][0] + newMatrix[1][2] * matrix[2][0]
-    tempMatrix[1][1] = newMatrix[1][0] * matrix[0][1] + newMatrix[1][1] * matrix[1][1] + newMatrix[1][2] * matrix[2][1]
-    tempMatrix[1][2] = newMatrix[1][0] * matrix[0][2] + newMatrix[1][1] * matrix[1][2] + newMatrix[1][2] * matrix[2][2]
+    tempMatrix[1][0] = newMatrix[1][0] * matrix[0][0] + newMatrix[1][1] * matrix[1][0] + newMatrix[1][2] * matrix[2][0] + newMatrix[1][3] * matrix[3][0]
+    tempMatrix[1][1] = newMatrix[1][0] * matrix[0][1] + newMatrix[1][1] * matrix[1][1] + newMatrix[1][2] * matrix[2][1] + newMatrix[1][3] * matrix[3][1]
+    tempMatrix[1][2] = newMatrix[1][0] * matrix[0][2] + newMatrix[1][1] * matrix[1][2] + newMatrix[1][2] * matrix[2][2] + newMatrix[1][3] * matrix[3][2]
+    tempMatrix[1][3] = newMatrix[1][0] * matrix[0][3] + newMatrix[1][1] * matrix[1][3] + newMatrix[1][2] * matrix[2][3] + newMatrix[1][3] * matrix[3][3]
     // third row
-    tempMatrix[2][0] = newMatrix[2][0] * matrix[0][0] + newMatrix[2][1] * matrix[1][0] + newMatrix[2][2] * matrix[2][0]
-    tempMatrix[2][1] = newMatrix[2][0] * matrix[0][1] + newMatrix[2][1] * matrix[1][1] + newMatrix[2][2] * matrix[2][1]
-    tempMatrix[2][2] = newMatrix[2][0] * matrix[0][2] + newMatrix[2][1] * matrix[1][2] + newMatrix[2][2] * matrix[2][2]
-
-    tempMatrix[3][0] = newMatrix[3][0] * matrix[0][0] + newMatrix[3][1] * matrix[1][0] + newMatrix[3][2] * matrix[2][0]
-    tempMatrix[3][1] = newMatrix[3][0] * matrix[0][1] + newMatrix[3][1] * matrix[1][1] + newMatrix[3][2] * matrix[2][1]
-    tempMatrix[3][2] = newMatrix[3][0] * matrix[0][2] + newMatrix[3][1] * matrix[1][2] + newMatrix[3][2] * matrix[2][2]
+    tempMatrix[2][0] = newMatrix[2][0] * matrix[0][0] + newMatrix[2][1] * matrix[1][0] + newMatrix[2][2] * matrix[2][0] + newMatrix[2][3] * matrix[3][0]
+    tempMatrix[2][1] = newMatrix[2][0] * matrix[0][1] + newMatrix[2][1] * matrix[1][1] + newMatrix[2][2] * matrix[2][1] + newMatrix[2][3] * matrix[3][1]
+    tempMatrix[2][2] = newMatrix[2][0] * matrix[0][2] + newMatrix[2][1] * matrix[1][2] + newMatrix[2][2] * matrix[2][2] + newMatrix[2][3] * matrix[3][2]
+    tempMatrix[2][3] = newMatrix[2][0] * matrix[0][3] + newMatrix[2][1] * matrix[1][3] + newMatrix[2][2] * matrix[2][3] + newMatrix[2][3] * matrix[3][3]
+    // fourth row
+    tempMatrix[3][0] = newMatrix[3][0] * matrix[0][0] + newMatrix[3][1] * matrix[1][0] + newMatrix[3][2] * matrix[2][0] + newMatrix[3][3] * matrix[3][0]
+    tempMatrix[3][1] = newMatrix[3][0] * matrix[0][1] + newMatrix[3][1] * matrix[1][1] + newMatrix[3][2] * matrix[2][1] + newMatrix[3][3] * matrix[3][1]
+    tempMatrix[3][2] = newMatrix[3][0] * matrix[0][2] + newMatrix[3][1] * matrix[1][2] + newMatrix[3][2] * matrix[2][2] + newMatrix[3][3] * matrix[3][2]
+    tempMatrix[3][3] = newMatrix[3][0] * matrix[0][3] + newMatrix[3][1] * matrix[1][3] + newMatrix[3][2] * matrix[2][3] + newMatrix[3][3] * matrix[3][3]
 
     newMatrix = tempMatrix
   })

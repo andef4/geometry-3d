@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import {
-  translationMatrix, applyMatrixToVector3, applyMatrixToVector4,
+  translationMatrix, applyMatrixToVector4, matricesMultiplication4,
   stretchMatrixX, stretchMatrixY, stretchMatrixZ
 } from './math'
 
@@ -52,45 +52,57 @@ export default new Vuex.Store({
       let matrix = translationMatrix(0, 0, -1)
       commit('applyMatrix4', { matrix })
     },
-    stretchX ({ commit }) {
+    stretchX ({ dispatch }) {
       let matrix = stretchMatrixX(1.25)
-      commit('applyMatrix4', { matrix })
+      dispatch('applyMatrixCenter4', { matrix })
     },
-    contractX ({ commit }) {
+    contractX ({ dispatch }) {
       let matrix = stretchMatrixX(0.875)
-      commit('applyMatrix4', { matrix })
+      dispatch('applyMatrixCenter4', { matrix })
     },
-    stretchY ({ commit }) {
+    stretchY ({ dispatch }) {
       let matrix = stretchMatrixY(1.25)
-      commit('applyMatrix4', { matrix })
+      dispatch('applyMatrixCenter4', { matrix })
     },
-    contractY ({ commit }) {
+    contractY ({ dispatch }) {
       let matrix = stretchMatrixY(0.875)
-      commit('applyMatrix4', { matrix })
+      dispatch('applyMatrixCenter4', { matrix })
     },
-    stretchZ ({ commit }) {
+    stretchZ ({ dispatch }) {
       let matrix = stretchMatrixZ(1.25)
-      commit('applyMatrix4', { matrix })
+      dispatch('applyMatrixCenter4', { matrix })
     },
-    contractZ ({ commit }) {
+    contractZ ({ dispatch }) {
       let matrix = stretchMatrixZ(0.875)
-      commit('applyMatrix4', { matrix })
+      dispatch('applyMatrixCenter4', { matrix })
+    },
+
+    applyMatrixCenter4 ({ commit, getters }, { matrix }) {
+      let center = getters.center
+      let translation1 = translationMatrix(-center.x, -center.y, -center.z)
+      let translation2 = translationMatrix(center.x, center.y, center.z)
+      let combinedMatrix = matricesMultiplication4(translation2, matrix, translation1)
+      commit('applyMatrix4', { matrix: combinedMatrix })
     }
   },
   mutations: {
-    applyMatrix3 (state, { matrix }) {
-      state.coordinates.a = { ...applyMatrixToVector3(matrix, state.coordinates.a) }
-      state.coordinates.b = { ...applyMatrixToVector3(matrix, state.coordinates.b) }
-      state.coordinates.c = { ...applyMatrixToVector3(matrix, state.coordinates.c) }
-      state.coordinates.d = { ...applyMatrixToVector3(matrix, state.coordinates.d) }
-    },
     applyMatrix4 (state, { matrix }) {
       for (let i = 0; i < state.coordinates.length; i++) {
         Vue.set(state.coordinates, i, applyMatrixToVector4(matrix, state.coordinates[i]))
       }
     },
+
     reset (state) {
       Object.assign(state, initialState())
+    }
+  },
+  getters: {
+    center (state) {
+      return {
+        x: (state.coordinates[0].x + state.coordinates[6].x) / 2,
+        y: (state.coordinates[0].y + state.coordinates[6].y) / 2,
+        z: (state.coordinates[0].z + state.coordinates[6].z) / 2
+      }
     }
   },
   strict: debug
