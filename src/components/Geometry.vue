@@ -1,7 +1,12 @@
 <template>
   <div class="row">
     <div class="col">
-      <geometry-canvas></geometry-canvas>
+      <geometry-canvas
+        :a="a === '' ? 0 : a"
+        :b="b === '' ? 0 : b"
+        :c="c === '' ? 0 : c"
+        :d="d === '' ? 0 : d">
+      </geometry-canvas>
     </div>
     <div class="col-4">
       <button class="btn btn-danger w-100 mb-2" @click="reset">Reset</button>
@@ -101,6 +106,38 @@
               <action-button icon="rotate-left" caption="z" @click="rotateCenterCounterClockwiseZ"></action-button>
             </div>
           </div>
+
+          <div>
+            <div class="mb-1 pt-1 font-weight-bold">Plane ax+bx+cz+d=0</div>
+            <input type="checkbox" id="plane-checkbox">
+            <label for="plane-checkbox">Show plane</label>
+            <div class="form-group row">
+              <label for="a" class="col-sm-2 col-form-label">a:</label>
+              <div class="col-sm-10">
+                <input type="number" step="0.1" class="form-control form-control-sm" id="a" v-model.number="a">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="b" class="col-sm-2 col-form-label">b:</label>
+              <div class="col-sm-10">
+                <input type="number" step="0.1" class="form-control form-control-sm" id="b" v-model.number="b">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="c" class="col-sm-2 col-form-label">c:</label>
+              <div class="col-sm-10">
+                <input type="number" step="10" class="form-control form-control-sm" id="c" v-model.number="c">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="d" class="col-sm-2 col-form-label">d:</label>
+              <div class="col-sm-10">
+                <input type="number" step="10" class="form-control form-control-sm" id="d" v-model.number="d">
+              </div>
+            </div>
+            <action-button icon="arrow-right" caption="Mirror" color="primary" @click="mirror"></action-button>
+          </div>
+
         </div>
       </div>
     </div>
@@ -123,7 +160,12 @@
   import { mapActions, mapMutations, mapState } from 'vuex'
 
   const initialData = () => {
-    return {}
+    return {
+      a: 5,
+      b: 3,
+      c: 300,
+      d: 300
+    }
   }
 
   export default {
