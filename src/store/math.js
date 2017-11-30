@@ -35,6 +35,14 @@ export function shearMatrix (yx, zx, xy, zy, xz, yz) {
           [0, 0, 0, 1]]
 }
 
+export function mirrorMatrix (a, b, c, d) {
+  // let n = [a, b, c]
+  // n = []
+  return [[Math.cos(2 * a), Math.sin(2 * a), 0],
+          [Math.sin(2 * a), -Math.cos(2 * a), 0],
+          [0, 0, 1]]
+}
+
 export function rotationMatrixX (a) {
   let radians = a * (Math.PI / 180)
   return [[1, 0, 0, 0],
