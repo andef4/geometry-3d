@@ -107,6 +107,18 @@
             </div>
           </div>
 
+          <div class="mt-1">
+            <div class="mb-1 pt-1 font-weight-bold">Perspective projection</div>
+            <label for="xIntercept">x intercept:</label>
+            <input type="number" step="5" class="form-control form-control-sm" id="xIntercept" v-model.number="xIntercept">
+            <label for="yIntercept">y intercept:</label>
+            <input type="number" step="5" class="form-control form-control-sm" id="yIntercept" v-model.number="yIntercept">
+            <label for="yIntercept">z intercept:</label>
+            <input type="number" step="5" class="form-control form-control-sm" id="zIntercept" v-model.number="zIntercept">
+            <action-button class="mt-3" icon="video-camera" caption="Project" color="danger" @click="perspectiveProjection"></action-button>
+          </div>
+
+          <!--
           <div>
             <div class="mb-1 pt-1 font-weight-bold">Plane ax+bx+cz+d=0</div>
             <input type="checkbox" id="plane-checkbox">
@@ -137,7 +149,7 @@
             </div>
             <action-button icon="arrow-right" caption="Mirror" color="primary" @click="mirror"></action-button>
           </div>
-
+          -->
         </div>
       </div>
     </div>
@@ -153,6 +165,7 @@
   import 'vue-awesome/icons/minus'
   import 'vue-awesome/icons/rotate-right'
   import 'vue-awesome/icons/rotate-left'
+  import 'vue-awesome/icons/video-camera'
 
   import ActionButton from './ActionButton'
   import GeometryCanvas from './GeometryCanvas'
@@ -164,7 +177,10 @@
       a: 5,
       b: 3,
       c: 300,
-      d: 300
+      d: 300,
+      xIntercept: 30,
+      yIntercept: -40,
+      zIntercept: 40
     }
   }
 
@@ -180,6 +196,13 @@
       ...mapState(['coordinates', 'camera'])
     },
     methods: {
+      perspectiveProjection () {
+        this.$store.dispatch('perspectiveProjection', {
+          xIntercept: this.xIntercept,
+          yIntercept: this.yIntercept,
+          zIntercept: this.zIntercept
+        })
+      },
       ...mapActions([
         'moveXup', 'moveXdown', 'moveYup', 'moveYdown', 'moveZup', 'moveZdown',
         'stretchX', 'contractX', 'stretchY', 'contractY', 'stretchZ', 'contractZ',
@@ -187,6 +210,7 @@
         // yx, zx, xy, zy, xz, yz
         'shearYXup', 'shearYXdown', 'shearZXup', 'shearZXdown', 'shearXYup', 'shearXYdown',
         'shearZYup', 'shearZYdown', 'shearXZup', 'shearXZdown', 'shearYZup', 'shearYZdown',
+
         'rotateOriginClockwiseX', 'rotateOriginCounterClockwiseX', 'rotateOriginClockwiseY',
         'rotateOriginCounterClockwiseY', 'rotateOriginClockwiseZ', 'rotateOriginCounterClockwiseZ',
         'rotateCenterClockwiseX', 'rotateCenterCounterClockwiseX', 'rotateCenterClockwiseY',

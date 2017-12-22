@@ -14,6 +14,8 @@ import { multiplyQuaternionCenter, multiplyQuaternion } from './rotation/quatern
 // import rotationActions from './rotation/rodriguez_homogeneous'
 import rotationActions from './rotation/quaternion'  // eslint-disable-line no-duplicate-imports
 
+import perspectiveProjectionMatrix from './perspective_projection'
+
 Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'production'
@@ -132,6 +134,11 @@ export default new Vuex.Store({
     },
     shearYZdown ({ dispatch }) {
       let matrix = shearMatrix(0, 0, 0, 0, 0, -0.5)
+      dispatch('applyMatrixCenter4', { matrix })
+    },
+
+    perspectiveProjection ({ dispatch }, { xIntercept, yIntercept, zIntercept }) {
+      let matrix = perspectiveProjectionMatrix(xIntercept, yIntercept, zIntercept)
       dispatch('applyMatrixCenter4', { matrix })
     },
 
