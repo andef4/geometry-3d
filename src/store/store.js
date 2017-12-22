@@ -8,7 +8,8 @@ import {
 
 // import rotationActions from './rotation/euler_homogeneous'
 // import rotationActions from './rotation/euler_affine'
-import rotationActions from './rotation/rodriguez_affine'
+// import rotationActions from './rotation/rodriguez_affine'
+import rotationActions from './rotation/rodriguez_homogeneous'
 
 Vue.use(Vuex)
 
