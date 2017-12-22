@@ -2,6 +2,9 @@
   <div class="row">
     <div class="col">
       <geometry-canvas
+        :xIntercept="xIntercept === '' ? 0 : xIntercept"
+        :yIntercept="yIntercept === '' ? 0 : yIntercept"
+        :zIntercept="zIntercept === '' ? 0 : zIntercept"
         :a="a === '' ? 0 : a"
         :b="b === '' ? 0 : b"
         :c="c === '' ? 0 : c"
@@ -110,11 +113,11 @@
           <div class="mt-1">
             <div class="mb-1 pt-1 font-weight-bold">Perspective projection</div>
             <label for="xIntercept">x intercept:</label>
-            <input type="number" step="5" class="form-control form-control-sm" id="xIntercept" v-model.number="xIntercept">
+            <input type="number" step="1" class="form-control form-control-sm" id="xIntercept" v-model.number="xIntercept">
             <label for="yIntercept">y intercept:</label>
-            <input type="number" step="5" class="form-control form-control-sm" id="yIntercept" v-model.number="yIntercept">
+            <input type="number" step="1" class="form-control form-control-sm" id="yIntercept" v-model.number="yIntercept">
             <label for="yIntercept">z intercept:</label>
-            <input type="number" step="5" class="form-control form-control-sm" id="zIntercept" v-model.number="zIntercept">
+            <input type="number" step="1" class="form-control form-control-sm" id="zIntercept" v-model.number="zIntercept">
             <action-button class="mt-3" icon="video-camera" caption="Project" color="danger" @click="perspectiveProjection"></action-button>
           </div>
 
@@ -178,9 +181,9 @@
       b: 3,
       c: 300,
       d: 300,
-      xIntercept: 30,
-      yIntercept: -40,
-      zIntercept: 40
+      xIntercept: 6,
+      yIntercept: 6,
+      zIntercept: 6
     }
   }
 

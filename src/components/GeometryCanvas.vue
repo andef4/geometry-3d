@@ -6,19 +6,27 @@
   import { mapState } from 'vuex'
 
   import { Scene, WebGLRenderer, PerspectiveCamera, Mesh, BoxGeometry, TextureLoader, MeshBasicMaterial,
-    Color, AxesHelper }
+    Color, AxesHelper, SphereGeometry }
   from 'three/build/three.module'
 
   import OrbitControls from './OrbitalControls'
 
   let geometry = new BoxGeometry(1, 1, 1)
+  let xInterceptSphere = null
+  let yInterceptSphere = null
+  let zInterceptSphere = null
 
   export default {
-    data () {
-      return {
-        geometry: null
-      }
+    props: {
+      a: Number,
+      b: Number,
+      c: Number,
+      d: Number,
+      xIntercept: Number,
+      yIntercept: Number,
+      zIntercept: Number
     },
+
     mounted () {
       // make canvas a square
       this.$refs.canvas.style.height = `${this.$refs.canvas.offsetWidth}px`
@@ -45,6 +53,7 @@
       let scene = new Scene()
       scene.background = new Color(0xFFFFFF)
 
+      // add cube to scene
       let textureLoader = new TextureLoader()
       let blankTexture = textureLoader.load('./static/blank.png')
       let redRightBottomTexture = textureLoader.load('./static/red_rb.png')
@@ -60,12 +69,19 @@
         new MeshBasicMaterial({ map: blankTexture })
       ]
 
-      // this.geometry = new BoxGeometry(1, 1, 1)
       let cube = new Mesh(geometry, materials)
       geometry.vertices = Object.assign({}, this.coordinates)
-
       scene.add(cube)
 
+      // add x/y/z intercept for perspective projection
+      xInterceptSphere = createInterceptSphere(this.xIntercept, 0, 0)
+      yInterceptSphere = createInterceptSphere(0, this.yIntercept, 0)
+      zInterceptSphere = createInterceptSphere(0, 0, this.zIntercept)
+      scene.add(xInterceptSphere)
+      scene.add(yInterceptSphere)
+      scene.add(zInterceptSphere)
+
+      // show red/green/blue axis
       let axesHelper = new AxesHelper(100)
       scene.add(axesHelper)
 
@@ -90,9 +106,29 @@
           geometry.verticesNeedUpdate = true
         },
         deep: true
+      },
+      xIntercept (value) {
+        xInterceptSphere.position.x = value
+      },
+      yIntercept (value) {
+        yInterceptSphere.position.y = value
+      },
+      zIntercept (value) {
+        zInterceptSphere.position.z = value
       }
     }
   }
+
+  let createInterceptSphere = (x, y, z) => {
+    let geometry = new SphereGeometry(0.06, 32, 32)
+    let material = new MeshBasicMaterial({ color: 0x000000 })
+    let sphere = new Mesh(geometry, material)
+    sphere.position.x = x
+    sphere.position.y = y
+    sphere.position.z = z
+    return sphere
+  }
+
 </script>
 
 <style lang="sass" scoped>
