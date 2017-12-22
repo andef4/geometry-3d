@@ -2,11 +2,12 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import {
-  translationMatrix, applyMatrixToVector4, matricesMultiplication4,
+  translationMatrix, applyMatrixToVector3A, applyMatrixToVector4H, matricesMultiplication4,
   stretchMatrixX, stretchMatrixY, stretchMatrixZ, shearMatrix
 } from './math'
 
-import rotationActions from './rotation/euler_homogeneous'
+// import rotationActions from './rotation/euler_homogeneous'
+import rotationActions from './rotation/euler_affine'
 
 Vue.use(Vuex)
 
@@ -129,6 +130,15 @@ export default new Vuex.Store({
       dispatch('applyMatrixCenter4', { matrix })
     },
 
+    // apply affine matrix to coordinates
+    applyMatrixCenter3 ({ commit, getters }, { matrix }) {
+      let center = getters.center
+      commit('addVector', {x: -center.x, y: -center.y, z: -center.y})
+      commit('applyMatrix3', { matrix })
+      commit('addVector', {x: center.x, y: center.y, z: center.y})
+    },
+
+    // apply homogeneous matrix to coordinates
     applyMatrixCenter4 ({ commit, getters }, { matrix }) {
       let center = getters.center
       let translation1 = translationMatrix(-center.x, -center.y, -center.z)
@@ -140,9 +150,25 @@ export default new Vuex.Store({
     ...rotationActions
   },
   mutations: {
+    applyMatrix3 (state, { matrix }) {
+      for (let i = 0; i < state.coordinates.length; i++) {
+        Vue.set(state.coordinates, i, applyMatrixToVector3A(matrix, state.coordinates[i]))
+      }
+    },
+
     applyMatrix4 (state, { matrix }) {
       for (let i = 0; i < state.coordinates.length; i++) {
-        Vue.set(state.coordinates, i, applyMatrixToVector4(matrix, state.coordinates[i]))
+        Vue.set(state.coordinates, i, applyMatrixToVector4H(matrix, state.coordinates[i]))
+      }
+    },
+
+    addVector (state, { x, y, z }) {
+      for (let i = 0; i < state.coordinates.length; i++) {
+        Vue.set(state.coordinates, i, {
+          x: state.coordinates[i].x + x,
+          y: state.coordinates[i].y + y,
+          z: state.coordinates[i].z + z
+        })
       }
     },
 
