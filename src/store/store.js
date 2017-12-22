@@ -3,9 +3,10 @@ import Vuex from 'vuex'
 
 import {
   translationMatrix, applyMatrixToVector4, matricesMultiplication4,
-  stretchMatrixX, stretchMatrixY, stretchMatrixZ, shearMatrix,
-  rotationMatrixX, rotationMatrixY, rotationMatrixZ
+  stretchMatrixX, stretchMatrixY, stretchMatrixZ, shearMatrix
 } from './math'
+
+import rotationActions from './rotation/euler_homogeneous'
 
 Vue.use(Vuex)
 
@@ -128,63 +129,15 @@ export default new Vuex.Store({
       dispatch('applyMatrixCenter4', { matrix })
     },
 
-    rotateOriginClockwiseX ({ commit }) {
-      let matrix = rotationMatrixX(15)
-      commit('applyMatrix4', { matrix })
-    },
-    rotateOriginCounterClockwiseX ({ commit }) {
-      let matrix = rotationMatrixX(-15)
-      commit('applyMatrix4', { matrix })
-    },
-    rotateOriginClockwiseY ({ commit }) {
-      let matrix = rotationMatrixY(15)
-      commit('applyMatrix4', { matrix })
-    },
-    rotateOriginCounterClockwiseY ({ commit }) {
-      let matrix = rotationMatrixY(-15)
-      commit('applyMatrix4', { matrix })
-    },
-    rotateOriginClockwiseZ ({ commit }) {
-      let matrix = rotationMatrixZ(15)
-      commit('applyMatrix4', { matrix })
-    },
-    rotateOriginCounterClockwiseZ ({ commit }) {
-      let matrix = rotationMatrixZ(-15)
-      commit('applyMatrix4', { matrix })
-    },
-
-    rotateCenterClockwiseX ({ dispatch }) {
-      let matrix = rotationMatrixX(15)
-      dispatch('applyMatrixCenter4', { matrix })
-    },
-    rotateCenterCounterClockwiseX ({ dispatch }) {
-      let matrix = rotationMatrixX(-15)
-      dispatch('applyMatrixCenter4', { matrix })
-    },
-    rotateCenterClockwiseY ({ dispatch }) {
-      let matrix = rotationMatrixY(15)
-      dispatch('applyMatrixCenter4', { matrix })
-    },
-    rotateCenterCounterClockwiseY ({ dispatch }) {
-      let matrix = rotationMatrixY(-15)
-      dispatch('applyMatrixCenter4', { matrix })
-    },
-    rotateCenterClockwiseZ ({ dispatch }) {
-      let matrix = rotationMatrixZ(15)
-      dispatch('applyMatrixCenter4', { matrix })
-    },
-    rotateCenterCounterClockwiseZ ({ dispatch }) {
-      let matrix = rotationMatrixZ(-15)
-      dispatch('applyMatrixCenter4', { matrix })
-    },
-
     applyMatrixCenter4 ({ commit, getters }, { matrix }) {
       let center = getters.center
       let translation1 = translationMatrix(-center.x, -center.y, -center.z)
       let translation2 = translationMatrix(center.x, center.y, center.z)
       let combinedMatrix = matricesMultiplication4(translation2, matrix, translation1)
       commit('applyMatrix4', { matrix: combinedMatrix })
-    }
+    },
+
+    ...rotationActions
   },
   mutations: {
     applyMatrix4 (state, { matrix }) {
