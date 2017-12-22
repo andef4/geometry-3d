@@ -1,3 +1,4 @@
+import base from './base'
 
 import { matricesMultiplication3, identityMatrix3, matrixScalarMultiplication3, matricesAddition3 } from '../math'
 
@@ -32,54 +33,6 @@ function rodriguez (n, a) {
   return matricesAddition3(I, sinN, cos1Ncubic)
 }
 
-export default {
-  rotateOriginClockwiseX ({ commit }) {
-    let matrix = rotationMatrixX(15)
-    commit('applyMatrix3', { matrix })
-  },
-  rotateOriginCounterClockwiseX ({ commit }) {
-    let matrix = rotationMatrixX(-15)
-    commit('applyMatrix3', { matrix })
-  },
-  rotateOriginClockwiseY ({ commit }) {
-    let matrix = rotationMatrixY(15)
-    commit('applyMatrix3', { matrix })
-  },
-  rotateOriginCounterClockwiseY ({ commit }) {
-    let matrix = rotationMatrixY(-15)
-    commit('applyMatrix3', { matrix })
-  },
-  rotateOriginClockwiseZ ({ commit }) {
-    let matrix = rotationMatrixZ(15)
-    commit('applyMatrix3', { matrix })
-  },
-  rotateOriginCounterClockwiseZ ({ commit }) {
-    let matrix = rotationMatrixZ(-15)
-    commit('applyMatrix3', { matrix })
-  },
-
-  rotateCenterClockwiseX ({ dispatch }) {
-    let matrix = rotationMatrixX(15)
-    dispatch('applyMatrixCenter3', { matrix })
-  },
-  rotateCenterCounterClockwiseX ({ dispatch }) {
-    let matrix = rotationMatrixX(-15)
-    dispatch('applyMatrixCenter3', { matrix })
-  },
-  rotateCenterClockwiseY ({ dispatch }) {
-    let matrix = rotationMatrixY(15)
-    dispatch('applyMatrixCenter3', { matrix })
-  },
-  rotateCenterCounterClockwiseY ({ dispatch }) {
-    let matrix = rotationMatrixY(-15)
-    dispatch('applyMatrixCenter3', { matrix })
-  },
-  rotateCenterClockwiseZ ({ dispatch }) {
-    let matrix = rotationMatrixZ(15)
-    dispatch('applyMatrixCenter3', { matrix })
-  },
-  rotateCenterCounterClockwiseZ ({ dispatch }) {
-    let matrix = rotationMatrixZ(-15)
-    dispatch('applyMatrixCenter3', { matrix })
-  }
+export default function () {
+  return base(3, rotationMatrixX, rotationMatrixY, rotationMatrixZ)
 }

@@ -6,10 +6,10 @@ import {
   stretchMatrixX, stretchMatrixY, stretchMatrixZ, shearMatrix
 } from './math'
 
-// import rotationActions from './rotation/euler_homogeneous'
+import rotationActions from './rotation/euler_homogeneous'
 // import rotationActions from './rotation/euler_affine'
 // import rotationActions from './rotation/rodriguez_affine'
-import rotationActions from './rotation/rodriguez_homogeneous'
+// import rotationActions from './rotation/rodriguez_homogeneous'
 
 Vue.use(Vuex)
 
@@ -149,7 +149,7 @@ export default new Vuex.Store({
       commit('applyMatrix4', { matrix: combinedMatrix })
     },
 
-    ...rotationActions
+    ...rotationActions()
   },
   mutations: {
     applyMatrix3 (state, { matrix }) {
