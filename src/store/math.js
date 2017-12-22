@@ -48,6 +48,27 @@ export function applyMatrixToVector3A (matrix, vector) {
   }
 }
 
+export function matricesMultiplication3 (matrix1, ...matrices) {
+  let newMatrix = cloneDeep(matrix1)
+  matrices.forEach((matrix) => {
+    let tempMatrix = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+    // first row
+    tempMatrix[0][0] = newMatrix[0][0] * matrix[0][0] + newMatrix[0][1] * matrix[1][0] + newMatrix[0][2] * matrix[2][0]
+    tempMatrix[0][1] = newMatrix[0][0] * matrix[0][1] + newMatrix[0][1] * matrix[1][1] + newMatrix[0][2] * matrix[2][1]
+    tempMatrix[0][2] = newMatrix[0][0] * matrix[0][2] + newMatrix[0][1] * matrix[1][2] + newMatrix[0][2] * matrix[2][2]
+    // second row
+    tempMatrix[1][0] = newMatrix[1][0] * matrix[0][0] + newMatrix[1][1] * matrix[1][0] + newMatrix[1][2] * matrix[2][0]
+    tempMatrix[1][1] = newMatrix[1][0] * matrix[0][1] + newMatrix[1][1] * matrix[1][1] + newMatrix[1][2] * matrix[2][1]
+    tempMatrix[1][2] = newMatrix[1][0] * matrix[0][2] + newMatrix[1][1] * matrix[1][2] + newMatrix[1][2] * matrix[2][2]
+    // third row
+    tempMatrix[2][0] = newMatrix[2][0] * matrix[0][0] + newMatrix[2][1] * matrix[1][0] + newMatrix[2][2] * matrix[2][0]
+    tempMatrix[2][1] = newMatrix[2][0] * matrix[0][1] + newMatrix[2][1] * matrix[1][1] + newMatrix[2][2] * matrix[2][1]
+    tempMatrix[2][2] = newMatrix[2][0] * matrix[0][2] + newMatrix[2][1] * matrix[1][2] + newMatrix[2][2] * matrix[2][2]
+    newMatrix = tempMatrix
+  })
+  return newMatrix
+}
+
 export function matricesMultiplication4 (matrix1, ...matrices) {
   let newMatrix = cloneDeep(matrix1)
   matrices.forEach((matrix) => {
@@ -91,4 +112,34 @@ export function applyMatrixToVector4H (matrix, vector) {
     y: newVector[1] / newVector[3],
     z: newVector[2] / newVector[3]
   }
+}
+
+export function identityMatrix3 () {
+  return [[1, 0, 0],
+          [0, 1, 0],
+          [0, 0, 1]]
+}
+
+export function matrixScalarMultiplication3 (matrix, scalar) {
+  return [[matrix[0][0] * scalar, matrix[0][1] * scalar, matrix[0][2] * scalar],
+          [matrix[1][0] * scalar, matrix[1][1] * scalar, matrix[1][2] * scalar],
+          [matrix[2][0] * scalar, matrix[2][1] * scalar, matrix[2][2] * scalar]]
+}
+
+export function matricesAddition3 (matrix1, ...matrices) {
+  let newMatrix = cloneDeep(matrix1)
+  matrices.forEach((matrix) => {
+    newMatrix[0][0] = newMatrix[0][0] + matrix[0][0]
+    newMatrix[0][1] = newMatrix[0][1] + matrix[0][1]
+    newMatrix[0][2] = newMatrix[0][2] + matrix[0][2]
+
+    newMatrix[1][0] = newMatrix[1][0] + matrix[1][0]
+    newMatrix[1][1] = newMatrix[1][1] + matrix[1][1]
+    newMatrix[1][2] = newMatrix[1][2] + matrix[1][2]
+
+    newMatrix[2][0] = newMatrix[2][0] + matrix[2][0]
+    newMatrix[2][1] = newMatrix[2][1] + matrix[2][1]
+    newMatrix[2][2] = newMatrix[2][2] + matrix[2][2]
+  })
+  return newMatrix
 }
