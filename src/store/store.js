@@ -6,11 +6,13 @@ import {
   stretchMatrixX, stretchMatrixY, stretchMatrixZ, shearMatrix
 } from './math'
 
+import { multiplyQuaternionCenter, multiplyQuaternion } from './rotation/quaternion'
+
 // import rotationActions from './rotation/euler_homogeneous'
 // import rotationActions from './rotation/euler_affine'
 // import rotationActions from './rotation/rodriguez_affine'
 // import rotationActions from './rotation/rodriguez_homogeneous'
-import rotationActions from './rotation/quaternion'
+import rotationActions from './rotation/quaternion'  // eslint-disable-line no-duplicate-imports
 
 Vue.use(Vuex)
 
@@ -149,14 +151,7 @@ export default new Vuex.Store({
       let combinedMatrix = matricesMultiplication4(translation2, matrix, translation1)
       commit('applyMatrix4', { matrix: combinedMatrix })
     },
-
-    multiplyQuaternionCenter ({ commit, getters }, { quaternion }) {
-      let center = getters.center
-      commit('addVector', {x: -center.x, y: -center.y, z: -center.y})
-      commit('multiplyQuaternion', { quaternion })
-      commit('addVector', {x: center.x, y: center.y, z: center.y})
-    },
-
+    multiplyQuaternionCenter,
     ...rotationActions()
   },
   mutations: {
@@ -182,15 +177,11 @@ export default new Vuex.Store({
       }
     },
 
-    multiplyQuaternion (state, { quaternion }) {
-      for (let i = 0; i < state.coordinates.length; i++) {
-        Vue.set(state.coordinates, i, quaternion.vectorMultiply(state.coordinates[i]))
-      }
-    },
-
     reset (state) {
       Object.assign(state, initialState())
-    }
+    },
+
+    multiplyQuaternion
   },
   getters: {
     center (state) {

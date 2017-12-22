@@ -1,3 +1,4 @@
+import Vue from 'vue'
 
 class Quaternion {
   constructor (axis, angle) {
@@ -29,6 +30,19 @@ class Quaternion {
       y: iy * qw + iw * -qy + iz * -qx - ix * -qz,
       z: iz * qw + iw * -qz + ix * -qy - iy * -qx
     }
+  }
+}
+
+export function multiplyQuaternionCenter ({ commit, getters }, { quaternion }) {
+  let center = getters.center
+  commit('addVector', {x: -center.x, y: -center.y, z: -center.y})
+  commit('multiplyQuaternion', { quaternion })
+  commit('addVector', {x: center.x, y: center.y, z: center.y})
+}
+
+export function multiplyQuaternion (state, { quaternion }) {
+  for (let i = 0; i < state.coordinates.length; i++) {
+    Vue.set(state.coordinates, i, quaternion.vectorMultiply(state.coordinates[i]))
   }
 }
 
