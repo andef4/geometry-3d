@@ -6,10 +6,11 @@ import {
   stretchMatrixX, stretchMatrixY, stretchMatrixZ, shearMatrix
 } from './math'
 
-import rotationActions from './rotation/euler_homogeneous'
+// import rotationActions from './rotation/euler_homogeneous'
 // import rotationActions from './rotation/euler_affine'
 // import rotationActions from './rotation/rodriguez_affine'
 // import rotationActions from './rotation/rodriguez_homogeneous'
+import rotationActions from './rotation/quaternion'
 
 Vue.use(Vuex)
 
@@ -149,6 +150,13 @@ export default new Vuex.Store({
       commit('applyMatrix4', { matrix: combinedMatrix })
     },
 
+    multiplyQuaternionCenter ({ commit, getters }, { quaternion }) {
+      let center = getters.center
+      commit('addVector', {x: -center.x, y: -center.y, z: -center.y})
+      commit('multiplyQuaternion', { quaternion })
+      commit('addVector', {x: center.x, y: center.y, z: center.y})
+    },
+
     ...rotationActions()
   },
   mutations: {
@@ -171,6 +179,12 @@ export default new Vuex.Store({
           y: state.coordinates[i].y + y,
           z: state.coordinates[i].z + z
         })
+      }
+    },
+
+    multiplyQuaternion (state, { quaternion }) {
+      for (let i = 0; i < state.coordinates.length; i++) {
+        Vue.set(state.coordinates, i, quaternion.vectorMultiply(state.coordinates[i]))
       }
     },
 
