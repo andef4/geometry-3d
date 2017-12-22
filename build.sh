@@ -4,6 +4,7 @@ rm -rf /tmp/geometry-dist/
 npm run build
 mv dist/ /tmp/geometry-dist/
 git checkout gh-pages
+git pull origin gh-pages
 rm -rf static/ index.html
 mv /tmp/geometry-dist/* .
 git add .
