@@ -15,17 +15,23 @@ export function applyRotor (state, { rotor }) {
   }
 }
 
-export function applyRotorCenter (state, { rotor, center }) {
+export function applyRotorCenter ({ getters, state, commit }, { rotor }) {
+  let center = getters.center
+
+  // move point to origin
+  let translator1 = C3.Op.trs(-center.x, -center.y, -center.y)
+
+  // move point back at its original position
+  let translator2 = C3.Op.trs(center.x, center.y, center.y)
+
+  // a motor combines a rotor and a translator
+  let motor = translator2.gp(rotor)
+
   for (let i = 0; i < state.coordinates.length; i++) {
-    let point = C3.Vec3(state.coordinates[i].x, state.coordinates[i].y, state.coordinates[i].z)
-    point = point.add(C3.Vec3(-center.x, -center.y, -center.z))
-    point = point.sp(rotor)
-    point = point.add(C3.Vec3(center.x, center.y, center.z))
-    Vue.set(state.coordinates, i, {
-      x: point[0],
-      y: point[1],
-      z: point[2]
-    })
+    let point = C3.Ro.point(state.coordinates[i].x, state.coordinates[i].y, state.coordinates[i].z)
+    point = point.sp(translator1)
+    point = point.sp(motor)
+    commit('updateCoordinate', { index: i, coordinate: { x: point[0], y: point[1], z: point[2] } })
   }
 }
 
@@ -50,29 +56,23 @@ export default function () {
       commit('applyRotor', { rotor: C3.Gen.rot(C3.Biv3(degreeToRadians(-15), 0, 0)) })
     },
 
-    rotateCenterClockwiseX ({ commit, getters }) {
-      let rotor = C3.Gen.rot(C3.Biv3(0, 0, degreeToRadians(15)))
-      commit('applyRotorCenter', { rotor, center: getters.center })
+    rotateCenterClockwiseX ({ dispatch }) {
+      dispatch('applyRotorCenter', { rotor: C3.Gen.rot(C3.Biv3(0, 0, degreeToRadians(15))) })
     },
-    rotateCenterCounterClockwiseX ({ commit, getters }) {
-      let rotor = C3.Gen.rot(C3.Biv3(0, 0, degreeToRadians(-15)))
-      commit('applyRotorCenter', { rotor, center: getters.center })
+    rotateCenterCounterClockwiseX ({ dispatch }) {
+      dispatch('applyRotorCenter', { rotor: C3.Gen.rot(C3.Biv3(0, 0, degreeToRadians(-15))) })
     },
-    rotateCenterClockwiseY ({ commit, getters }) {
-      let rotor = C3.Gen.rot(C3.Biv3(0, degreeToRadians(15), 0))
-      commit('applyRotorCenter', { rotor, center: getters.center })
+    rotateCenterClockwiseY ({ dispatch }) {
+      dispatch('applyRotorCenter', { rotor: C3.Gen.rot(C3.Biv3(0, degreeToRadians(15), 0)) })
     },
-    rotateCenterCounterClockwiseY ({ commit, getters }) {
-      let rotor = C3.Gen.rot(C3.Biv3(0, degreeToRadians(-15), 0))
-      commit('applyRotorCenter', { rotor, center: getters.center })
+    rotateCenterCounterClockwiseY ({ dispatch }) {
+      dispatch('applyRotorCenter', { rotor: C3.Gen.rot(C3.Biv3(0, degreeToRadians(-15), 0)) })
     },
-    rotateCenterClockwiseZ ({ commit, getters }) {
-      let rotor = C3.Gen.rot(C3.Biv3(degreeToRadians(15), 0, 0))
-      commit('applyRotorCenter', { rotor, center: getters.center })
+    rotateCenterClockwiseZ ({ dispatch }) {
+      dispatch('applyRotorCenter', { rotor: C3.Gen.rot(C3.Biv3(degreeToRadians(15), 0, 0)) })
     },
-    rotateCenterCounterClockwiseZ ({ commit, getters }) {
-      let rotor = C3.Gen.rot(C3.Biv3(degreeToRadians(-15), 0, 0))
-      commit('applyRotorCenter', { rotor, center: getters.center })
+    rotateCenterCounterClockwiseZ ({ dispatch }) {
+      dispatch('applyRotorCenter', { rotor: C3.Gen.rot(C3.Biv3(degreeToRadians(-15), 0, 0)) })
     }
   }
 }

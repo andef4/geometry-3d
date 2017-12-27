@@ -164,9 +164,14 @@ export default new Vuex.Store({
     },
     applyQuaternionCenter,
     applyDualQuaternionCenter,
+    applyRotorCenter,
     ...rotationActions()
   },
   mutations: {
+    updateCoordinate (state, { index, coordinate }) {
+      Vue.set(state.coordinates, index, coordinate)
+    },
+
     applyMatrix3 (state, { matrix }) {
       for (let i = 0; i < state.coordinates.length; i++) {
         Vue.set(state.coordinates, i, applyMatrixToVector3A(matrix, state.coordinates[i]))
@@ -195,8 +200,7 @@ export default new Vuex.Store({
 
     applyQuaternion,
     applyDualQuaternion,
-    applyRotor,
-    applyRotorCenter
+    applyRotor
   },
   getters: {
     center (state) {
