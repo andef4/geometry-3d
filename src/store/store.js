@@ -8,7 +8,7 @@ import {
 
 import { applyQuaternionCenter, applyQuaternion } from './rotation/quaternion'
 import { applyDualQuaternionCenter, applyDualQuaternion } from './rotation/dualQuaternion'
-import { applyRotor } from './rotation/clifford'
+import { applyRotor, applyRotorCenter } from './rotation/clifford'
 
 // import rotationActions from './rotation/eulerHomogeneous'
 // import rotationActions from './rotation/eulerAffine'
@@ -195,7 +195,8 @@ export default new Vuex.Store({
 
     applyQuaternion,
     applyDualQuaternion,
-    applyRotor
+    applyRotor,
+    applyRotorCenter
   },
   getters: {
     center (state) {
