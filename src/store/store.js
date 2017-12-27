@@ -8,13 +8,13 @@ import {
 
 import { multiplyQuaternionCenter, multiplyQuaternion } from './rotation/quaternion'
 
-// import rotationActions from './rotation/euler_homogeneous'
-// import rotationActions from './rotation/euler_affine'
-// import rotationActions from './rotation/rodriguez_affine'
-// import rotationActions from './rotation/rodriguez_homogeneous'
+// import rotationActions from './rotation/eulerHomogeneous'
+// import rotationActions from './rotation/eulerAffine'
+// import rotationActions from './rotation/rodriguezAffine'
+// import rotationActions from './rotation/rodriguezHomogeneous'
 import rotationActions from './rotation/quaternion'  // eslint-disable-line no-duplicate-imports
 
-import perspectiveProjectionMatrix from './perspective_projection'
+import perspectiveProjectionMatrix from './perspectiveProjection'
 
 Vue.use(Vuex)
 
