@@ -16,7 +16,8 @@ import { applyRotor, applyRotorCenter } from './rotation/clifford'
 // import rotationActions from './rotation/rodriguezHomogeneous'
 // import rotationActions from './rotation/quaternion'  // eslint-disable-line no-duplicate-imports
 // import rotationActions from './rotation/dualQuaternion'  // eslint-disable-line no-duplicate-imports
-import rotationActions from './rotation/clifford'  // eslint-disable-line no-duplicate-imports
+// import rotationActions from './rotation/clifford'  // eslint-disable-line no-duplicate-imports
+import rotationActions from './rotation/lieAlgebra'
 
 import perspectiveProjectionMatrix from './perspectiveProjection'
 

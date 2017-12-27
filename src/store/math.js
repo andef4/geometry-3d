@@ -151,6 +151,12 @@ export function matricesAddition3 (matrix1, ...matrices) {
   return newMatrix
 }
 
+export function matrixDivision3 (matrix, divisor) {
+  return [[matrix[0][0] / divisor, matrix[0][1] / divisor, matrix[0][2] / divisor],
+          [matrix[1][0] / divisor, matrix[1][1] / divisor, matrix[1][2] / divisor],
+          [matrix[2][0] / divisor, matrix[2][1] / divisor, matrix[2][2] / divisor]]
+}
+
 export function degreeToRadians (degree) {
   return degree * (Math.PI / 180)
 }
