@@ -5,7 +5,7 @@ import base from './base'
  * Generate a so(3) lie algebra and convert it to the associated SO(3) rotation group
  */
 function rotation (x, y, z) {
-  let so = [[0, z, y],
+  let so = [[0, -z, y],
             [z, 0, -x],
             [-y, x, 0]]
   return expm3(so)
