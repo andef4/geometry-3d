@@ -7,12 +7,14 @@ import {
 } from './math'
 
 import { applyQuaternionCenter, applyQuaternion } from './rotation/quaternion'
+import { applyDualQuaternionCenter, applyDualQuaternion } from './rotation/dualQuaternion'
 
 // import rotationActions from './rotation/eulerHomogeneous'
 // import rotationActions from './rotation/eulerAffine'
 // import rotationActions from './rotation/rodriguezAffine'
 // import rotationActions from './rotation/rodriguezHomogeneous'
-import rotationActions from './rotation/quaternion'  // eslint-disable-line no-duplicate-imports
+// import rotationActions from './rotation/quaternion'  // eslint-disable-line no-duplicate-imports
+import rotationActions from './rotation/dualQuaternion'  // eslint-disable-line no-duplicate-imports
 
 import perspectiveProjectionMatrix from './perspectiveProjection'
 
@@ -159,6 +161,7 @@ export default new Vuex.Store({
       commit('applyMatrix4', { matrix: combinedMatrix })
     },
     applyQuaternionCenter,
+    applyDualQuaternionCenter,
     ...rotationActions()
   },
   mutations: {
@@ -188,7 +191,8 @@ export default new Vuex.Store({
       Object.assign(state, initialState())
     },
 
-    applyQuaternion
+    applyQuaternion,
+    applyDualQuaternion
   },
   getters: {
     center (state) {

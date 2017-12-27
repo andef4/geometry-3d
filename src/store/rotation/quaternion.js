@@ -8,6 +8,13 @@ export class Quaternion {
     this.w = 0
   }
 
+  set (x, y, z, w) {
+    this.x = x
+    this.y = y
+    this.z = z
+    this.w = w
+  }
+
   setRotation (axis, angle) {
     let radians = angle * (Math.PI / 180)
     let s = Math.sin(radians * 0.5)
@@ -37,6 +44,33 @@ export class Quaternion {
       y: iy * qw + iw * -qy + iz * -qx - ix * -qz,
       z: iz * qw + iw * -qz + ix * -qy - iy * -qx
     }
+  }
+
+  multiply (otherQuaternion) {
+    let quaternion = new Quaternion()
+    let r = this
+    let q = otherQuaternion
+
+    quaternion.set(
+      r.w * q.x + r.x * q.w - r.y * q.z + r.z * q.y,
+      r.w * q.y + r.x * q.z + r.y * q.w - r.z * q.x,
+      r.w * q.z - r.x * q.y + r.y * q.x + r.z * q.w,
+      r.w * q.w - r.x * q.x - r.y * q.y - r.z * q.z
+    )
+    return quaternion
+  }
+
+  add (otherQuaternion) {
+    let quaternion = new Quaternion()
+    let r = this
+    let q = otherQuaternion
+    quaternion.set(
+      r.x + q.x,
+      r.y + q.y,
+      r.z + q.z,
+      r.w + q.w,
+    )
+    return quaternion
   }
 }
 

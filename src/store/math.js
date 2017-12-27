@@ -120,6 +120,13 @@ export function identityMatrix3 () {
           [0, 0, 1]]
 }
 
+export function identityMatrix4 () {
+  return [[1, 0, 0, 0],
+          [0, 1, 0, 0],
+          [0, 0, 1, 0],
+          [0, 0, 0, 1]]
+}
+
 export function matrixScalarMultiplication3 (matrix, scalar) {
   return [[matrix[0][0] * scalar, matrix[0][1] * scalar, matrix[0][2] * scalar],
           [matrix[1][0] * scalar, matrix[1][1] * scalar, matrix[1][2] * scalar],
