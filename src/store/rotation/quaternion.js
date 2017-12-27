@@ -1,7 +1,14 @@
 import Vue from 'vue'
 
-class Quaternion {
-  constructor (axis, angle) {
+export class Quaternion {
+  constructor () {
+    this.x = 0
+    this.y = 0
+    this.z = 0
+    this.w = 0
+  }
+
+  setRotation (axis, angle) {
     let radians = angle * (Math.PI / 180)
     let s = Math.sin(radians * 0.5)
     this.x = axis.x * s
@@ -49,52 +56,64 @@ export function applyQuaternion (state, { quaternion }) {
 export default function () {
   return {
     rotateOriginClockwiseX ({ commit }) {
-      let quaternion = new Quaternion({ x: 1, y: 0, z: 0 }, 15)
+      let quaternion = new Quaternion()
+      quaternion.setRotation({ x: 1, y: 0, z: 0 }, 15)
       commit('applyQuaternion', { quaternion })
     },
     rotateOriginCounterClockwiseX ({ commit }) {
-      let quaternion = new Quaternion({ x: 1, y: 0, z: 0 }, -15)
+      let quaternion = new Quaternion()
+      quaternion.setRotation({ x: 1, y: 0, z: 0 }, -15)
       commit('applyQuaternion', { quaternion })
     },
     rotateOriginClockwiseY ({ commit }) {
-      let quaternion = new Quaternion({ x: 0, y: 1, z: 0 }, 15)
+      let quaternion = new Quaternion()
+      quaternion.setRotation({ x: 0, y: 1, z: 0 }, 15)
       commit('applyQuaternion', { quaternion })
     },
     rotateOriginCounterClockwiseY ({ commit }) {
-      let quaternion = new Quaternion({ x: 0, y: 1, z: 0 }, -15)
+      let quaternion = new Quaternion()
+      quaternion.setRotation({ x: 0, y: 1, z: 0 }, -15)
       commit('applyQuaternion', { quaternion })
     },
     rotateOriginClockwiseZ ({ commit }) {
-      let quaternion = new Quaternion({ x: 0, y: 0, z: 1 }, 15)
+      let quaternion = new Quaternion()
+      quaternion.setRotation({ x: 0, y: 0, z: 1 }, 15)
       commit('applyQuaternion', { quaternion })
     },
     rotateOriginCounterClockwiseZ ({ commit }) {
-      let quaternion = new Quaternion({ x: 0, y: 0, z: 1 }, -15)
+      let quaternion = new Quaternion()
+      quaternion.setRotation({ x: 0, y: 0, z: 1 }, -15)
       commit('applyQuaternion', { quaternion })
     },
 
     rotateCenterClockwiseX ({ dispatch }) {
-      let quaternion = new Quaternion({ x: 1, y: 0, z: 0 }, 15)
+      let quaternion = new Quaternion()
+      quaternion.setRotation({ x: 1, y: 0, z: 0 }, 15)
       dispatch('applyQuaternionCenter', { quaternion })
     },
     rotateCenterCounterClockwiseX ({ dispatch }) {
-      let quaternion = new Quaternion({ x: 1, y: 0, z: 0 }, -15)
+      let quaternion = new Quaternion()
+      quaternion.setRotation({ x: 1, y: 0, z: 0 }, -15)
       dispatch('applyQuaternionCenter', { quaternion })
     },
     rotateCenterClockwiseY ({ dispatch }) {
-      let quaternion = new Quaternion({ x: 0, y: 1, z: 0 }, 15)
+      let quaternion = new Quaternion()
+      quaternion.setRotation({ x: 0, y: 1, z: 0 }, 15)
       dispatch('applyQuaternionCenter', { quaternion })
     },
     rotateCenterCounterClockwiseY ({ dispatch }) {
-      let quaternion = new Quaternion({ x: 0, y: 1, z: 0 }, -15)
+      let quaternion = new Quaternion()
+      quaternion.setRotation({ x: 0, y: 1, z: 0 }, -15)
       dispatch('applyQuaternionCenter', { quaternion })
     },
     rotateCenterClockwiseZ ({ dispatch }) {
-      let quaternion = new Quaternion({ x: 0, y: 0, z: 1 }, 15)
+      let quaternion = new Quaternion()
+      quaternion.setRotation({ x: 0, y: 0, z: 1 }, 15)
       dispatch('applyQuaternionCenter', { quaternion })
     },
     rotateCenterCounterClockwiseZ ({ dispatch }) {
-      let quaternion = new Quaternion({ x: 0, y: 0, z: 1 }, -15)
+      let quaternion = new Quaternion()
+      quaternion.setRotation({ x: 0, y: 0, z: 1 }, -15)
       dispatch('applyQuaternionCenter', { quaternion })
     }
   }
