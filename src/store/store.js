@@ -8,13 +8,15 @@ import {
 
 import { applyQuaternionCenter, applyQuaternion } from './rotation/quaternion'
 import { applyDualQuaternionCenter, applyDualQuaternion } from './rotation/dualQuaternion'
+import { applyRotor } from './rotation/clifford'
 
 // import rotationActions from './rotation/eulerHomogeneous'
 // import rotationActions from './rotation/eulerAffine'
 // import rotationActions from './rotation/rodriguezAffine'
 // import rotationActions from './rotation/rodriguezHomogeneous'
 // import rotationActions from './rotation/quaternion'  // eslint-disable-line no-duplicate-imports
-import rotationActions from './rotation/dualQuaternion'  // eslint-disable-line no-duplicate-imports
+// import rotationActions from './rotation/dualQuaternion'  // eslint-disable-line no-duplicate-imports
+import rotationActions from './rotation/clifford'  // eslint-disable-line no-duplicate-imports
 
 import perspectiveProjectionMatrix from './perspectiveProjection'
 
@@ -192,7 +194,8 @@ export default new Vuex.Store({
     },
 
     applyQuaternion,
-    applyDualQuaternion
+    applyDualQuaternion,
+    applyRotor
   },
   getters: {
     center (state) {

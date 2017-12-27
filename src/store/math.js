@@ -150,3 +150,7 @@ export function matricesAddition3 (matrix1, ...matrices) {
   })
   return newMatrix
 }
+
+export function degreeToRadians (degree) {
+  return degree * (Math.PI / 180)
+}
