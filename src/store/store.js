@@ -6,7 +6,7 @@ import {
   stretchMatrixX, stretchMatrixY, stretchMatrixZ, shearMatrix
 } from './math'
 
-import { multiplyQuaternionCenter, multiplyQuaternion } from './rotation/quaternion'
+import { applyQuaternionCenter, applyQuaternion } from './rotation/quaternion'
 
 // import rotationActions from './rotation/eulerHomogeneous'
 // import rotationActions from './rotation/eulerAffine'
@@ -158,7 +158,7 @@ export default new Vuex.Store({
       let combinedMatrix = matricesMultiplication4(translation2, matrix, translation1)
       commit('applyMatrix4', { matrix: combinedMatrix })
     },
-    multiplyQuaternionCenter,
+    applyQuaternionCenter,
     ...rotationActions()
   },
   mutations: {
@@ -188,7 +188,7 @@ export default new Vuex.Store({
       Object.assign(state, initialState())
     },
 
-    multiplyQuaternion
+    applyQuaternion
   },
   getters: {
     center (state) {
