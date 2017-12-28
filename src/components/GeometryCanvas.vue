@@ -62,12 +62,12 @@
       let redLeftBottomTexture = textureLoader.load('./static/red_lb.png')
 
       let materials = [
-        new MeshBasicMaterial({ map: redLeftBottomTexture }),
-        new MeshBasicMaterial({ map: blankTexture }),
-        new MeshBasicMaterial({ map: blankTexture }),
-        new MeshBasicMaterial({ map: redRightTopTexture }),
-        new MeshBasicMaterial({ map: redRightBottomTexture }),
-        new MeshBasicMaterial({ map: blankTexture })
+        new MeshBasicMaterial({ map: redLeftBottomTexture, side: DoubleSide }),
+        new MeshBasicMaterial({ map: blankTexture, side: DoubleSide }),
+        new MeshBasicMaterial({ map: blankTexture, side: DoubleSide }),
+        new MeshBasicMaterial({ map: redRightTopTexture, side: DoubleSide }),
+        new MeshBasicMaterial({ map: redRightBottomTexture, side: DoubleSide }),
+        new MeshBasicMaterial({ map: blankTexture, side: DoubleSide })
       ]
 
       let cube = new Mesh(geometry, materials)
@@ -163,7 +163,7 @@
 
     let xAngle = Math.atan2(planeY, planeZ)
     let yAngle = Math.atan2(planeX, planeZ)
-    let zAngle = Math.atan2(planeX, planeX)
+    let zAngle = Math.atan2(planeX, planeY)
 
     plane.rotation.x = xAngle
     plane.rotation.y = yAngle

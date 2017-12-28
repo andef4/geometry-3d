@@ -1,20 +1,20 @@
 import base from './base'
 
-function rotationMatrixX (a) {
+export function rotationMatrixX (a) {
   let radians = a * (Math.PI / 180)
   return [[1, 0, 0],
           [0, Math.cos(radians), -Math.sin(radians)],
           [0, Math.sin(radians), Math.cos(radians)]]
 }
 
-function rotationMatrixY (a) {
+export function rotationMatrixY (a) {
   let radians = a * (Math.PI / 180)
   return [[Math.cos(radians), 0, -Math.sin(radians)],
           [0, 1, 0],
           [Math.sin(radians), 0, Math.cos(radians)]]
 }
 
-function rotationMatrixZ (a) {
+export function rotationMatrixZ (a) {
   let radians = a * (Math.PI / 180)
   return [[Math.cos(radians), Math.sin(radians), 0],
           [-Math.sin(radians), Math.cos(radians), 0],

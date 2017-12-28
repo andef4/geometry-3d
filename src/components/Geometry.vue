@@ -103,7 +103,7 @@
                 <input type="number" step="1" class="form-control form-control-sm" id="d" v-model.number="d">
               </div>
             </div>
-            <action-button icon="arrow-right" caption="Mirror" color="primary"></action-button>
+            <action-button icon="arrow-right" caption="Mirror" color="primary" @click="mirror"></action-button>
           </div>
         </div>
         <div class="col-6">
@@ -176,7 +176,7 @@
       a: -3,
       b: 2,
       c: -3,
-      d: 5,
+      d: 1,
       xIntercept: 6,
       yIntercept: 6,
       zIntercept: 6
@@ -200,6 +200,14 @@
           xIntercept: this.xIntercept,
           yIntercept: this.yIntercept,
           zIntercept: this.zIntercept
+        })
+      },
+      mirror () {
+        this.$store.dispatch('mirror', {
+          a: this.a,
+          b: this.b,
+          c: this.c,
+          d: this.d
         })
       },
       ...mapActions([
