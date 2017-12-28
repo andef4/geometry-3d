@@ -8,7 +8,6 @@
   import { Scene, WebGLRenderer, PerspectiveCamera, Mesh, BoxGeometry, TextureLoader, MeshBasicMaterial,
     Color, AxesHelper, SphereGeometry, PlaneGeometry, DoubleSide }
   from 'three/build/three.module'
-  import { degreeToRadians } from '../store/math'
 
   import OrbitControls from './OrbitalControls'
 
@@ -89,8 +88,27 @@
       let planeGeometry = new PlaneGeometry(100, 100)
       let planeMaterial = new MeshBasicMaterial({ color: 0x0069d9, transparent: true, opacity: 0.5, side: DoubleSide })
       let plane = new Mesh(planeGeometry, planeMaterial)
-      plane.position.z = -3
-      plane.rotation.x = degreeToRadians(15)
+
+      // calculate distance from origin
+      let distance = Math.abs(-this.d) / Math.sqrt(this.a * this.a + this.b * this.b + this.c * this.c)
+      let ratio = (this.a * this.a + this.b * this.b + this.c * this.c) / (distance * distance)
+      plane.position.x = this.a / ratio
+      plane.position.y = this.b / ratio
+      plane.position.z = this.c / ratio
+
+      // calculate rotation
+      let planeX = -(this.d / this.a)
+      let planeY = -(this.d / this.b)
+      let planeZ = -(this.d / this.c)
+
+      let xAngle = Math.atan(planeY, planeZ)
+      let yAngle = Math.atan(planeX, planeZ)
+      let zAngle = Math.atan(planeX, planeX)
+
+      plane.rotation.x = xAngle
+      plane.rotation.y = yAngle
+      plane.rotation.z = zAngle
+
       scene.add(plane)
 
       // rendering

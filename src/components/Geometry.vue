@@ -78,29 +78,29 @@
           </div>
 
           <div>
-            <div class="mb-1 pt-1 font-weight-bold">Plane ax+bx+cz+d=0</div>
+            <div class="mb-1 pt-1 font-weight-bold">Plane ax+by+cz+d=0</div>
             <div class="form-group row">
               <label for="a" class="col-sm-2 col-form-label">a:</label>
               <div class="col-sm-10">
-                <input type="number" step="0.1" class="form-control form-control-sm" id="a" v-model.number="a">
+                <input type="number" step="1" class="form-control form-control-sm" id="a" v-model.number="a">
               </div>
             </div>
             <div class="form-group row">
               <label for="b" class="col-sm-2 col-form-label">b:</label>
               <div class="col-sm-10">
-                <input type="number" step="0.1" class="form-control form-control-sm" id="b" v-model.number="b">
+                <input type="number" step="1" class="form-control form-control-sm" id="b" v-model.number="b">
               </div>
             </div>
             <div class="form-group row">
               <label for="c" class="col-sm-2 col-form-label">c:</label>
               <div class="col-sm-10">
-                <input type="number" step="10" class="form-control form-control-sm" id="c" v-model.number="c">
+                <input type="number" step="1" class="form-control form-control-sm" id="c" v-model.number="c">
               </div>
             </div>
             <div class="form-group row">
               <label for="d" class="col-sm-2 col-form-label">d:</label>
               <div class="col-sm-10">
-                <input type="number" step="10" class="form-control form-control-sm" id="d" v-model.number="d">
+                <input type="number" step="1" class="form-control form-control-sm" id="d" v-model.number="d">
               </div>
             </div>
             <action-button icon="arrow-right" caption="Mirror" color="primary" @click="mirror"></action-button>
@@ -173,10 +173,10 @@
 
   const initialData = () => {
     return {
-      a: 5,
-      b: 3,
-      c: 300,
-      d: 300,
+      a: -3,
+      b: 2,
+      c: -3,
+      d: 5,
       xIntercept: 6,
       yIntercept: 6,
       zIntercept: 6
