@@ -6,7 +6,7 @@
   import { mapState } from 'vuex'
 
   import { Scene, WebGLRenderer, PerspectiveCamera, Mesh, BoxGeometry, TextureLoader, MeshBasicMaterial,
-    Color, AxesHelper, SphereGeometry, PlaneGeometry, DoubleSide }
+    Color, AxesHelper, SphereGeometry, PlaneGeometry, DoubleSide, Plane, Vector3 }
   from 'three/build/three.module'
 
   import OrbitControls from './OrbitalControls'
@@ -15,6 +15,7 @@
   let xInterceptSphere = null
   let yInterceptSphere = null
   let zInterceptSphere = null
+  let planeGeometry = null
   let plane = null
 
   export default {
@@ -86,11 +87,11 @@
       let axesHelper = new AxesHelper(100)
       scene.add(axesHelper)
 
-      let planeGeometry = new PlaneGeometry(100, 100)
+      planeGeometry = new PlaneGeometry(100, 100)
       let planeMaterial = new MeshBasicMaterial({ color: 0x0069d9, transparent: true, opacity: 0.5, side: DoubleSide })
       plane = new Mesh(planeGeometry, planeMaterial)
-      calculatePlanePosition(this.a, this.b, this.c, this.d)
       scene.add(plane)
+      calculatePlanePosition(this.a, this.b, this.c, this.d)
 
       // rendering
       const render = () => {
@@ -149,25 +150,17 @@
   }
 
   const calculatePlanePosition = (a, b, c, d) => {
-    // calculate distance from origin
-    let distance = Math.abs(d) / Math.sqrt(a * a + b * b + c * c)
-    let ratio = distance / (a * a + b * b + c * c)
-    plane.position.x = a * ratio
-    plane.position.y = b * ratio
-    plane.position.z = c * ratio
-
-    // calculate rotation
     let planeX = -(d / a)
     let planeY = -(d / b)
     let planeZ = -(d / c)
-
-    let xAngle = Math.atan2(planeY, planeZ)
-    let yAngle = Math.atan2(planeX, planeZ)
-    let zAngle = Math.atan2(planeX, planeY)
-
-    plane.rotation.x = xAngle
-    plane.rotation.y = yAngle
-    plane.rotation.z = zAngle
+    let planeMath = new Plane()
+    planeMath.setFromCoplanarPoints(new Vector3(planeX, 0, 0), new Vector3(0, planeY, 0), new Vector3(0, 0, planeZ))
+    let coplanarPoint = planeMath.coplanarPoint()
+    let focalPoint = new Vector3().copy(coplanarPoint).add(planeMath.normal)
+    planeGeometry = new PlaneGeometry(100, 100)
+    planeGeometry.lookAt(focalPoint)
+    planeGeometry.translate(coplanarPoint.x, coplanarPoint.y, coplanarPoint.z)
+    plane.geometry = planeGeometry
   }
 
 </script>
