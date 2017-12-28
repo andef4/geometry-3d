@@ -15,6 +15,7 @@
   let xInterceptSphere = null
   let yInterceptSphere = null
   let zInterceptSphere = null
+  let plane = null
 
   export default {
     props: {
@@ -87,28 +88,8 @@
 
       let planeGeometry = new PlaneGeometry(100, 100)
       let planeMaterial = new MeshBasicMaterial({ color: 0x0069d9, transparent: true, opacity: 0.5, side: DoubleSide })
-      let plane = new Mesh(planeGeometry, planeMaterial)
-
-      // calculate distance from origin
-      let distance = Math.abs(-this.d) / Math.sqrt(this.a * this.a + this.b * this.b + this.c * this.c)
-      let ratio = (this.a * this.a + this.b * this.b + this.c * this.c) / (distance * distance)
-      plane.position.x = this.a / ratio
-      plane.position.y = this.b / ratio
-      plane.position.z = this.c / ratio
-
-      // calculate rotation
-      let planeX = -(this.d / this.a)
-      let planeY = -(this.d / this.b)
-      let planeZ = -(this.d / this.c)
-
-      let xAngle = Math.atan(planeY, planeZ)
-      let yAngle = Math.atan(planeX, planeZ)
-      let zAngle = Math.atan(planeX, planeX)
-
-      plane.rotation.x = xAngle
-      plane.rotation.y = yAngle
-      plane.rotation.z = zAngle
-
+      plane = new Mesh(planeGeometry, planeMaterial)
+      calculatePlanePosition(this.a, this.b, this.c, this.d)
       scene.add(plane)
 
       // rendering
@@ -141,11 +122,23 @@
       },
       zIntercept (value) {
         zInterceptSphere.position.z = value
+      },
+      a () {
+        calculatePlanePosition(this.a, this.b, this.c, this.d)
+      },
+      b () {
+        calculatePlanePosition(this.a, this.b, this.c, this.d)
+      },
+      c () {
+        calculatePlanePosition(this.a, this.b, this.c, this.d)
+      },
+      d () {
+        calculatePlanePosition(this.a, this.b, this.c, this.d)
       }
     }
   }
 
-  let createInterceptSphere = (x, y, z) => {
+  const createInterceptSphere = (x, y, z) => {
     let geometry = new SphereGeometry(0.06, 32, 32)
     let material = new MeshBasicMaterial({ color: 0x000000 })
     let sphere = new Mesh(geometry, material)
@@ -153,6 +146,28 @@
     sphere.position.y = y
     sphere.position.z = z
     return sphere
+  }
+
+  const calculatePlanePosition = (a, b, c, d) => {
+    // calculate distance from origin
+    let distance = Math.abs(d) / Math.sqrt(a * a + b * b + c * c)
+    let ratio = distance / (a * a + b * b + c * c)
+    plane.position.x = a * ratio
+    plane.position.y = b * ratio
+    plane.position.z = c * ratio
+
+    // calculate rotation
+    let planeX = -(d / a)
+    let planeY = -(d / b)
+    let planeZ = -(d / c)
+
+    let xAngle = Math.atan2(planeY, planeZ)
+    let yAngle = Math.atan2(planeX, planeZ)
+    let zAngle = Math.atan2(planeX, planeX)
+
+    plane.rotation.x = xAngle
+    plane.rotation.y = yAngle
+    plane.rotation.z = zAngle
   }
 
 </script>
