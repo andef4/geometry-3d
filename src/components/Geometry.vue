@@ -76,6 +76,35 @@
               <action-button icon="minus" caption="Y ⮕ Z" @click="shearYZdown"></action-button>
             </div>
           </div>
+
+          <div>
+            <div class="mb-1 pt-1 font-weight-bold">Plane ax+bx+cz+d=0</div>
+            <div class="form-group row">
+              <label for="a" class="col-sm-2 col-form-label">a:</label>
+              <div class="col-sm-10">
+                <input type="number" step="0.1" class="form-control form-control-sm" id="a" v-model.number="a">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="b" class="col-sm-2 col-form-label">b:</label>
+              <div class="col-sm-10">
+                <input type="number" step="0.1" class="form-control form-control-sm" id="b" v-model.number="b">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="c" class="col-sm-2 col-form-label">c:</label>
+              <div class="col-sm-10">
+                <input type="number" step="10" class="form-control form-control-sm" id="c" v-model.number="c">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="d" class="col-sm-2 col-form-label">d:</label>
+              <div class="col-sm-10">
+                <input type="number" step="10" class="form-control form-control-sm" id="d" v-model.number="d">
+              </div>
+            </div>
+            <action-button icon="arrow-right" caption="Mirror" color="primary" @click="mirror"></action-button>
+          </div>
         </div>
         <div class="col-6">
           <div>
@@ -120,39 +149,6 @@
             <input type="number" step="1" class="form-control form-control-sm" id="zIntercept" v-model.number="zIntercept">
             <action-button class="mt-3" icon="video-camera" caption="Project" color="danger" @click="perspectiveProjection"></action-button>
           </div>
-
-          <!--
-          <div>
-            <div class="mb-1 pt-1 font-weight-bold">Plane ax+bx+cz+d=0</div>
-            <input type="checkbox" id="plane-checkbox">
-            <label for="plane-checkbox">Show plane</label>
-            <div class="form-group row">
-              <label for="a" class="col-sm-2 col-form-label">a:</label>
-              <div class="col-sm-10">
-                <input type="number" step="0.1" class="form-control form-control-sm" id="a" v-model.number="a">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="b" class="col-sm-2 col-form-label">b:</label>
-              <div class="col-sm-10">
-                <input type="number" step="0.1" class="form-control form-control-sm" id="b" v-model.number="b">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="c" class="col-sm-2 col-form-label">c:</label>
-              <div class="col-sm-10">
-                <input type="number" step="10" class="form-control form-control-sm" id="c" v-model.number="c">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="d" class="col-sm-2 col-form-label">d:</label>
-              <div class="col-sm-10">
-                <input type="number" step="10" class="form-control form-control-sm" id="d" v-model.number="d">
-              </div>
-            </div>
-            <action-button icon="arrow-right" caption="Mirror" color="primary" @click="mirror"></action-button>
-          </div>
-          -->
         </div>
       </div>
     </div>
