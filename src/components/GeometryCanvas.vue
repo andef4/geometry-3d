@@ -6,8 +6,9 @@
   import { mapState } from 'vuex'
 
   import { Scene, WebGLRenderer, PerspectiveCamera, Mesh, BoxGeometry, TextureLoader, MeshBasicMaterial,
-    Color, AxesHelper, SphereGeometry }
+    Color, AxesHelper, SphereGeometry, PlaneGeometry, DoubleSide }
   from 'three/build/three.module'
+  import { degreeToRadians } from '../store/math'
 
   import OrbitControls from './OrbitalControls'
 
@@ -84,6 +85,13 @@
       // show red/green/blue axis
       let axesHelper = new AxesHelper(100)
       scene.add(axesHelper)
+
+      let planeGeometry = new PlaneGeometry(100, 100)
+      let planeMaterial = new MeshBasicMaterial({ color: 0x0069d9, transparent: true, opacity: 0.5, side: DoubleSide })
+      let plane = new Mesh(planeGeometry, planeMaterial)
+      plane.position.z = -3
+      plane.rotation.x = degreeToRadians(15)
+      scene.add(plane)
 
       // rendering
       const render = () => {
