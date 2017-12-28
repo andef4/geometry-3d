@@ -161,6 +161,7 @@
     planeGeometry.lookAt(focalPoint)
     planeGeometry.translate(coplanarPoint.x, coplanarPoint.y, coplanarPoint.z)
     plane.geometry = planeGeometry
+    console.log(plane.position)
   }
 
 </script>
