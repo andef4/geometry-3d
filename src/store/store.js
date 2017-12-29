@@ -18,9 +18,10 @@ import { applyRotor, applyRotorCenter } from './rotation/clifford'
 // import rotationActions from './rotation/dualQuaternion'  // eslint-disable-line no-duplicate-imports
 // import rotationActions from './rotation/clifford'  // eslint-disable-line no-duplicate-imports
 import rotationActions from './rotation/lieAlgebra'
-import mirror from './mirror'
 
+import mirror from './mirror'
 import perspectiveProjectionMatrix from './perspectiveProjection'
+import projectOnPlane from './projectOnPlane'
 
 Vue.use(Vuex)
 
@@ -167,6 +168,7 @@ export default new Vuex.Store({
     applyDualQuaternionCenter,
     applyRotorCenter,
     mirror,
+    projectOnPlane,
     ...rotationActions()
   },
   mutations: {

@@ -104,6 +104,7 @@
               </div>
             </div>
             <action-button icon="arrow-right" caption="Mirror" color="primary" @click="mirror"></action-button>
+            <action-button icon="arrow-right" caption="Project" color="success" @click="projectOnPlane"></action-button>
           </div>
         </div>
         <div class="col-6">
@@ -204,6 +205,14 @@
       },
       mirror () {
         this.$store.dispatch('mirror', {
+          a: this.a,
+          b: this.b,
+          c: this.c,
+          d: this.d
+        })
+      },
+      projectOnPlane () {
+        this.$store.dispatch('projectOnPlane', {
           a: this.a,
           b: this.b,
           c: this.c,
