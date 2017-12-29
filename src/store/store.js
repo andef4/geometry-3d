@@ -94,7 +94,6 @@ export default new Vuex.Store({
     },
 
     shearYXup ({ dispatch }) {
-      console.log(1)
       let matrix = shearMatrix(0.5, 0, 0, 0, 0, 0)
       dispatch('applyMatrixCenter4', { matrix })
     },
