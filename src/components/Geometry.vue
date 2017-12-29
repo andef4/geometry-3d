@@ -176,7 +176,7 @@
       a: -3,
       b: 2,
       c: -3,
-      d: 1,
+      d: -5,
       xIntercept: 6,
       yIntercept: 6,
       zIntercept: 6
