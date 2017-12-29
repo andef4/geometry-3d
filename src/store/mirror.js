@@ -1,4 +1,4 @@
-export default function ({ state, commit }, { a, b, c, d }) {
+export default function ({ commit }, { a, b, c, d }) {
   // make unit vector from a b c
   let length = Math.sqrt(a * a + b * b + c * c)
   a /= length
