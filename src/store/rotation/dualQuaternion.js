@@ -16,8 +16,21 @@ class DualQuaternion {
     this.real.setRotation(axis, angle)
   }
 
-  setTranslation (x, y, z) {
+  setTranslationOnly (x, y, z) {
     this.dual.set(x / 2, y / 2, z / 2, 0)
+    this.real.set(0, 0, 0, 1)
+  }
+
+  setTranslation (x, y, z) {
+    let translationQuaternion = new Quaternion()
+    translationQuaternion.set(x, y, z, 0)
+    translationQuaternion = this.real.multiply(translationQuaternion)
+    this.dual.set(
+      translationQuaternion.x / 2,
+      translationQuaternion.y / 2,
+      translationQuaternion.z / 2,
+      translationQuaternion.w / 2,
+    )
   }
 
   multiply (otherDualQuaternion) {
@@ -65,20 +78,14 @@ class DualQuaternion {
 export function applyDualQuaternionCenter ({ dispatch, getters }, { rotationQuaternion }) {
   let center = getters.center
 
-  let rotation = new DualQuaternion()
-  rotation.real = rotationQuaternion
-  rotation.dual.set(0, 0, 0, 0)
-
-  let translation = new DualQuaternion()
-  translation.real.set(0, 0, 0, 1)
-  translation.dual.set(-center.x / 2, -center.y / 2, -center.z / 2, 0)
+  let dualQuaternion = new DualQuaternion()
+  dualQuaternion.real = rotationQuaternion
+  dualQuaternion.setTranslation(-center.x, -center.y, -center.z)
 
   let inverseTranslation = new DualQuaternion()
+  inverseTranslation.setTranslationOnly(center.x, center.y, center.z)
 
-  inverseTranslation.real.set(0, 0, 0, 1)
-  inverseTranslation.dual.set(center.x / 2, center.y / 2, center.z / 2, 0)
-
-  let operation = translation.multiply(rotation).multiply(inverseTranslation)
+  let operation = dualQuaternion.multiply(inverseTranslation)
   dispatch('applyDualQuaternion', { dualQuaternion: operation })
 }
 
