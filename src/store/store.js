@@ -36,7 +36,7 @@ const initialState = () => {
       {x: 1.5, y: 1.5, z: 1.5},
       {x: 1.5, y: 1.5, z: 2.5}
     ],
-    currentImplementation: 'dualQuaternion',
+    currentImplementation: 'eulerAffine',
     implementations: [
         { text: 'Euler affine', value: 'eulerAffine' },
         { text: 'Euler homogeneous', value: 'eulerHomogeneous' },
