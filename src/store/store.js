@@ -6,18 +6,15 @@ import {
   stretchMatrixX, stretchMatrixY, stretchMatrixZ, shearMatrix
 } from './math'
 
-import { applyQuaternionCenter, applyQuaternion } from './rotation/quaternion'
-import { applyDualQuaternionCenter, applyDualQuaternion } from './rotation/dualQuaternion'
-import { applyRotor, applyRotorCenter } from './rotation/clifford'
+import { default as quaternionRotation, applyQuaternionCenter, applyQuaternion } from './rotation/quaternion'
+import { default as dualQuaternionRotation, applyDualQuaternionCenter, applyDualQuaternion } from './rotation/dualQuaternion'
+import { default as cliffordRotation, applyRotor, applyRotorCenter } from './rotation/clifford'
 
-// import rotationActions from './rotation/eulerHomogeneous'
-// import rotationActions from './rotation/eulerAffine'
-// import rotationActions from './rotation/rodriguezAffine'
-// import rotationActions from './rotation/rodriguezHomogeneous'
-// import rotationActions from './rotation/quaternion'  // eslint-disable-line no-duplicate-imports
-// import rotationActions from './rotation/dualQuaternion'  // eslint-disable-line no-duplicate-imports
-// import rotationActions from './rotation/clifford'  // eslint-disable-line no-duplicate-imports
-import rotationActions from './rotation/lieAlgebra'
+import eulerHomogeneousRotation from './rotation/eulerHomogeneous'
+import eulerAffineRotation from './rotation/eulerAffine'
+import rodriguezAffineRotation from './rotation/rodriguezAffine'
+import rodriguezHomogeneousRotation from './rotation/rodriguezHomogeneous'
+import lieAlgebraRotation from './rotation/lieAlgebra'
 
 import mirror from './mirror'
 import perspectiveProjectionMatrix from './perspectiveProjection'
@@ -38,8 +35,26 @@ const initialState = () => {
       { x: -0.5, y: 0.5, z: 0.5 },
       { x: -0.5, y: -0.5, z: -0.5 },
       { x: -0.5, y: -0.5, z: 0.5 }
+    ],
+    currentImplementation: 'eulerAffine',
+    implementations: [
+        { text: 'Euler affine', value: 'eulerAffine' },
+        { text: 'Euler homogeneous', value: 'eulerHomogeneous' },
+        { text: 'Rodriguez affine', value: 'rodriguezAffine' },
+        { text: 'Rodriguez homogeneous', value: 'rodriguezHomogeneous' },
+        { text: 'Quaternion', value: 'quaternion' },
+        { text: 'Dual quaternion', value: 'dualQuaternion' },
+        { text: 'Clifford algebra', value: 'clifford' },
+        { text: 'Lie algebra', value: 'lieAlgebra' }
     ]
   }
+}
+
+function addPrefix (prefix, obj) {
+  const keyValues = Object.keys(obj).map(key => {
+    return { [prefix + key]: obj[key] }
+  })
+  return Object.assign({}, ...keyValues)
 }
 
 export default new Vuex.Store({
@@ -169,7 +184,55 @@ export default new Vuex.Store({
     applyRotorCenter,
     mirror,
     projectOnPlane,
-    ...rotationActions()
+
+    // add actions with prefix to store
+    ...addPrefix('eulerHomogeneous', eulerHomogeneousRotation()),
+    ...addPrefix('eulerAffine', eulerAffineRotation()),
+    ...addPrefix('rodriguezAffine', rodriguezAffineRotation()),
+    ...addPrefix('rodriguezHomogeneous', rodriguezHomogeneousRotation()),
+    ...addPrefix('quaternion', quaternionRotation()),
+    ...addPrefix('dualQuaternion', dualQuaternionRotation()),
+    ...addPrefix('clifford', cliffordRotation()),
+    ...addPrefix('lieAlgebra', lieAlgebraRotation()),
+
+    // dispatch actions to currently selected implementation
+    rotateOriginClockwiseX ({ state, dispatch }) {
+      dispatch(state.currentImplementation + 'rotateOriginClockwiseX')
+    },
+    rotateOriginCounterClockwiseX ({ state, dispatch }) {
+      dispatch(state.currentImplementation + 'rotateOriginCounterClockwiseX')
+    },
+    rotateOriginClockwiseY ({ state, dispatch }) {
+      dispatch(state.currentImplementation + 'rotateOriginClockwiseY')
+    },
+    rotateOriginCounterClockwiseY ({ state, dispatch }) {
+      dispatch(state.currentImplementation + 'rotateOriginCounterClockwiseY')
+    },
+    rotateOriginClockwiseZ ({ state, dispatch }) {
+      dispatch(state.currentImplementation + 'rotateOriginClockwiseZ')
+    },
+    rotateOriginCounterClockwiseZ ({ state, dispatch }) {
+      dispatch(state.currentImplementation + 'rotateOriginCounterClockwiseZ')
+    },
+
+    rotateCenterClockwiseX ({ state, dispatch }) {
+      dispatch(state.currentImplementation + 'rotateCenterClockwiseX')
+    },
+    rotateCenterCounterClockwiseX ({ state, dispatch }) {
+      dispatch(state.currentImplementation + 'rotateCenterCounterClockwiseX')
+    },
+    rotateCenterClockwiseY ({ state, dispatch }) {
+      dispatch(state.currentImplementation + 'rotateCenterClockwiseY')
+    },
+    rotateCenterCounterClockwiseY ({ state, dispatch }) {
+      dispatch(state.currentImplementation + 'rotateCenterCounterClockwiseY')
+    },
+    rotateCenterClockwiseZ ({ state, dispatch }) {
+      dispatch(state.currentImplementation + 'rotateCenterClockwiseZ')
+    },
+    rotateCenterCounterClockwiseZ ({ state, dispatch }) {
+      dispatch(state.currentImplementation + 'rotateCenterCounterClockwiseZ')
+    }
   },
   mutations: {
     updateCoordinate (state, { index, coordinate }) {
@@ -200,6 +263,9 @@ export default new Vuex.Store({
 
     reset (state) {
       Object.assign(state, initialState())
+    },
+    setImplementation (state, implementation) {
+      state.currentImplementation = implementation
     },
 
     applyQuaternion,

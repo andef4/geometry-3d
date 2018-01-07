@@ -13,6 +13,15 @@
     </div>
     <div class="col-4">
       <button class="btn btn-danger w-100 mb-2" @click="reset">Reset</button>
+
+      <b-form-group label="Implementations:">
+        <b-form-radio-group :checked="currentImplementation"
+                            @input="setImplementation"
+                            :options="implementations"
+                            stacked>
+        </b-form-radio-group>
+      </b-form-group>
+
       <div class="row">
         <div class="col-6">
           <div>
@@ -193,7 +202,7 @@
       GeometryCanvas
     },
     computed: {
-      ...mapState(['coordinates', 'camera'])
+      ...mapState(['coordinates', 'implementations', 'currentImplementation'])
     },
     methods: {
       perspectiveProjection () {
@@ -232,7 +241,7 @@
         'rotateCenterClockwiseX', 'rotateCenterCounterClockwiseX', 'rotateCenterClockwiseY',
         'rotateCenterCounterClockwiseY', 'rotateCenterClockwiseZ', 'rotateCenterCounterClockwiseZ'
       ]),
-      ...mapMutations(['reset'])
+      ...mapMutations(['reset', 'setImplementation'])
     }
   }
 
