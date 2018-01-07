@@ -60,6 +60,17 @@ export class Quaternion {
     return quaternion
   }
 
+  conjugate () {
+    let quaternion = new Quaternion()
+    quaternion.set(
+      -this.x,
+      -this.y,
+      -this.z,
+      this.w
+    )
+    return quaternion
+  }
+
   add (otherQuaternion) {
     let quaternion = new Quaternion()
     let r = this

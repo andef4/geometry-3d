@@ -36,7 +36,7 @@ const initialState = () => {
       {x: 1.5, y: 1.5, z: 1.5},
       {x: 1.5, y: 1.5, z: 2.5}
     ],
-    currentImplementation: 'eulerAffine',
+    currentImplementation: 'dualQuaternion',
     implementations: [
         { text: 'Euler affine', value: 'eulerAffine' },
         { text: 'Euler homogeneous', value: 'eulerHomogeneous' },
@@ -180,6 +180,7 @@ export default new Vuex.Store({
       commit('applyMatrix4', { matrix: combinedMatrix })
     },
     applyQuaternionCenter,
+    applyDualQuaternion,
     applyDualQuaternionCenter,
     applyRotorCenter,
     mirror,
@@ -269,7 +270,6 @@ export default new Vuex.Store({
     },
 
     applyQuaternion,
-    applyDualQuaternion,
     applyRotor
   },
   getters: {
