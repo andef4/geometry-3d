@@ -143,7 +143,7 @@
               </div>
             </div>
             <action-button icon="arrow-right" caption="Mirror" color="primary" @click="mirror"></action-button>
-            <action-button icon="arrow-right" caption="Project" color="success" @click="projectOnPlane"></action-button>
+            <!--<action-button icon="arrow-right" caption="Project" color="success" @click="projectOnPlane"></action-button>-->
         </b-tab>
 
         <b-tab title="Perspective projection" class="mt-2">
