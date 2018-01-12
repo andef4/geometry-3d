@@ -18,7 +18,6 @@ import lieAlgebraRotation from './rotation/lieAlgebra'
 
 import mirror from './mirror'
 import perspectiveProjectionMatrix from './perspectiveProjection'
-import projectOnPlane from './projectOnPlane'
 
 Vue.use(Vuex)
 
@@ -184,7 +183,6 @@ export default new Vuex.Store({
     applyDualQuaternionCenter,
     applyRotorCenter,
     mirror,
-    projectOnPlane,
 
     // add actions with prefix to store
     ...addPrefix('eulerHomogeneous', eulerHomogeneousRotation()),
