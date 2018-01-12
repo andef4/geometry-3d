@@ -157,9 +157,9 @@ export default new Vuex.Store({
       dispatch('applyMatrixCenter4', { matrix })
     },
 
-    perspectiveProjection ({ dispatch }, { xIntercept, yIntercept, zIntercept }) {
+    perspectiveProjection ({ commit }, { xIntercept, yIntercept, zIntercept }) {
       let matrix = perspectiveProjectionMatrix(xIntercept, yIntercept, zIntercept)
-      dispatch('applyMatrixCenter4', { matrix })
+      commit('applyMatrix4', { matrix })
     },
 
     // apply affine matrix to coordinates
