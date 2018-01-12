@@ -165,9 +165,9 @@ export default new Vuex.Store({
     // apply affine matrix to coordinates
     applyMatrixCenter3 ({ commit, getters }, { matrix }) {
       let center = getters.center
-      commit('addVector', {x: -center.x, y: -center.y, z: -center.y})
+      commit('addVector', {x: -center.x, y: -center.y, z: -center.z})
       commit('applyMatrix3', { matrix })
-      commit('addVector', {x: center.x, y: center.y, z: center.y})
+      commit('addVector', {x: center.x, y: center.y, z: center.z})
     },
 
     // apply homogeneous matrix to coordinates

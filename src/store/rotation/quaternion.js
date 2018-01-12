@@ -87,9 +87,9 @@ export class Quaternion {
 
 export function applyQuaternionCenter ({ commit, getters }, { quaternion }) {
   let center = getters.center
-  commit('addVector', {x: -center.x, y: -center.y, z: -center.y})
+  commit('addVector', {x: -center.x, y: -center.y, z: -center.z})
   commit('applyQuaternion', { quaternion })
-  commit('addVector', {x: center.x, y: center.y, z: center.y})
+  commit('addVector', {x: center.x, y: center.y, z: center.z})
 }
 
 export function applyQuaternion (state, { quaternion }) {
