@@ -19,10 +19,10 @@ export function applyRotorCenter ({ getters, state, commit }, { rotor }) {
   let center = getters.center
 
   // move point to origin
-  let translator1 = C3.Op.trs(-center.x, -center.y, -center.y)
+  let translator1 = C3.Op.trs(-center.x, -center.y, -center.z)
 
   // move point back at its original position
-  let translator2 = C3.Op.trs(center.x, center.y, center.y)
+  let translator2 = C3.Op.trs(center.x, center.y, center.z)
 
   // a motor combines a rotor and a translator
   let motor = translator2.gp(rotor)
